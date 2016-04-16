@@ -1,0 +1,29 @@
+as-vertical-toolbar {
+  box-sizing: border-box;
+  width: 56px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.5rem;
+  background-color: #424242;
+  padding-top: 20px;
+
+}
+
+/* FIX md-divider is not appearing in the vertical toolbar*/
+as-vertical-toolbar md-divider {
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-top-color: rgba(255,255,255,0.2);
+}
+as-vertical-toolbar span {
+  font-size: 0.5rem;
+  font-size: xx-small;
+  color: rgba(255,255,255,0.5);
+}
+
+
+.content-title {
+  margin-left: 10px;
+  margin-right: 10px;
+}

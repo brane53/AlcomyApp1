@@ -1,0 +1,11 @@
+@import "../node_modules/angular-material/angular-material.scss";
+@import "core/material-colors";
+@import "core/core.scss";
+@import "core/development.scss";
+/*DASHBOARD*/
+@import "components/dashboard/dashboard.component.scss";
+@import "components/dashboard/tasks/tasks.component.scss";
+/*RESIDENTS*/
+@import "components/residents/residents.component.scss";
+@import "components/residents/resident-list.component.scss";
+@import "components/shared/vertical-toolbar/vertical-toolbar.component.scss";

@@ -1,0 +1,541 @@
+var gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    uglify = require('gulp-uglify'),
+    jshint = require('gulp-jshint'),
+    typescript = require('gulp-typescript'),
+    plumber = require('gulp-plumber'),
+    livereload = require('gulp-livereload'),
+    concat = require('gulp-concat'),
+    sass = require('gulp-sass'),
+    minifyCss = require('gulp-minify-css'),
+    imageResize = require('gulp-image-resize'),
+    autoprefixer = require('gulp-autoprefixer'),
+		svgstore = require('gulp-svgstore'),
+		svgmin = require('gulp-svgmin'),
+		es = require('event-stream'),
+		sourcemaps = require('gulp-sourcemaps'),
+		htmlhint = require('gulp-htmlhint'),
+		htmlmin = require('gulp-htmlmin'),
+		ngHtml2js = require('gulp-ng-html2js'),
+		inject = require('gulp-inject'),
+		order = require('gulp-order'),
+		print = require('gulp-print'),
+		rename = require('gulp-rename'),
+		angularFilesort = require('gulp-angular-filesort'),
+		nodemon = require('gulp-nodemon'),
+		del = require('del'),
+		Q = require('q');
+
+/*CONFIGURATION*/
+var config = {
+	scssFiles: [
+		'node_modules/angular-material/angular-material.scss',
+		'app/assets/core.scss',
+		'app/assets/development.scss',
+		'app/components/dashboard/dashboard.component.scss',
+		'app/components/dashboard/tasks/tasks.component.scss',
+		'app/components/residents/residents.component.scss',
+		'app/components/residents/resident-list.component.scss',
+		'app/components/shared/vertical-toolbar/vertical-toolbar.component.scss',
+		'app/app.scss'
+	],
+	jsFiles: [
+		/*Vender Scripts*/
+		'node_modules/angular/angular.min.js',
+		'node_modules/angular-animate/angular-animate.min.js',
+		'node_modules/angular-aria/angular-aria.min.js',
+		'node_modules/angular-material/angular-material.min.js',
+		'node_modules/firebase/lib/firebase-web.js',
+		'node_modules/angularfire/dist.dev/angularfire.min.js',
+		// Main Module
+		'app/alcomyApp.module.js',
+		'app/alcomyApp.module.js',
+		'app/alcomyApp.component.js',
+		// Shared
+		// Vertical-Toolbar
+		'app/components/shared/vertical-toolbar/vertical-toolbar.module.js',
+		'app/components/shared/vertical-toolbar/vertical-toolbar.component.js',
+		// Dashboard
+		'app/components/dashboard/dashboard.module.js',
+		'app/components/dashboard/dashboard.component.js',
+		// Tasks
+		'app/components/dashboard/tasks/tasks.module.js',
+		'app/components/dashboard/tasks/tasks.component.js',
+		// Residents
+		'app/components/residents/residents-mock.js',
+		'app/components/residents/residents.module.js',
+		'app/components/residents/residents.service.js',
+		'app/components/residents/residents.component.js',
+		// Resident-List
+		'app/components/residents/resident-list.component.js'
+	],
+	appScripts: [
+		// Main Module
+		'app/alcomyApp.module.js',
+		'app/alcomyApp.config.js',
+		'app/alcomyApp.component.js',
+		// Shared
+		// Vertical-Toolbar
+		'app/components/shared/vertical-toolbar/vertical-toolbar.module.js',
+		'app/components/shared/vertical-toolbar/vertical-toolbar.component.js',
+		// Dashboard
+		'app/components/dashboard/dashboard.module.js',
+		'app/components/dashboard/dashboard.component.js',
+		// Tasks
+		'app/components/dashboard/tasks/tasks.module.js',
+		'app/components/dashboard/tasks/tasks.component.js',
+		// Residents
+		'app/components/residents/residents-mock.js',
+		'app/components/residents/residents.module.js',
+		'app/components/residents/residents.service.js',
+		'app/components/residents/residents.component.js',
+		// Resident-List
+		'app/components/residents/resident-list.component.js'
+	],
+	venderScripts: [
+		'node_modules/angular/angular.js',
+		'node_modules/@angular/router/angular1/angular_1_router.js',
+		'node_modules/angular-animate/angular-animate.js',
+		'node_modules/angular-aria/angular-aria.js',
+		'node_modules/angular-messages/angular-messages.js',
+		'node_modules/angular-material/angular-material.js',
+		//'node_modules/firebase/lib/firebase-web.js',
+		'node_modules/angularfire/dist/angularfire.js'
+	],
+	scssMain: './app/app.scss',
+	scripts: 'app/**/*.js',
+	styles: ['./app/**/*.css', './app/**/*.scss'],
+	images: './app/assets/images/**/*',
+	index: 'index.html',
+	partials: 'app/**/*.html',
+	distDev: 'dist.dev',
+	distProd: 'dist.prod',
+	deleteDev: 'dist.dev/**',
+	deleteProd: 'dist.prod/**',
+	distScriptsProd: 'dist.prod/scripts',
+	scriptsDevServer: 'devServer/**/*.js'
+};
+
+
+
+// == PIPE SEGMENTS ========
+
+var pipes = {};
+
+pipes.orderedVendorScripts = function() {
+	return order(config.venderScripts);
+};
+
+pipes.orderedAppScripts = function() {
+	return order(config.appScripts);
+	//return angularFilesort();
+};
+
+pipes.minifiedFileName = function() {
+	return rename(function (path) {
+		path.extname = '.min' + path.extname;
+	});
+};
+
+pipes.validatedAppScripts = function() {
+	//return gulp.src(config.scripts)
+	return gulp.src(config.appScripts)
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(print());
+};
+
+pipes.buildAppScriptsDev = function() {
+	return pipes.validatedAppScripts()
+		.pipe(gulp.dest(config.distDev));
+};
+
+/*BUILD APP SCRIPTS PRODUCTION*/
+pipes.buildAppScriptsProd = function() {
+	var scriptedPartials = pipes.scriptedPartials();
+	var validatedAppScripts = pipes.validatedAppScripts();
+
+	return /*es.merge(scriptedPartials, validatedAppScripts)*/validatedAppScripts
+		//.pipe(pipes.orderedAppScripts())
+		.pipe(sourcemaps.init())
+			//.pipe(concat('app.min.js'))
+			//.pipe(uglify())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(config.distScriptsProd));
+};
+
+pipes.buildVendorScriptsDev = function() {
+	return gulp.src(config.venderScripts)
+		.pipe(gulp.dest('dist.dev/vender'));
+};
+
+/*BUILD VENDER SCRIPTS PRODUCTION*/
+pipes.buildVendorScriptsProd = function() {
+	return gulp.src(config.venderScripts)
+		//.pipe(pipes.orderedVendorScripts())
+		//.pipe(concat('vendor.min.js'))
+		//.pipe(uglify())
+		.pipe(gulp.dest(config.distScriptsProd));
+};
+
+pipes.validatedDevServerScripts = function() {
+	return gulp.src(config.scriptsDevServer)
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'));
+};
+
+pipes.validatedPartials = function() {
+	return gulp.src(config.partials)
+		.pipe(htmlhint({'doctype-first': false}))
+		.pipe(htmlhint.reporter());
+};
+
+pipes.buildPartialsDev = function() {
+	return pipes.validatedPartials()
+		.pipe(gulp.dest(config.distDev));
+};
+
+pipes.scriptedPartials = function() {
+	return pipes.validatedPartials()
+		.pipe(htmlhint.failReporter())
+		.pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+		.pipe(ngHtml2js({
+			moduleName: "alcomyApp"
+		}));
+};
+
+pipes.buildStylesDev = function() {
+	return gulp.src(config.scssFiles)
+		.pipe(sass())
+		.pipe(gulp.dest(config.distDev));
+};
+
+/*
+	Takes the main scss file (./app/app.scss) that contains all the imports,
+	compiles it to css, minifies it, creates an inline sourcemap, and
+	puts it in the dist.dev folder
+*/
+pipes.buildStylesProd = function() {
+	return gulp.src(config.scssMain)
+		.pipe(sourcemaps.init())
+			.pipe(sass())
+			.pipe(minifyCss())
+		.pipe(sourcemaps.write())
+		.pipe(pipes.minifiedFileName())
+		.pipe(gulp.dest(config.distProd));
+};
+
+pipes.processedImagesDev = function() {
+	return gulp.src(config.images)
+		.pipe(gulp.dest(config.distDev + '/app/assets/images/'));
+};
+
+pipes.processedImagesProd = function() {
+	return gulp.src(config.images)
+		.pipe(gulp.dest(config.distProd + '/assets/images/'));
+};
+
+pipes.validatedIndex = function() {
+	return gulp.src(config.index)
+		.pipe(htmlhint())
+		.pipe(htmlhint.reporter());
+};
+
+pipes.buildIndexDev = function() {
+
+	var orderedVendorScripts = pipes.buildVendorScriptsDev()
+		.pipe(pipes.orderedVendorScripts());
+
+	var orderedAppScripts = pipes.buildAppScriptsDev()
+		.pipe(pipes.orderedAppScripts());
+
+	var appStyles = pipes.buildStylesDev();
+
+	return pipes.validatedIndex()
+		.pipe(gulp.dest(config.distDev)) // write first to get relative path for inject
+		.pipe(inject(orderedVendorScripts, {relative: true, name: 'vender'}))
+		.pipe(inject(orderedAppScripts, {relative: true}))
+		.pipe(inject(appStyles, {relative: true}))
+		.pipe(gulp.dest(config.distDev));
+};
+
+pipes.buildIndexProd = function() {
+
+	var vendorScripts = pipes.buildVendorScriptsProd();
+	var appScripts = pipes.buildAppScriptsProd();
+	var appStyles = pipes.buildStylesProd();
+
+	return pipes.validatedIndex()
+		.pipe(gulp.dest(config.distProd)) // write first to get relative path for inject
+		.pipe(inject(vendorScripts, {relative: true, name: 'vender'}))
+		.pipe(inject(appScripts, {relative: true}))
+		.pipe(inject(appStyles, {relative: true}))
+		//.pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+		.pipe(gulp.dest(config.distProd));
+};
+
+pipes.buildAppDev = function() {
+	return es.merge(pipes.buildIndexDev(), pipes.buildPartialsDev(), pipes.processedImagesDev());
+};
+
+pipes.buildAppProd = function() {
+	return es.merge(pipes.buildIndexProd(), pipes.processedImagesProd());
+};
+
+
+// == TASKS ========
+
+// removes all compiled dev files
+gulp.task('clean-dev', function() {
+	return del([config.deleteDev]).then(function(paths) {
+		if (paths && paths != '') {
+			console.log('[gulp][clean] Deleted files/folders:\n', paths.join('\n'));
+		}
+	});
+});
+
+// removes all compiled production files
+gulp.task('clean-prod', function() {
+	return del([config.deleteProd]).then(function(paths) {
+		if (paths && paths != '') {
+			console.log('[gulp][clean] Deleted files/folders:\n', paths.join('\n'));
+		}
+	});
+});
+
+// checks html source files for syntax errors
+gulp.task('validate-partials', pipes.validatedPartials);
+
+// checks index.html for syntax errors
+gulp.task('validate-index', pipes.validatedIndex);
+
+// moves html source files into the dev environment
+gulp.task('build-partials-dev', pipes.buildPartialsDev);
+
+// converts partials to javascript using html2js
+gulp.task('convert-partials-to-js', pipes.scriptedPartials);
+
+// runs jshint on the dev server scripts
+gulp.task('validate-devserver-scripts', pipes.validatedDevServerScripts);
+
+// runs jshint on the app scripts
+gulp.task('validate-app-scripts', pipes.validatedAppScripts);
+
+// moves app scripts into the dev environment
+gulp.task('build-app-scripts-dev', pipes.buildAppScriptsDev);
+
+// concatenates, uglifies, and moves app scripts and partials into the prod environment
+gulp.task('build-app-scripts-prod', pipes.buildAppScriptsProd);
+
+// compiles app sass and moves to the dev environment
+gulp.task('build-styles-dev', pipes.buildStylesDev);
+
+// compiles and minifies app sass to css and moves to the prod environment
+gulp.task('build-styles-prod', pipes.buildStylesProd);
+
+// moves vendor scripts into the dev environment
+gulp.task('build-vendor-scripts-dev', pipes.buildVendorScriptsDev);
+
+// concatenates, uglifies, and moves vendor scripts into the prod environment
+gulp.task('build-vendor-scripts-prod', pipes.buildVendorScriptsProd);
+
+// validates and injects sources into index.html and moves it to the dev environment
+gulp.task('build-index-dev', pipes.buildIndexDev);
+
+// validates and injects sources into index.html, minifies and moves it to the dev environment
+gulp.task('build-index-prod', pipes.buildIndexProd);
+
+// builds a complete dev environment
+gulp.task('build-app-dev', pipes.buildAppDev);
+
+// builds a complete prod environment
+gulp.task('build-app-prod', pipes.buildAppProd);
+
+// cleans and builds a complete dev environment
+gulp.task('clean-build-app-dev', ['clean-dev'], pipes.buildAppDev);
+
+// cleans and builds a complete prod environment
+gulp.task('clean-build-app-prod', ['clean-prod'], pipes.buildAppProd);
+
+// clean, build, and watch live changes to the dev environment
+gulp.task('watch-dev', ['clean-build-app-dev', 'validate-devserver-scripts'], function() {
+
+	// start nodemon to auto-reload the dev server
+	nodemon({ script: 'server.js', ext: 'js', watch: ['devServer/'], env: {NODE_ENV : 'development'} })
+		.on('change', ['validate-devserver-scripts'])
+		.on('restart', function () {
+			console.log('[nodemon] restarted dev server');
+		});
+
+	// start live-reload server
+	livereload.listen({ start: true });
+
+	// watch index
+	gulp.watch(config.index, function() {
+		return pipes.buildIndexDev()
+			.pipe(livereload());
+	});
+
+	// watch app scripts
+	gulp.watch(config.scripts, function() {
+		return pipes.buildAppScriptsDev()
+			.pipe(livereload());
+	});
+
+	// watch html partials
+	gulp.watch(config.partials, function() {
+		return pipes.buildPartialsDev()
+			.pipe(livereload());
+	});
+
+	// watch styles
+	gulp.watch(config.styles, function() {
+		return pipes.buildStylesDev()
+			.pipe(livereload());
+	});
+
+});
+
+// clean, build, and watch live changes to the prod environment
+gulp.task('watch-prod', ['clean-build-app-prod', 'validate-devserver-scripts'], function() {
+
+	// start nodemon to auto-reload the dev server
+	nodemon({ script: 'server.js', ext: 'js', watch: ['devServer/'], env: {NODE_ENV : 'production'} })
+		.on('change', ['validate-devserver-scripts'])
+		.on('restart', function () {
+			console.log('[nodemon] restarted dev server');
+		});
+
+	// start live-reload server
+	livereload.listen({start: true});
+
+	// watch index
+	gulp.watch(config.index, function() {
+		return pipes.buildIndexProd()
+			.pipe(livereload());
+	});
+
+	// watch app scripts
+	gulp.watch(config.scripts, function() {
+		return pipes.buildAppScriptsProd()
+			.pipe(livereload());
+	});
+
+	// watch hhtml partials
+	gulp.watch(config.partials, function() {
+		return pipes.buildAppScriptsProd()
+			.pipe(livereload());
+	});
+
+	// watch styles
+	gulp.watch(config.styles, function() {
+		return pipes.buildStylesProd()
+			.pipe(livereload());
+	});
+
+});
+
+// default task builds for prod
+gulp.task('default', ['clean-build-app-prod']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Compiles SCSS files to CSS then minifies the assets/css/styles.css to ./production
+gulp.task('sass', function () {
+    return gulp.src(config.scssFiles)
+      .pipe(plumber())
+      .pipe(sass())
+      .pipe(autoprefixer({
+          browsers: ['last 2 versions', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'],
+          cascade: true
+          }))
+      .pipe(gulp.dest(config.destDir))
+      //.pipe(livereload())
+      ;
+
+});
+
+// FIX Change css files to scss in the app/** directory
+gulp.task('css', function(){
+	var cssFromScss = gulp.src(config.scssFiles)
+	.pipe(plumber())
+	.pipe(sass());
+	
+	return cssFromScss
+		.pipe(plumber())
+		.pipe(concat('styles.min.css'))
+		.pipe(minifycss())
+		.pipe(gulp.dest(config.destDir));
+});
+
+
+// Concatinates JS files to production/scripts.js
+gulp.task('scripts', function(){
+    return gulp.src(config.jsFiles)
+      .pipe(plumber())
+      .pipe(concat('scripts.min.js'))
+	    .pipe(uglify())
+      .pipe(gulp.dest(config.destDir))
+      //.pipe(livereload())
+      ;
+
+
+});
+
+
+gulp.task('imageResize', function () {
+  return gulp.src('assets/images/avatars/*.jpg')
+    .pipe(plumber())
+    .pipe(imageResize({ 
+      width : 50,
+      height : 50,
+      crop : true,
+      upscale : false,
+      imageMagick: true
+    }))
+    .pipe(gulp.dest('production/assets/images/avatars'));
+});
+
+gulp.task('refresh', function(){
+    livereload.reload();
+});
+
+/*gulp.task('watch', function() {
+    livereload.listen();
+    // watch for CSS changes
+    gulp.watch('assets/scss/!*.scss', ['sass']);
+    // watch for JS changes
+    gulp.watch('app/!**!/!*.js', ['scripts']);
+    gulp.watch('index.html', ['refresh', 'imageResize']);
+    gulp.watch('app/!**!/!*.html', ['refresh'])
+
+
+});*/
+
+/*gulp.task('watch', function() {
+
+    gulp.watch('app/!**!/!*.scss', ['css']);
+    gulp.watch('app/!**!/!*.js', ['scripts']);
+    //gulp.watch('app/!**!/!*.html', ['imageResize']);
+
+});*/
+
+

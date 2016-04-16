@@ -1,0 +1,19 @@
+{
+  "name": "AlcomyApp1",
+  "description": "Alcomy App Frontend built with angular 1.5 components",
+  "main": "",
+  "authors": [
+    "Brane Vrajich <brane53@gmail.com>"
+  ],
+  "license": "GNU LGPL",
+  "homepage": "https://github.com/brane53",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
