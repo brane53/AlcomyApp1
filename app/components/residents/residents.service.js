@@ -5,8 +5,6 @@
 		.module('residents')
 		.service('residentsService', residentsService);
 	
-
-	
 	residentsService.$inject = ['$q','$log','$http', '$firebaseArray'];
 	
 	/* @ngInject */
@@ -31,6 +29,7 @@
 			}
 		];
 
+		
 
 		self.getResidents = getResidents;
 		

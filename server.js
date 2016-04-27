@@ -12,7 +12,9 @@ app.use(bodyParser.json()); // parse application/json
 //app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
-app.use(express.static(__dirname + '/' + staticdir)); // set the static files location /public/img will be /img for users
+console.log('STATIC DIR: ' + staticdir)
+app.use(express.static(__dirname + '/' + staticdir)); // set the static
+// files location /public/img will be /img for users
 
 // routes ==================================================
 require('./devServer/routes')(app); // configure our routes

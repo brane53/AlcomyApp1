@@ -21,6 +21,8 @@ var gulp = require('gulp'),
 		order = require('gulp-order'),
 		print = require('gulp-print'),
 		rename = require('gulp-rename'),
+		regRename = require('gulp-regex-rename'),
+		path = require('path'),
 		angularFilesort = require('gulp-angular-filesort'),
 		nodemon = require('gulp-nodemon'),
 		del = require('del'),
@@ -28,70 +30,6 @@ var gulp = require('gulp'),
 
 /*CONFIGURATION*/
 var config = {
-	scssFiles: [
-		'node_modules/angular-material/angular-material.scss',
-		'app/assets/core.scss',
-		'app/assets/development.scss',
-		'app/components/dashboard/dashboard.component.scss',
-		'app/components/dashboard/tasks/tasks.component.scss',
-		'app/components/residents/residents.component.scss',
-		'app/components/residents/resident-list.component.scss',
-		'app/components/shared/vertical-toolbar/vertical-toolbar.component.scss',
-		'app/app.scss'
-	],
-	jsFiles: [
-		/*Vender Scripts*/
-		'node_modules/angular/angular.min.js',
-		'node_modules/angular-animate/angular-animate.min.js',
-		'node_modules/angular-aria/angular-aria.min.js',
-		'node_modules/angular-material/angular-material.min.js',
-		'node_modules/firebase/lib/firebase-web.js',
-		'node_modules/angularfire/dist.dev/angularfire.min.js',
-		// Main Module
-		'app/alcomyApp.module.js',
-		'app/alcomyApp.module.js',
-		'app/alcomyApp.component.js',
-		// Shared
-		// Vertical-Toolbar
-		'app/components/shared/vertical-toolbar/vertical-toolbar.module.js',
-		'app/components/shared/vertical-toolbar/vertical-toolbar.component.js',
-		// Dashboard
-		'app/components/dashboard/dashboard.module.js',
-		'app/components/dashboard/dashboard.component.js',
-		// Tasks
-		'app/components/dashboard/tasks/tasks.module.js',
-		'app/components/dashboard/tasks/tasks.component.js',
-		// Residents
-		'app/components/residents/residents-mock.js',
-		'app/components/residents/residents.module.js',
-		'app/components/residents/residents.service.js',
-		'app/components/residents/residents.component.js',
-		// Resident-List
-		'app/components/residents/resident-list.component.js'
-	],
-	appScripts: [
-		// Main Module
-		'app/alcomyApp.module.js',
-		'app/alcomyApp.config.js',
-		'app/alcomyApp.component.js',
-		// Shared
-		// Vertical-Toolbar
-		'app/components/shared/vertical-toolbar/vertical-toolbar.module.js',
-		'app/components/shared/vertical-toolbar/vertical-toolbar.component.js',
-		// Dashboard
-		'app/components/dashboard/dashboard.module.js',
-		'app/components/dashboard/dashboard.component.js',
-		// Tasks
-		'app/components/dashboard/tasks/tasks.module.js',
-		'app/components/dashboard/tasks/tasks.component.js',
-		// Residents
-		'app/components/residents/residents-mock.js',
-		'app/components/residents/residents.module.js',
-		'app/components/residents/residents.service.js',
-		'app/components/residents/residents.component.js',
-		// Resident-List
-		'app/components/residents/resident-list.component.js'
-	],
 	venderScripts: [
 		'node_modules/angular/angular.js',
 		'node_modules/@angular/router/angular1/angular_1_router.js',
@@ -102,21 +40,51 @@ var config = {
 		//'node_modules/firebase/lib/firebase-web.js',
 		'node_modules/angularfire/dist/angularfire.js'
 	],
+	appScripts: [
+		// Main Module
+		'alcomyApp.module.js',
+		'alcomyApp.config.js',
+		// App Configuration Files
+		'core/firebaseConfig.js',
+		'core/uiConfig.js',
+		// HTML Partials in JS
+		'partials.js',
+		// AlcomyApp Component
+		'alcomyApp.component.js',
+		// Vertical-Toolbar
+		'components/shared/vertical-toolbar/vertical-toolbar.module.js',
+		'components/shared/vertical-toolbar/vertical-toolbar.component.js',
+		// Dashboard
+		'components/dashboard/dashboard.module.js',
+		'components/dashboard/dashboard.component.js',
+		// Tasks
+		'components/dashboard/tasks/tasks.module.js',
+		'components/dashboard/tasks/tasks.component.js',
+		// Residents
+		'components/residents/residents-mock.js',
+		'components/residents/residents.module.js',
+		'components/residents/residents.service.js',
+		'components/residents/residents.component.js',
+		// Resident-List
+		'components/residents/resident-list.component.js'
+	],
 	scssMain: './app/app.scss',
 	scripts: 'app/**/*.js',
 	styles: ['./app/**/*.css', './app/**/*.scss'],
 	images: './app/assets/images/**/*',
+	svgs: './app/assets/svg/*.svg',
+	svgSprite: './app/assets/svg/icons.svg',
+	svgAppDir: './app/assets/svg',
 	index: 'index.html',
 	partials: 'app/**/*.html',
 	distDev: 'dist.dev',
 	distProd: 'dist.prod',
 	deleteDev: 'dist.dev/**',
 	deleteProd: 'dist.prod/**',
+	deleteSvgSprite: './app/assets/svg/icons.svg',
 	distScriptsProd: 'dist.prod/scripts',
 	scriptsDevServer: 'devServer/**/*.js'
 };
-
-
 
 // == PIPE SEGMENTS ========
 
@@ -127,6 +95,7 @@ pipes.orderedVendorScripts = function() {
 };
 
 pipes.orderedAppScripts = function() {
+	//return gulp.src(config.appScripts)
 	return order(config.appScripts);
 	//return angularFilesort();
 };
@@ -138,15 +107,16 @@ pipes.minifiedFileName = function() {
 };
 
 pipes.validatedAppScripts = function() {
-	//return gulp.src(config.scripts)
-	return gulp.src(config.appScripts)
+	//return gulp.src(config.appScripts)
+	return gulp.src(config.scripts)
 		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(print());
+		.pipe(jshint.reporter('jshint-stylish'));
 };
 
 pipes.buildAppScriptsDev = function() {
 	return pipes.validatedAppScripts()
+		pipe(pipes.orderedAppScripts())
+		.pipe(concat('app.js'))
 		.pipe(gulp.dest(config.distDev));
 };
 
@@ -155,15 +125,16 @@ pipes.buildAppScriptsProd = function() {
 	var scriptedPartials = pipes.scriptedPartials();
 	var validatedAppScripts = pipes.validatedAppScripts();
 
-	return /*es.merge(scriptedPartials, validatedAppScripts)*/validatedAppScripts
-		//.pipe(pipes.orderedAppScripts())
+	return es.merge(scriptedPartials, validatedAppScripts)
+		.pipe(pipes.orderedAppScripts())
 		.pipe(sourcemaps.init())
-			//.pipe(concat('app.min.js'))
-			//.pipe(uglify())
+			.pipe(concat('app.min.js'))
+			.pipe(uglify())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(config.distScriptsProd));
 };
 
+/*BUILD VENDER SCRIPTS DEVELOPMENT*/
 pipes.buildVendorScriptsDev = function() {
 	return gulp.src(config.venderScripts)
 		.pipe(gulp.dest('dist.dev/vender'));
@@ -172,7 +143,6 @@ pipes.buildVendorScriptsDev = function() {
 /*BUILD VENDER SCRIPTS PRODUCTION*/
 pipes.buildVendorScriptsProd = function() {
 	return gulp.src(config.venderScripts)
-		//.pipe(pipes.orderedVendorScripts())
 		//.pipe(concat('vendor.min.js'))
 		//.pipe(uglify())
 		.pipe(gulp.dest(config.distScriptsProd));
@@ -191,21 +161,26 @@ pipes.validatedPartials = function() {
 };
 
 pipes.buildPartialsDev = function() {
+	//return pipes.scriptedPartials()
 	return pipes.validatedPartials()
 		.pipe(gulp.dest(config.distDev));
 };
 
+/*SCRIPTED PARTIALS*/
 pipes.scriptedPartials = function() {
 	return pipes.validatedPartials()
 		.pipe(htmlhint.failReporter())
 		.pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
 		.pipe(ngHtml2js({
-			moduleName: "alcomyApp"
-		}));
+			moduleName: "alcomyApp",
+			declareModule: false,
+			prefix: './app/'
+		}))
+		.pipe(concat('partials.js'));
 };
 
 pipes.buildStylesDev = function() {
-	return gulp.src(config.scssFiles)
+	return gulp.src(config.scssMain)
 		.pipe(sass())
 		.pipe(gulp.dest(config.distDev));
 };
@@ -223,6 +198,28 @@ pipes.buildStylesProd = function() {
 		.pipe(sourcemaps.write())
 		.pipe(pipes.minifiedFileName())
 		.pipe(gulp.dest(config.distProd));
+};
+
+/*CREATE SVG SPRITE FROM SVG FILES*/
+pipes.buildSvgSprite = function(){
+	return gulp.src(config.svgs)
+		.pipe(regRename(/ic_(.+)_black_24px/, '$1'))
+		.pipe(regRename(/_/g, '-'))
+		.pipe(svgstore())
+		//.pipe(svgmin())
+		.pipe(rename('icons.svg'))
+		.pipe(gulp.dest(config.svgAppDir));
+};
+
+
+pipes.processSvgsDev = function(){
+	return gulp.src(config.svgSprite)
+		.pipe(gulp.dest(config.distDev + '/app/assets/svg/'))
+};
+
+pipes.processSvgsProd = function(){
+	return gulp.src(config.svgSprite)
+		.pipe(gulp.dest(config.distProd + '/app/assets/svg/'))
 };
 
 pipes.processedImagesDev = function() {
@@ -243,12 +240,8 @@ pipes.validatedIndex = function() {
 
 pipes.buildIndexDev = function() {
 
-	var orderedVendorScripts = pipes.buildVendorScriptsDev()
-		.pipe(pipes.orderedVendorScripts());
-
-	var orderedAppScripts = pipes.buildAppScriptsDev()
-		.pipe(pipes.orderedAppScripts());
-
+	var orderedVendorScripts = pipes.buildVendorScriptsDev();
+	var orderedAppScripts = pipes.buildAppScriptsDev();
 	var appStyles = pipes.buildStylesDev();
 
 	return pipes.validatedIndex()
@@ -275,11 +268,11 @@ pipes.buildIndexProd = function() {
 };
 
 pipes.buildAppDev = function() {
-	return es.merge(pipes.buildIndexDev(), pipes.buildPartialsDev(), pipes.processedImagesDev());
+	return es.merge(pipes.buildIndexDev(), pipes.buildPartialsDev(), pipes.processedImagesDev(), pipes.processSvgsDev());
 };
 
 pipes.buildAppProd = function() {
-	return es.merge(pipes.buildIndexProd(), pipes.processedImagesProd());
+	return es.merge(pipes.buildIndexProd(), pipes.processedImagesProd(), pipes.processSvgsProd());
 };
 
 
@@ -299,6 +292,16 @@ gulp.task('clean-prod', function() {
 	return del([config.deleteProd]).then(function(paths) {
 		if (paths && paths != '') {
 			console.log('[gulp][clean] Deleted files/folders:\n', paths.join('\n'));
+		}
+	});
+});
+
+gulp.task('clean-svg-sprite', function(){
+	return del([config.deleteSvgSprite]).then(function(paths){
+		if (paths && paths != '') {
+			console.log('[gulp][clean] Deleted SVG sprite: ', paths.join('\n'));
+		}else {
+			console.log('No sprite to delete')
 		}
 	});
 });
@@ -326,6 +329,9 @@ gulp.task('build-app-scripts-dev', pipes.buildAppScriptsDev);
 
 // concatenates, uglifies, and moves app scripts and partials into the prod environment
 gulp.task('build-app-scripts-prod', pipes.buildAppScriptsProd);
+
+// creates an svg sprite from all svg files
+gulp.task('build-svg-sprite', ['clean-svg-sprite'], pipes.buildSvgSprite);
 
 // compiles app sass and moves to the dev environment
 gulp.task('build-styles-dev', pipes.buildStylesDev);
@@ -432,6 +438,12 @@ gulp.task('watch-prod', ['clean-build-app-prod', 'validate-devserver-scripts'], 
 		return pipes.buildStylesProd()
 			.pipe(livereload());
 	});
+	
+	// watch svg sprite partials
+	gulp.watch(config.svgSprite, function() {
+		return pipes.buildAppScriptsProd()
+			.pipe(livereload());
+	});
 
 });
 
@@ -460,7 +472,7 @@ gulp.task('default', ['clean-build-app-prod']);
 
 // Compiles SCSS files to CSS then minifies the assets/css/styles.css to ./production
 gulp.task('sass', function () {
-    return gulp.src(config.scssFiles)
+    return gulp.src(config.scssMain)
       .pipe(plumber())
       .pipe(sass())
       .pipe(autoprefixer({
@@ -472,34 +484,6 @@ gulp.task('sass', function () {
       ;
 
 });
-
-// FIX Change css files to scss in the app/** directory
-gulp.task('css', function(){
-	var cssFromScss = gulp.src(config.scssFiles)
-	.pipe(plumber())
-	.pipe(sass());
-	
-	return cssFromScss
-		.pipe(plumber())
-		.pipe(concat('styles.min.css'))
-		.pipe(minifycss())
-		.pipe(gulp.dest(config.destDir));
-});
-
-
-// Concatinates JS files to production/scripts.js
-gulp.task('scripts', function(){
-    return gulp.src(config.jsFiles)
-      .pipe(plumber())
-      .pipe(concat('scripts.min.js'))
-	    .pipe(uglify())
-      .pipe(gulp.dest(config.destDir))
-      //.pipe(livereload())
-      ;
-
-
-});
-
 
 gulp.task('imageResize', function () {
   return gulp.src('assets/images/avatars/*.jpg')

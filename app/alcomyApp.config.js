@@ -11,9 +11,10 @@
 		/* @ngInject */
 		function config ($mdThemingProvider, $mdIconProvider, $locationProvider) {
 			// TODO make sure you pre-load and cache the icons
+			// TODO create a sprite for your icons
 			// see: https://material.angularjs.org/latest/api/service/$mdIconProvider
-			$mdIconProvider
-				.icon("photo"                 , "./app/assets/svg/ic_add_a_photo_24px.svg"        , 24)
+			$mdIconProvider.defaultIconSet('app/assets/svg/icons.svg', 24)
+				/*.icon("photo"                 , "./app/assets/svg/ic_add_a_photo_24px.svg"        , 24)
 				.icon("add"                   , "./app/assets/svg/ic_add_black_24px.svg"        , 24)
 				.icon("add-circle"            , "./app/assets/svg/ic_add_circle_black_24px.svg"        , 24)
 				.icon("add-circle-outline"    , "./app/assets/svg/ic_add_circle_outline_black_24px.svg"        , 24)
@@ -61,7 +62,7 @@
 				.icon("thumb-up"              , "./app/assets/svg/ic_thumb_up_black_24px.svg"        , 24)
 				.icon("visibility"            , "./app/assets/svg/ic_visibility_black_24px.svg"        , 24)
 				.icon("warning"               , "./app/assets/svg/ic_warning_black_24px.svg"        , 24)
-				.icon("watch-later"           , "./app/assets/svg/ic_watch_later_black_24px.svg"        , 24);
+				.icon("watch-later"           , "./app/assets/svg/ic_watch_later_black_24px.svg"        , 24);*/
 
 
 			$mdThemingProvider.theme('default')
