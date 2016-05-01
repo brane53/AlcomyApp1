@@ -6,23 +6,19 @@
 		.component('alcomyApp', {
 			templateUrl: './app/alcomyApp.component.html',
 			controller: AlcomyAppController,
-			controllerAs: 'alcomy', // default is $ctrl
-			transclude: false,
 			$routeConfig: [
 				{
-					path: '/dashboard/...',
-					name: 'Dashboard',
-					component: 'dashboard',
-					useAsDefault: true
+					path: '/login/',
+					name: 'Login',
+					component: 'login'
 				},
 				{
-					path: '/residents/...',
-					name: 'Residents',
-					component: 'residents'
+					path: '/...',
+					name: 'Home',
+					component: 'home'
 				}
 			]
-
-
+			
 		});
 
 	function AlcomyAppController() {

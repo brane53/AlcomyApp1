@@ -9,7 +9,10 @@
 			'ngMessages',
 			'ngMaterial',
 			'firebase',
-			
+			'mainToolbar',
+			'login',
+			'user',
+			'home',
 			'dashboard',
 			'residents'
 		]);

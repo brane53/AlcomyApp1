@@ -1,0 +1,26 @@
+<!--TODO Complete Login Form-->
+<!--TODO Create Layout for login form-->
+
+<div layout="column"
+     layout-align="center center"
+     flex-sm="90"
+     flex-gt-sm="33">
+
+	<h1>Login</h1>
+
+<form action="" layout="column">
+	<md-input-container>
+		<label>Email</label>
+		<input ng-model="$ctrl.email" type="email">
+	</md-input-container>
+
+	<md-input-container>
+		<label>Password</label>
+		<input ng-model="$ctrl.password" type="password">
+	</md-input-container>
+
+	<md-button class="md-raised md-primary" ng-click="$ctrl.login($ctrl.email, $ctrl.password)">
+	Login
+	</md-button>
+</form>
+</div>

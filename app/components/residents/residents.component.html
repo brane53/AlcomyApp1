@@ -1,15 +1,24 @@
-<as-vertical-toolbar>
+<as-vertical-toolbar hide show-gt-sm>
+	<!--NEW RESIDENT BUTTON-->
 	<md-button class="md-icon-button md-accent" aria-label="Add Resident">
-		<md-icon md-svg-icon="add"></md-icon>
+		<md-icon md-svg-icon="person-add"></md-icon>
 	</md-button>
-	<span>menu</span>
+	<span>New</span>
 
 	<md-divider></md-divider>
+	<!--RESIDENT LIST BUTTON-->
+	<md-button class="md-icon-button md-primary" aria-label="Send">
+		<md-icon md-svg-icon="people"></md-icon>
+	</md-button>
+	<span>List</span>
 
 	<md-button class="md-icon-button md-primary" aria-label="Send">
-		<md-icon md-svg-icon="add-a-photo"></md-icon>
+		<md-icon md-svg-icon="people-outline"></md-icon>
 	</md-button>
+	<span>Groups</span>
 </as-vertical-toolbar>
+
+
 
 <ng-outlet layout="row" flex></ng-outlet>
 

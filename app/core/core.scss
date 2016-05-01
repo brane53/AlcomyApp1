@@ -2,7 +2,7 @@
 	* Hide when Angular is not yet loaded and initialized
 */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
+  display: none !important;
 }
 
 /* Toolbar area */
@@ -14,35 +14,48 @@
   width: 36px;
 }
 
+md-toolbar {
+  h3 {
+    margin: auto;
+    font-weight: 500;
+  }
+  .md-avatar {
+    width: 48px;
+    border-radius: 50%;
+    margin: 5px 16px;
+  }
+}
 
-md-toolbar h3 {
-  margin: auto;
-  font-weight: 500;
+md-list-item .md-button {
+  display: block;
+}
+
+md-divider {
+  width: 100%;
 }
 
 /* Sidenav area */
 
 md-list-item > button {
-  width:100%;
-  text-align:left !important;
-  height:70px;;
+  width: 100%;
+  text-align: left !important;
+  height: 70px;;
 }
 
 md-icon.avatar {
   margin-right: 20px;
 }
 
-  md-list .md-button.selected {
-    color: #03a9f4;
-  }
-
+md-list .md-button.selected {
+  color: #03a9f4;
+}
 
 button#main {
   margin-bottom: 10px;
 }
 
 md-sidenav > md-toolbar {
-  height:64px;
+  height: 64px;
 }
 
 md-list-item {
@@ -51,8 +64,7 @@ md-list-item {
 
 /* Primary content area */
 
-
-#content  {
+#content {
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 5px;
@@ -74,26 +86,24 @@ md-list-item {
 }
 
 #content .md-button.contact > md-icon {
-  fill:black;
-  width:36px;
-  height:36px;
+  fill: black;
+  width: 36px;
+  height: 36px;
 }
-
 
 #content .md-button.contact:active > md-icon {
   background-color: #dadada;
   border-radius: 75%;
-  padding:4px;
+  padding: 4px;
   transition: all 100ms ease-out 30ms;
 }
-
 
 /* Utils */
 
 /* Typography support coming in 0.8.0 */
 
 .avatar {
-  position:relative;
+  position: relative;
   width: 54px;
   height: 54px;
   border: 1px solid #ddd;
@@ -105,13 +115,12 @@ md-list-item {
 
 }
 
-
-md-bottom-sheet  md-icon {
-  margin-right:20px;
+md-bottom-sheet md-icon {
+  margin-right: 20px;
 }
 
 span.name {
   font-weight: bold;
-  font-size:1.1em;
-  padding-left:5px;
+  font-size: 1.1em;
+  padding-left: 5px;
 }

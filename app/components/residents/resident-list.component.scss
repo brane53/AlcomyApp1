@@ -1,8 +1,29 @@
 resident-list {
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	padding: 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 24px;
+  md-list-item {
+    .md-button {
+      display: block;
+      text-align: start;
+      padding: 0 16px;
+      font-weight: inherit;
+      font-size: inherit;
+      text-transform: none;
+      border-radius: 0;
+      margin: 0;
+      width: 100%;
+      span {
+        height: 24px;
+      }
+      md-icon {
+        margin-top: 16px;
+        margin-right: 32px;
+        margin-bottom: 12px;
+      }
+    }
+  }
 }
 

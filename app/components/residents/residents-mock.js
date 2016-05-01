@@ -3,6 +3,7 @@
 
 	var residents = [
 		{
+			id: 1,
 			name: 'brane',
 			age: '28',
 			color: 'blue'

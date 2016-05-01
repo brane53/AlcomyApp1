@@ -15,17 +15,20 @@
 			{
 				name: 'brane',
 				age: '28',
-				color: 'blue'
+				color: 'blue',
+				avatar: 'assets/images/avatars/brane.jpg'
 			},
 			{
 				name: 'rebekah',
 				age: '28',
-				color: 'pink'
+				color: 'pink',
+				avatar: 'assets/images/avatars/rebekah.jpg'
 			},
 			{
 				name: 'justin',
 				age: '28',
-				color: 'green'
+				color: 'green',
+				avatar: 'assets/images/avatars/justin.jpg'
 			}
 		];
 

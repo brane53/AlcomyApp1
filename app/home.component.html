@@ -1,0 +1,66 @@
+<as-main-toolbar></as-main-toolbar>
+
+<md-sidenav md-whiteframe="6"
+            md-component-id="mobile-sidenav"
+            class="md-sidenav-left">
+	<!--TOOLBAR-->
+	<md-toolbar class="">
+		<div class="md-toolbar-tools" layout-align="start center">
+			<div layout="row" layout-align="start center" layout-fill>
+				<img ng-src="{{$ctrl.user.avatar}}" class="md-avatar" alt="">
+				<span>{{$ctrl.user.firstName}} {{$ctrl.user.lastName}}</span>
+			</div>
+		</div>
+	</md-toolbar>
+
+
+	<md-list>
+
+		<md-subheader class="md-no-sticky">Me</md-subheader>
+		<!--PROFILE BUTTON-->
+		<md-list-item class="md-clickable">
+			<md-button ng-link="" ng-click="$ctrl.toggleMobileSidenav()">
+			<md-icon md-svg-icon="account-circle"></md-icon>
+			<span>Profile</span>
+			</md-button>
+		</md-list-item>
+		<md-list-item class="md-clickable">
+			<md-button ng-link="" ng-click="$ctrl.toggleMobileSidenav()">
+			<md-icon md-svg-icon="settings"></md-icon>
+			<span>Settings</span>
+			</md-button>
+		</md-list-item>
+
+		<md-divider></md-divider>
+
+		<!--MODULES-->
+		<md-subheader class="md-no-sticky">Modules</md-subheader>
+		<!--DASHBOARD BUTTON-->
+		<md-list-item class="md-clickable">
+			<md-button ng-link="['Dashboard']" ng-click="$ctrl.toggleMobileSidenav()">
+				<md-icon
+					md-svg-icon="assessment"></md-icon>
+				<span>Dashboard</span>
+			</md-button>
+		</md-list-item>
+		<!--RESIDENTS BUTTON-->
+		<md-list-item ng-click="" ng-link="['Residents']" class="md-clickable">
+			<md-button ng-link="['Residents']" ng-click="$ctrl.toggleMobileSidenav()">
+				<md-icon md-svg-icon="settings"></md-icon>
+				<span>Residents</span>
+			</md-button>
+		</md-list-item>
+		<!--STAFF BUTTON-->
+		<md-list-item class="md-clickable">
+			<md-button ng-link="" ng-click="$ctrl.toggleMobileSidenav()">
+				<md-icon md-svg-icon="settings"></md-icon>
+				<span>Staff</span>
+			</md-button>
+		</md-list-item>
+
+		<md-divider></md-divider>
+
+	</md-list>
+
+</md-sidenav>
+<ng-outlet layout="row" flex></ng-outlet>
