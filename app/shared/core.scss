@@ -26,10 +26,6 @@ md-toolbar {
   }
 }
 
-md-list-item .md-button {
-  display: block;
-}
-
 md-divider {
   width: 100%;
 }
@@ -48,10 +44,6 @@ md-icon.avatar {
 
 md-list .md-button.selected {
   color: #03a9f4;
-}
-
-button#main {
-  margin-bottom: 10px;
 }
 
 md-sidenav > md-toolbar {

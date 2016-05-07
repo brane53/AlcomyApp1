@@ -1,14 +1,17 @@
 @import "../node_modules/angular-material/angular-material.scss";
-@import "core/material-colors";
-@import "core/core.scss";
-@import "core/development.scss";
-
-@import "home.component.scss";
+@import "shared/material-colors";
+@import "shared/core.scss"; // Universal styles
+@import "shared/development.scss"; // Temporary style to help with development
+/*LOGIN*/
+@import "components/login/login.component.scss";
+/*HOME*/
+@import "components/home/home.component.scss";
 /*DASHBOARD*/
 @import "components/dashboard/dashboard.component.scss";
 @import "components/dashboard/tasks/tasks.component.scss";
 /*RESIDENTS*/
 @import "components/residents/residents.component.scss";
-@import "components/residents/resident-list.component.scss";
+@import "components/residents/resident-list/resident-list.component";
+/*SHARED*/
 @import "components/shared/vertical-toolbar/vertical-toolbar.component.scss";
 @import "components/shared/main-toolbar/main-toolbar.component.scss";

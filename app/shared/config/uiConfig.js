@@ -7,11 +7,11 @@
 
 
 	var uiConfig = {
-		button: {
-			expandSubNav: {
-				buttonText: 'Expand Sub Nav',
+		buttons: {
+			expandMobileSidenav: {
+				buttonText: 'Expand Mobile Sidenav',
 				label: 'Expand',
-				ariaLabel: 'Expand Sub Navigation',
+				ariaLabel: 'Expand Mobile Sidenav',
 				icon: 'menu'
 			},
 			addResident: {
@@ -24,7 +24,7 @@
 				buttonText: '',
 				label: 'Medications',
 				ariaLabel: 'Medications Button',
-				icon: ''
+				icon: 'local-hospital'
 			},
 			addMedication: {
 				buttonText: 'Add Medication',
@@ -39,7 +39,8 @@
 			residents: "Residents",
 			staff: "Staff",
 			settings: "Settings",
-			messageCenter: "Message Center"
+			messageCenter: "Message Center",
+			userProfile: "User Profile"
 		}
 	};
 

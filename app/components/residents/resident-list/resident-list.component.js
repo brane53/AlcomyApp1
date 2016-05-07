@@ -4,7 +4,7 @@
 	angular
 		.module('residents')
 		.component('residentList', {
-			templateUrl: './app/components/residents/resident-list.component.html',
+			templateUrl: './app/components/residents/resident-list/resident-list.component.html',
 			controller: ResidentListController,
 			transclude: false
 			

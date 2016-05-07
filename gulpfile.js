@@ -38,22 +38,24 @@ var config = {
 		'node_modules/angular-messages/angular-messages.js',
 		'node_modules/angular-material/angular-material.js',
 		//'node_modules/firebase/lib/firebase-web.js',
-		'node_modules/angularfire/dist/angularfire.js'
+		'node_modules/angularfire/dist/angularfire.js',
+	  'node_modules/angular-filter/dist/angular-filter.js'
 	],
 	appScripts: [
 		// Main Module
 		'alcomyApp.module.js',
 		'alcomyApp.config.js',
 		// App Configuration Files
-		'core/firebaseRoot.js',
-		'core/uiConfig.js',
+		'shared/config/firebaseRoot.js',
+		'shared/config/uiConfig.js',
 		// HTML Partials in JS
 		'partials.js',
 		// AlcomyApp Component
 		'alcomyApp.component.js',
 	  
 	  // Security
-		'authentication.service.js',
+	  'shared/security/security.module.js',
+		'shared/security/authentication.service.js',
 	  'components/login/login.module.js',
 	  'components/login/login.component.js',
 	  // Main Toolbar
@@ -66,8 +68,8 @@ var config = {
 	  'components/user/user.module.js',
 	  'components/user/user.service.js',
 		// Home
-		'home.module.js',
-	  'home.component.js',
+		'components/home/home.module.js',
+	  'components/home/home.component.js',
 		// Dashboard
 		'components/dashboard/dashboard.module.js',
 		'components/dashboard/dashboard.component.js',
@@ -75,12 +77,12 @@ var config = {
 		'components/dashboard/tasks/tasks.module.js',
 		'components/dashboard/tasks/tasks.component.js',
 		// Residents
-		'components/residents/residents-mock.js',
+		'components/residents/shared/residents-mock.js',
 		'components/residents/residents.module.js',
-		'components/residents/residents.service.js',
+		'components/residents/shared/residents.service.js',
 		'components/residents/residents.component.js',
 		// Resident-List
-		'components/residents/resident-list.component.js'
+		'components/residents/resident-list/resident-list.component.js'
 	],
 	scssMain: './app/app.scss',
 	scripts: 'app/**/*.js',

@@ -6,21 +6,41 @@
      flex-sm="90"
      flex-gt-sm="33">
 
-	<h1>Login</h1>
+	<h1 ng-hide="$ctrl.isLoggedIn">Login</h1>
+	<h1 ng-show="$ctrl.isLoggedIn">You have already Logged in</h1>
 
-<form action="" layout="column">
-	<md-input-container>
-		<label>Email</label>
-		<input ng-model="$ctrl.email" type="email">
-	</md-input-container>
+	<form action="" layout="column">
+		<md-input-container ng-show="$ctrl.isRegister">
+			<label>First Name</label>
+			<input ng-model="$ctrl.newUserObj.firstName" type="text">
+		</md-input-container>
 
-	<md-input-container>
-		<label>Password</label>
-		<input ng-model="$ctrl.password" type="password">
-	</md-input-container>
+		<md-input-container ng-show="$ctrl.isRegister">
+			<label>Last Name</label>
+			<input ng-model="$ctrl.newUserObj.lastName" type="text">
+		</md-input-container>
 
-	<md-button class="md-raised md-primary" ng-click="$ctrl.login($ctrl.email, $ctrl.password)">
-	Login
-	</md-button>
-</form>
+		<md-input-container ng-hide="$ctrl.isLoggedIn">
+			<label>Email</label>
+			<input ng-model="$ctrl.newUserObj.email" type="email">
+		</md-input-container>
+
+		<md-input-container ng-hide="$ctrl.isLoggedIn">
+			<label>Password</label>
+			<input ng-model="$ctrl.newUserObj.password" type="password">
+		</md-input-container>
+
+		<md-button ng-hide="$ctrl.isLoggedIn" class="md-raised md-primary"
+		           ng-click="$ctrl.login($ctrl.newUserObj.email, $ctrl.newUserObj.password)">
+			Login
+		</md-button>
+		<md-button ng-hide="$ctrl.isLoggedIn" class="md-raised md-primary"
+		           ng-click="$ctrl.logout()">
+			Logout
+		</md-button>
+		<md-button ng-show="$ctrl.isRegister" class="md-raised md-primary"
+		           ng-click="$ctrl.registerUser($ctrl.newUserObj)">
+			Register
+		</md-button>
+	</form>
 </div>

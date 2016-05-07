@@ -13,12 +13,17 @@
 					component: 'login'
 				},
 				{
+					path: '/register/',
+					name: 'Login',
+					component: 'login'
+				},
+				{
 					path: '/...',
 					name: 'Home',
 					component: 'home'
 				}
 			]
-			
+
 		});
 
 	function AlcomyAppController() {

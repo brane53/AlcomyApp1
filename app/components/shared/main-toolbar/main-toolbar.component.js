@@ -20,7 +20,7 @@
 			}).catch(function(err){
 				console.error('Error MainToolbarController: ' + err);
 			});
-		}
+		};
 
 		vm.toggleMobileSidenav = toggleMobileSidenav;
 
@@ -29,6 +29,5 @@
 		}
 
 	}
-
-
+	
 })();

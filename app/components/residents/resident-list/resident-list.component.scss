@@ -4,9 +4,12 @@ resident-list {
   flex-direction: column;
   flex: 1;
   padding: 0 24px;
+  h1,h2,h3,h4,h5,h6 {
+    margin-left: 16px;
+  }
   md-list-item {
     .md-button {
-      display: block;
+      display: flex;
       text-align: start;
       padding: 0 16px;
       font-weight: inherit;
@@ -15,9 +18,6 @@ resident-list {
       border-radius: 0;
       margin: 0;
       width: 100%;
-      span {
-        height: 24px;
-      }
       md-icon {
         margin-top: 16px;
         margin-right: 32px;
