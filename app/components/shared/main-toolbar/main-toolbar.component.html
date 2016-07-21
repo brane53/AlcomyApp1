@@ -15,6 +15,7 @@
 			<md-button ng-link="['Residents']" aria-label="Residents Module">Residents
 			</md-button>
 			<md-button aria-label="Staff Module">Staff</md-button>
+			<md-button aria-label="Company Module">Company</md-button>
 		</div>
 
 
@@ -29,16 +30,25 @@
 				<md-icon md-svg-icon="more-vert"></md-icon>
 			</md-button>
 			<md-menu-content width="4">
+
 				<md-menu-item>
 					<md-button>
 						<md-icon md-svg-icon="account-circle"></md-icon>
 						Profile
 					</md-button>
 				</md-menu-item>
+
 				<md-menu-item>
 					<md-button>
 						<md-icon md-svg-icon="settings"></md-icon>
 						Settings
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item>
+					<md-button ng-link="['Logout']">
+						<md-icon md-svg-icon="settings"></md-icon>
+						Logout
 					</md-button>
 				</md-menu-item>
 			</md-menu-content>

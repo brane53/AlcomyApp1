@@ -1,5 +1,6 @@
 <as-main-toolbar></as-main-toolbar>
 
+<!--Sidenav appears on mobile-->
 <md-sidenav md-whiteframe="6"
             md-component-id="mobile-sidenav"
             class="md-sidenav-left">
@@ -23,10 +24,18 @@
 			<span>Profile</span>
 			</md-button>
 		</md-list-item>
+		<!--SETTINGS BUTTON-->
 		<md-list-item class="md-clickable">
 			<md-button ng-link="" ng-click="$ctrl.toggleMobileSidenav()">
-			<md-icon md-svg-icon="settings"></md-icon>
-			<span>Settings</span>
+				<md-icon md-svg-icon="settings"></md-icon>
+				<span>Settings</span>
+			</md-button>
+		</md-list-item>
+
+		<md-list-item class="md-clickable">
+			<md-button ng-link="['Logout']">
+				<md-icon md-svg-icon=""></md-icon>
+				<span>Logout</span>
 			</md-button>
 		</md-list-item>
 
@@ -45,22 +54,39 @@
 		<!--RESIDENTS BUTTON-->
 		<md-list-item ng-click="" ng-link="['Residents']" class="md-clickable">
 			<md-button ng-link="['Residents']" ng-click="$ctrl.toggleMobileSidenav()">
-				<md-icon md-svg-icon="settings"></md-icon>
+				<md-icon md-svg-icon="people"></md-icon>
 				<span>Residents</span>
 			</md-button>
 		</md-list-item>
 		<!--STAFF BUTTON-->
 		<md-list-item class="md-clickable">
 			<md-button ng-link="" ng-click="$ctrl.toggleMobileSidenav()">
-				<md-icon md-svg-icon="settings"></md-icon>
+				<md-icon md-svg-icon="face"></md-icon>
 				<span>Staff</span>
+			</md-button>
+		</md-list-item>
+		<!--COMPANY BUTTON-->
+		<md-list-item class="md-clickable">
+			<md-button ng-link="" ng-click="$ctrl.toggleMobileSidenav()">
+				<md-icon md-svg-icon="company"></md-icon>
+				<span>Company</span>
 			</md-button>
 		</md-list-item>
 
 		<md-divider></md-divider>
 
-	</md-list>
+		<md-input-container>
+			<label>Current Facility</label>
+			<md-select ng-model="$crtl.currentFacility">
+				<md-option value="PVC">
+					Paradise Valley Care
+				</md-option>
+			</md-select>
+		</md-input-container>
+		
 
+	</md-list>
+	
 </md-sidenav>
 
 <ng-outlet layout="row" flex></ng-outlet>

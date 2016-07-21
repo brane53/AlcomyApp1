@@ -8,6 +8,7 @@
 			'ngAria',
 			'ngMessages',
 			'ngMaterial',
+			'ngIdle',
 			'firebase',
 			'angular.filter',
 			'security',

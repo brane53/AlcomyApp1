@@ -10,7 +10,8 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic">
+		<link rel="stylesheet"
+		      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic">
 
 		<!-- vender:css -->
 		<!-- endinject -->
@@ -25,12 +26,26 @@
     <alcomy-app layout="column" flex></alcomy-app>
 
 
-
-
+		<!--FIREBASE V2 IS DEPRECATED-->
     <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+		<!--Firebase 3.2.0-->
+		<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+		
+		<!--Initialize Firebase-->
+		<script>
+			var config = {
+				apiKey: "AIzaSyDHd9xFhtxKsJaCrZUaj4DXFGDwXATft_o",
+				authDomain: "alcomydev1.firebaseapp.com",
+				databaseURL: "https://alcomydev1.firebaseio.com",
+				storageBucket: "alcomydev1.appspot.com",
+			};
+			firebase.initializeApp(config);
+		</script>
 
     <!-- vender:js -->
     <!-- endinject -->
+
+
 
     <!-- inject:js -->
     <!-- endinject -->

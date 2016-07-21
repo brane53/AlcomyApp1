@@ -9,9 +9,9 @@
 
 		});
 
-	MainToolbarController.$inject = ['$mdSidenav', 'userService'];
+	MainToolbarController.$inject = ['$mdSidenav', '$rootRouter', '$firebaseAuth', 'userService'];
 	/* @ngInject */
-	function MainToolbarController($mdSidenav, userService) {
+	function MainToolbarController($mdSidenav, $rootRouter, $firebaseAuth, userService) {
 		var vm = this;
 		
 		vm.$onInit = function(){
@@ -22,7 +22,13 @@
 			});
 		};
 
+		vm.logout = logout;
 		vm.toggleMobileSidenav = toggleMobileSidenav;
+
+		function logout(){
+			$firebaseAuth().$signOut();
+			$rootRouter.navigate(['Login']);
+		}
 
 		function toggleMobileSidenav(){
 			$mdSidenav('mobile-sidenav').toggle();

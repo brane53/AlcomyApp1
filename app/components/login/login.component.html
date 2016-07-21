@@ -6,16 +6,20 @@
      flex-sm="90"
      flex-gt-sm="33">
 
-	<h1 ng-hide="$ctrl.isLoggedIn">Login</h1>
-	<h1 ng-show="$ctrl.isLoggedIn">You have already Logged in</h1>
+	<h3 ng-hide="$ctrl.isLoggedIn || $ctrl.isRegister">Login</h3>
+	<h3>{{$ctrl.newUserObj.email}}</h3>
+	<h3 ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">Register New Account</h3>
+	<h3 ng-show="$ctrl.isLoggedIn">You are currently logged in</h3>
+	<h3 ng-show="$ctrl.isRegister && $ctrl.isLoggedIn">Logout to Register</h3>
+	<!--TODO Add alerts here-->
 
 	<form action="" layout="column">
-		<md-input-container ng-show="$ctrl.isRegister">
+		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
 			<label>First Name</label>
 			<input ng-model="$ctrl.newUserObj.firstName" type="text">
 		</md-input-container>
 
-		<md-input-container ng-show="$ctrl.isRegister">
+		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
 			<label>Last Name</label>
 			<input ng-model="$ctrl.newUserObj.lastName" type="text">
 		</md-input-container>
@@ -29,18 +33,25 @@
 			<label>Password</label>
 			<input ng-model="$ctrl.newUserObj.password" type="password">
 		</md-input-container>
-
-		<md-button ng-hide="$ctrl.isLoggedIn" class="md-raised md-primary"
+		<!--LOGIN BUTTON-->
+		<md-button ng-hide="$ctrl.isLoggedIn || $ctrl.isRegister" class="md-raised md-primary"
 		           ng-click="$ctrl.login($ctrl.newUserObj.email, $ctrl.newUserObj.password)">
 			Login
 		</md-button>
-		<md-button ng-hide="$ctrl.isLoggedIn" class="md-raised md-primary"
+		<!--LOGOUT BUTTON-->
+		<md-button ng-show="$ctrl.isLoggedIn" class="md-raised md-primary"
 		           ng-click="$ctrl.logout()">
 			Logout
 		</md-button>
-		<md-button ng-show="$ctrl.isRegister" class="md-raised md-primary"
-		           ng-click="$ctrl.registerUser($ctrl.newUserObj)">
+		<!--RESGISTER BUTTON-->
+		<md-button ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn" class="md-raised md-primary"
+		           ng-click="$ctrl.registerNewUser($ctrl.newUserObj)">
 			Register
+		</md-button>
+		<!--REGISTER ACCOUNT-->
+		<md-button ng-hide="$ctrl.isRegister" class=""
+		           ng-click="$ctrl.goToRegister()">
+			Create an Account
 		</md-button>
 	</form>
 </div>

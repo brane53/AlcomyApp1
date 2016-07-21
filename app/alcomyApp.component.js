@@ -13,8 +13,13 @@
 					component: 'login'
 				},
 				{
+					path: '/logout/',
+					name: 'Logout',
+					component: 'logout'
+				},
+				{
 					path: '/register/',
-					name: 'Login',
+					name: 'Register',
 					component: 'login'
 				},
 				{

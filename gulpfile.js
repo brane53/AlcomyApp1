@@ -38,6 +38,7 @@ var config = {
 		'node_modules/angular-messages/angular-messages.js',
 		'node_modules/angular-material/angular-material.js',
 		//'node_modules/firebase/lib/firebase-web.js',
+		'node_modules/ng-idle/angular-idle.js',
 		'node_modules/angularfire/dist/angularfire.js',
 	  'node_modules/angular-filter/dist/angular-filter.js'
 	],
@@ -55,9 +56,10 @@ var config = {
 	  
 	  // Security
 	  'shared/security/security.module.js',
-		'shared/security/authentication.service.js',
+		//'shared/security/authentication.service.js',
 	  'components/login/login.module.js',
 	  'components/login/login.component.js',
+	  'shared/security/logout.js',
 	  // Main Toolbar
 	  'components/shared/main-toolbar/main-toolbar.module.js',
 	  'components/shared/main-toolbar/main-toolbar.component.js',
