@@ -1,0 +1,17 @@
+<form action="" layout="column">
+  <md-input-container md-no-float>
+    <label>First Name</label>
+     <input name="firstName"
+            type="text"
+            ng-model="$ctrl.firstName" 
+            required 
+            
+            placeholder=""
+            aria-label="First Name">
+
+            
+  </md-input-container>
+
+  <md-button aria-label="Submit" ng-click="$ctrl.createAccount()"> Submit </md-button>
+
+</form>

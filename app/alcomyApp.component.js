@@ -7,11 +7,11 @@
 			templateUrl: './app/alcomyApp.component.html',
 			controller: AlcomyAppController,
 			$routeConfig: [
-				{
-					path: '/login/',
-					name: 'Login',
-					component: 'login'
-				},
+				// {
+				// 	path: '/login/',
+				// 	name: 'Login',
+				// 	component: 'login'
+				// },
 				{
 					path: '/logout/',
 					name: 'Logout',
@@ -19,8 +19,8 @@
 				},
 				{
 					path: '/register/',
-					name: 'Register',
-					component: 'login'
+					name: 'Account',
+					component: 'account'
 				},
 				{
 					path: '/...',

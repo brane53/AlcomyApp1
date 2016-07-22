@@ -11,11 +11,14 @@
 			'ngIdle',
 			'firebase',
 			'angular.filter',
+
 			'security',
 			'mainToolbar',
 			'user',
 			'home',
 			'dashboard',
-			'residents'
+			'residents',
+			'company',
+			'account'
 		]);
 })();

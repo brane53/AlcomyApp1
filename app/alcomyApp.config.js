@@ -16,7 +16,7 @@
 		// User gets redirected to the login screen if they they become unauthenticated
 		$firebaseAuth().$onAuthStateChanged(function (authData) {
 			if (!authData) {
-				$rootRouter.navigate(['Login']);
+				//$rootRouter.navigate(['Login']);
 				Idle.unwatch();
 			}
 			else {

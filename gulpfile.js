@@ -69,6 +69,13 @@ var config = {
 		// User
 	  'components/user/user.module.js',
 	  'components/user/user.service.js',
+		// Company
+		'components/company/company.module.js',
+		'components/company/company.service.js',
+		// Account
+		'components/account/account.module.js',
+		'components/account/account.service.js',
+		'components/account/account.component.js',
 		// Home
 		'components/home/home.module.js',
 	  'components/home/home.component.js',
