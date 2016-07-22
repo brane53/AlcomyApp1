@@ -17,6 +17,12 @@
 
     function createAccount(user, company) {
 
+      // Create New User
+
+      // Create New Company
+
+      // Create New Account
+
 
       userService.createUser(user)
         .then(function (userData) {
