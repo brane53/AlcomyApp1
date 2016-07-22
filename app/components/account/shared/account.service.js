@@ -25,10 +25,11 @@
             .then(function (companyData) {
 
               var accountData = {
-                userId: userData.uid;
+                userId: userData.uid,
+                companyId: companyData.uid
               }
 
-              $log.info(fbRoot);
+              $log.info(accountData);
               fbRoot.child('accounts').push(accountData)
                 .then(function (data) {
                   $log.info(data);
@@ -38,12 +39,6 @@
                 });
             });
 
-
-
-          fbRoot.child('accounts').push(accountData)
-            .then(function (data) {
-              $log.info(data);
-            });
         })
         .catch(function (err) {
           $log.warn("Error: " + err);
