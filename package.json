@@ -66,6 +66,7 @@
     "live-server": "^0.9.1",
     "method-override": "^2.3.5"
   },
+  "main":"server.js",
   "scripts": {
     "prestart": "npm update",
     "tests": "karma start ./test/karma.conf.js",
