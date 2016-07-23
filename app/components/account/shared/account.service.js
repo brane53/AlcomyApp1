@@ -33,7 +33,7 @@
               var accountData = {
                 userId: userData.uid,
                 companyId: companyData.uid
-              }
+              };
 
               $log.info(accountData);
               fbRoot.child('accounts').push(accountData)
@@ -41,13 +41,13 @@
                   $log.info(data);
                 })
                 .catch(function (err) {
-                  $log.warn("Error: " + err);
+                  $log.warn('Error: ' + err);
                 });
             });
 
         })
         .catch(function (err) {
-          $log.warn("Error: " + err);
+          $log.warn('Error: ' + err);
         });
 
 

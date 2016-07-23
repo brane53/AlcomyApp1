@@ -5,22 +5,22 @@
 		.module('user')
 		.service('userService', userService);
 	
-	userService.$inject = ['$q', '$firebaseAuth'];
+	userService.$inject = ['$log','$q', '$firebaseAuth'];
 	
 	/* @ngInject */
-	function userService($q, $firebaseAuth) {
+	function userService($log, $q, $firebaseAuth) {
 		var self = this;
 
 		self.createUser = createUser;
 		
 		////////////////
 
-
 		function createUser(user){
 
 			$firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
 				.then(function(userData){
 					if(userData){
+						
 						return $firebaseAuth().$signInWithEmailAndPassword(credentials);
 					}
 				})
