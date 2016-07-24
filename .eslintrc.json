@@ -20,5 +20,8 @@
             "always"
         ],
         "angular/no-service-method": 0
+    },
+    "globals": {
+        "firebase": false
     }
 }

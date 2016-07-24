@@ -1,4 +1,43 @@
 TEMPORARY IMPLEMENTATIONS:
   
   Account Service:
-    
+    ☐ createAccount()
+        - Currently creates a user and and an account with basic info 
+          and assigns the user to a users list in the account.
+
+        - The accountId is not linked to the user. Meaning if we were 
+          to look up a user we wouldn't be able to know which account
+          they are linked to. We would have to query the list of
+          accounts to then check if the user has access to that account.
+          This doesn't seem efficient and a better way should be found.
+
+  User Service:
+    ☐ createUser() - 
+      ☐ Need to address a user's default roles/permissions.
+        Currently no permissions are being creating or assigned
+        to the user.
+      
+        ? Perhaps an optional permissions object can be passed in
+          as a second argument?
+
+
+NEEDS IMPLIMENTING:
+  
+  Users:
+    ☐ Create a role class so that roles can be creaetd
+    ☐ Same thing for permissions
+
+  Facility Service:
+    ☐ createFacility()
+    ☐ getFacility(facilityId)
+    ☐ getFacilityList()
+    ☐ updateFacilityInfo()
+    ☐ addEmployee(employeeObj, facility)?
+
+POSSIBLE PROBLEMS:
+
+  Creating An Account:
+    ☐ With the user being created first and the account second,
+      what happens if a error occurs in the middle of those two
+      operations. How can we guarantee that the account and user
+      get created without any problems?
