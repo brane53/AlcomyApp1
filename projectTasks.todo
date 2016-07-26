@@ -1,3 +1,21 @@
+TASKS:
+  ☐ Create new account form
+      - input - first name
+      - input - last name
+      - input - email
+      - input - password
+      - input - confirm password
+      - input - company name
+      ☐ Clean data before it goes gets submitted
+      ☐ Validate data
+
+  ☐ Create new account component with controller
+  ☐ Start the implimentation of the facility service
+  ☐ Create a proper logger service or find an existing one
+
+
+
+
 TEMPORARY IMPLEMENTATIONS:
   
   Account Service:
