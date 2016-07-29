@@ -18,7 +18,7 @@
 			'home',
 			'dashboard',
 			'residents',
-			'company',
+			'facility',
 			'account'
 		]);
 })();

@@ -16,18 +16,20 @@
     vm.createAccount = createAccount;
 
     var user = {
-      firstName: "Ilija",
-      lastName: "Vrajich",
-      email: "vrajich1@gmail.com",
-      password: "12345"
-    }
+      firstName: 'ilija',
+      lastName: 'vrajich',
+      photoUrl: '',
+      accountId: '',
+      email: 'vrajich1@gmail.com',
+      password: '123456'
+    };
 
-    var company = {
-      name: "Alcomy"
-    }
+    var accountInfo = {
+      companyName: 'Alcomy'
+    };
 
     function createAccount(){
-      accountService.createAccount(user, company);
+      accountService.createAccount(user, accountInfo);
     }
 
   }

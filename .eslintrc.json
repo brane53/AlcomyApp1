@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true
+    },
+    "extends": [
+            "eslint:recommended",
+            "angular"
+        ],
+    "rules": {
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "angular/no-service-method": 0
+    },
+    "globals": {
+        "firebase": false
+    }
+}

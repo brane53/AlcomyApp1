@@ -1,3 +1,5 @@
+/*eslint-env node, mocha */
+
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     uglify = require('gulp-uglify'),
@@ -69,13 +71,13 @@ var config = {
 		// User
 		'components/user/user.module.js',
 		'components/user/user.service.js',
-		// Company
-		'components/company/company.module.js',
-		'components/company/company.service.js',
 		// Account
 		'components/account/account.module.js',
-		'components/account/account.service.js',
+		'components/account/shared/account.service.js',
 		'components/account/account.component.js',
+		// Facility
+		'components/facility/facility.module.js',
+		'components/facility/shared/facility.service.js',
 		// Home
 		'components/home/home.module.js',
 		'components/home/home.component.js',
