@@ -1,3 +1,24 @@
+TASKS:
+
+  Typescript Conversion:
+    ✔ install typescript @done
+    ✔ install typings @done
+    ✔ configure tsconfig.json @done
+    ✔ configure typings.json @done
+    ☐ install necessary .d.ts files
+    ☐ edit gulpfile
+      ✔ add gulp-typescript @done
+      ☐ add typescript linter
+      ☐ add the proper ts pipes to tasks
+    ☐ add definition references to files
+
+  Git Flow Setup:
+    ✔ Git Flow installed @done
+    ☐ initialize repository to Git Flow
+
+
+
+
 TEMPORARY IMPLEMENTATIONS:
   
   Account Service:

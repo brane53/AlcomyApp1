@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
-    typescript = require('gulp-typescript'),
+    ts = require('gulp-typescript'),
     plumber = require('gulp-plumber'),
     livereload = require('gulp-livereload'),
     concat = require('gulp-concat'),
@@ -12,23 +12,24 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     imageResize = require('gulp-image-resize'),
     autoprefixer = require('gulp-autoprefixer'),
-	svgstore = require('gulp-svgstore'),
-	svgmin = require('gulp-svgmin'),
-	es = require('event-stream'),
-	sourcemaps = require('gulp-sourcemaps'),
-	htmlhint = require('gulp-htmlhint'),
-	htmlmin = require('gulp-htmlmin'),
-	ngHtml2js = require('gulp-ng-html2js'),
-	inject = require('gulp-inject'),
-	order = require('gulp-order'),
-	print = require('gulp-print'),
-	rename = require('gulp-rename'),
-	regRename = require('gulp-regex-rename'),
-	path = require('path'),
-	angularFilesort = require('gulp-angular-filesort'),
-	nodemon = require('gulp-nodemon'),
-	del = require('del'),
-	Q = require('q');
+		svgstore = require('gulp-svgstore'),
+		svgmin = require('gulp-svgmin'),
+		es = require('event-stream'),
+		sourcemaps = require('gulp-sourcemaps'),
+		htmlhint = require('gulp-htmlhint'),
+		htmlmin = require('gulp-htmlmin'),
+		ngHtml2js = require('gulp-ng-html2js'),
+		inject = require('gulp-inject'),
+		order = require('gulp-order'),
+		print = require('gulp-print'),
+		rename = require('gulp-rename'),
+		regRename = require('gulp-regex-rename'),
+		path = require('path'),
+		angularFilesort = require('gulp-angular-filesort'),
+		nodemon = require('gulp-nodemon'),
+		del = require('del'),
+		Q = require('q');
+
 
 /*CONFIGURATION*/
 var config = {
@@ -113,34 +114,43 @@ var config = {
 	scriptsDevServer: 'devServer/**/*.js'
 };
 
+
+// TYPESCIPT PROJECTED DEFINITION
+
+var tsProject = ts.createProject('tsconfig.json');
+
+
+
 // == PIPE SEGMENTS ========
 
 var pipes = {};
 
+// ORDERED VENDER SCRIPTS ===========================================================
 pipes.orderedVendorScripts = function () {
 	return order(config.venderScripts);
 };
 
+// ORDERED APP SCRIPTS ===============================================================
 pipes.orderedAppScripts = function () {
-	//return gulp.src(config.appScripts)
 	return order(config.appScripts);
 	//return angularFilesort();
 };
 
+// MINIFY FILENAME ====================================================================
 pipes.minifiedFileName = function () {
 	return rename(function (path) {
 		path.extname = '.min' + path.extname;
 	});
 };
 
+// VALIDATED APP SCRIPTS
 pipes.validatedAppScripts = function () {
-	//return gulp.src(config.appScripts)
 	return gulp.src(config.scripts)
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'));
 };
 
-// BUILD APP SCRIPTS FOR __DEVELOPMENT__
+// BUILD APP SCRIPTS FOR __DEVELOPMENT__================================================
 pipes.buildAppScriptsDev = function () {
 	/*return pipes.validatedAppScripts()
 		pipe(pipes.orderedAppScripts())
@@ -157,7 +167,7 @@ pipes.buildAppScriptsDev = function () {
 
 };
 
-// BUILD APP SCRIPTS **PRODUCTION**
+// BUILD APP SCRIPTS **PRODUCTION**======================================================
 pipes.buildAppScriptsProd = function () {
 	var scriptedPartials = pipes.scriptedPartials();
 	var validatedAppScripts = pipes.validatedAppScripts();
@@ -171,13 +181,13 @@ pipes.buildAppScriptsProd = function () {
 		.pipe(gulp.dest(config.distScriptsProd));
 };
 
-// BUILD VENDER SCRIPTS __DEVELOPMENT__
+// BUILD VENDER SCRIPTS __DEVELOPMENT__==================================================
 pipes.buildVendorScriptsDev = function () {
 	return gulp.src(config.venderScripts)
 		.pipe(gulp.dest(config.distDev + '/vender'));
 };
 
-// BUILD VENDER SCRIPTS **PRODUCTION**
+// BUILD VENDER SCRIPTS **PRODUCTION**====================================================
 pipes.buildVendorScriptsProd = function () {
 	return gulp.src(config.venderScripts)
 		//.pipe(concat('vendor.min.js'))
@@ -185,20 +195,21 @@ pipes.buildVendorScriptsProd = function () {
 		.pipe(gulp.dest(config.distScriptsProd));
 };
 
-// VALIDATE THE SCRIPTS ON THE DEVELOPMENT SERVER
+// VALIDATE THE SCRIPTS ON THE DEVELOPMENT SERVER=========================================
 pipes.validatedDevServerScripts = function () {
 	return gulp.src(config.scriptsDevServer)
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'));
 };
 
+// VALIDATE PARTIAL HTML FILES ==========================================================
 pipes.validatedPartials = function () {
 	return gulp.src(config.partials)
 		.pipe(htmlhint({ 'doctype-first': false }))
 		.pipe(htmlhint.reporter());
 };
 
-// BUILD HTML PARTIALS FOR __DEVELOPMENT__ **NOT USED**
+// BUILD HTML PARTIALS FOR __DEVELOPMENT__ **NOT USED**==================================
 pipes.buildPartialsDev = function () {
 	// return pipes.scriptedPartials()
 	return pipes.validatedPartials()
@@ -206,7 +217,7 @@ pipes.buildPartialsDev = function () {
 
 };
 
-/*SCRIPTED PARTIALS*/
+// SCRIPTED PARTIALS ====================================================================
 pipes.scriptedPartials = function () {
 	return pipes.validatedPartials()
 		.pipe(htmlhint.failReporter())
@@ -219,7 +230,7 @@ pipes.scriptedPartials = function () {
 		.pipe(concat('partials.js'));
 };
 
-// BUILDS THE STYLES FOR __DEVELOPMENT__
+// BUILDS THE STYLES FOR __DEVELOPMENT__=================================================
 pipes.buildStylesDev = function () {
 	return gulp.src(config.scssMain)
 		.pipe(sass())
@@ -227,7 +238,7 @@ pipes.buildStylesDev = function () {
 };
 
 
-/*
+/*========================================================================================
 	BUILDS THE STYLES FOR **PRODUCTION**
 	Takes the main scss file (./app/app.scss) that contains all the imports,
 	compiles it to css, minifies it, creates an inline sourcemap, and
@@ -243,7 +254,7 @@ pipes.buildStylesProd = function () {
 		.pipe(gulp.dest(config.distProd));
 };
 
-/*CREATE SVG SPRITE FROM SVG FILES*/
+// CREATE SVG SPRITE FROM SVG FILES =====================================================
 pipes.buildSvgSprite = function () {
 	return gulp.src(config.svgs)
 		.pipe(regRename(/ic_(.+)_black_24px/, '$1'))
@@ -254,37 +265,38 @@ pipes.buildSvgSprite = function () {
 		.pipe(gulp.dest(config.svgAppDir));
 };
 
-// PROCESS SVGS FOR __DEVELOPMENT__
+// PROCESS SVGS FOR __DEVELOPMENT__=======================================================
 pipes.processSvgsDev = function () {
 	return gulp.src(config.svgSprite)
 		.pipe(gulp.dest(config.distDev + '/app/assets/svg/'))
 };
 
-// PROCESS SVGS FOR **PRODUCTION**
+// PROCESS SVGS FOR **PRODUCTION**=======================================================
 pipes.processSvgsProd = function () {
 	return gulp.src(config.svgSprite)
 		.pipe(gulp.dest(config.distProd + '/app/assets/svg/'))
 };
 
-// PROCESS IMAGES FOR __DEVELOPMENT__
+// PROCESS IMAGES FOR __DEVELOPMENT__====================================================
 pipes.processedImagesDev = function () {
 	return gulp.src(config.images)
 		.pipe(gulp.dest(config.distDev + '/assets/images/'));
 };
 
-// PROCESS IMAGES FOR **PRODUCTION**
+// PROCESS IMAGES FOR **PRODUCTION**======================================================
 pipes.processedImagesProd = function () {
 	return gulp.src(config.images)
 		.pipe(gulp.dest(config.distProd + '/assets/images/'));
 };
 
+// VALIDATE INDEX.HTML ===================================================================
 pipes.validatedIndex = function () {
 	return gulp.src(config.index)
 		.pipe(htmlhint())
 		.pipe(htmlhint.reporter());
 };
 
-// BUILD INDEX FOR __DEVELOPMENT__
+// BUILD INDEX FOR __DEVELOPMENT__========================================================
 pipes.buildIndexDev = function () {
 
 	/*var orderedVendorScripts = pipes.buildVendorScriptsDev();
@@ -303,7 +315,7 @@ pipes.buildIndexDev = function () {
 		.pipe(gulp.dest(config.distDev));
 };
 
-// BUILD INDEX FOR PRODUCTION
+// BUILD INDEX FOR PRODUCTION ===========================================================
 // TODO: Uncomment html minification
 pipes.buildIndexProd = function () {
 
@@ -320,12 +332,12 @@ pipes.buildIndexProd = function () {
 		.pipe(gulp.dest(config.distProd));
 };
 
-// BUILD __DEVELOPMENT__ APP
+// BUILD __DEVELOPMENT__ APP==============================================================
 pipes.buildAppDev = function () {
 	return es.merge(pipes.buildIndexDev(), /*pipes.buildPartialsDev(),*/ pipes.processedImagesDev(), pipes.processSvgsDev());
 };
 
-// BUILD **PRODUCTION** APP
+// BUILD **PRODUCTION** APP ==============================================================
 pipes.buildAppProd = function () {
 	return es.merge(pipes.buildIndexProd(), pipes.processedImagesProd(), pipes.processSvgsProd());
 };
