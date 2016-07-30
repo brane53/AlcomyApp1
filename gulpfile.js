@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
+		tslint = require('gulp-tslint'),
     ts = require('gulp-typescript'),
     plumber = require('gulp-plumber'),
     livereload = require('gulp-livereload'),
@@ -48,57 +49,57 @@ var config = {
 	],
 	appScripts: [
 		// Main Module
-		'alcomyApp.module.js',
-		'alcomyApp.config.js',
+		'alcomyApp.module.ts',
+		'alcomyApp.config.ts',
 		// App Configuration Files
-		'shared/config/firebaseRoot.js',
-		'shared/config/uiConfig.js',
-		// HTML Partials in JS
-		'partials.js',
+		'shared/config/firebaseRoot.ts',
+		'shared/config/uiConfig.ts',
+		// HTML Partials in.ts
+		'partials.ts',
 		// AlcomyApp Component
-		'alcomyApp.component.js',
+		'alcomyApp.component.ts',
 
 		// Security
-		'shared/security/security.module.js',
-		//'shared/security/authentication.service.js',
-		'components/login/login.module.js',
-		'components/login/login.component.js',
-		'shared/security/logout.js',
+		'shared/security/security.module.ts',
+		//'shared/security/authentication.service.ts',
+		'components/login/login.module.ts',
+		'components/login/login.component.ts',
+		'shared/security/logout.ts',
 		// Main Toolbar
-		'components/shared/main-toolbar/main-toolbar.module.js',
-		'components/shared/main-toolbar/main-toolbar.component.js',
+		'components/shared/main-toolbar/main-toolbar.module.ts',
+		'components/shared/main-toolbar/main-toolbar.component.ts',
 		// Vertical-Toolbar
-		'components/shared/vertical-toolbar/vertical-toolbar.module.js',
-		'components/shared/vertical-toolbar/vertical-toolbar.component.js',
+		'components/shared/vertical-toolbar/vertical-toolbar.module.ts',
+		'components/shared/vertical-toolbar/vertical-toolbar.component.ts',
 		// User
-		'components/user/user.module.js',
-		'components/user/user.service.js',
+		'components/user/user.module.ts',
+		'components/user/user.service.ts',
 		// Account
-		'components/account/account.module.js',
-		'components/account/shared/account.service.js',
-		'components/account/account.component.js',
+		'components/account/account.module.ts',
+		'components/account/shared/account.service.ts',
+		'components/account/account.component.ts',
 		// Facility
-		'components/facility/facility.module.js',
-		'components/facility/shared/facility.service.js',
+		'components/facility/facility.module.ts',
+		'components/facility/shared/facility.service.ts',
 		// Home
-		'components/home/home.module.js',
-		'components/home/home.component.js',
+		'components/home/home.module.ts',
+		'components/home/home.component.ts',
 		// Dashboard
-		'components/dashboard/dashboard.module.js',
-		'components/dashboard/dashboard.component.js',
+		'components/dashboard/dashboard.module.ts',
+		'components/dashboard/dashboard.component.ts',
 		// Tasks
-		'components/dashboard/tasks/tasks.module.js',
-		'components/dashboard/tasks/tasks.component.js',
+		'components/dashboard/tasks/tasks.module.ts',
+		'components/dashboard/tasks/tasks.component.ts',
 		// Residents
-		'components/residents/shared/residents-mock.js',
-		'components/residents/residents.module.js',
-		'components/residents/shared/residents.service.js',
-		'components/residents/residents.component.js',
+		'components/residents/shared/residents-mock.ts',
+		'components/residents/residents.module.ts',
+		'components/residents/shared/residents.service.ts',
+		'components/residents/residents.component.ts',
 		// Resident-List
-		'components/residents/resident-list/resident-list.component.js'
+		'components/residents/resident-list/resident-list.component.ts'
 	],
 	scssMain: './app/app.scss',
-	scripts: 'app/**/*.js',
+	scripts: 'app/**/*.ts',
 	styles: ['app/**/*.css', 'app/**/*.scss'],
 	images: './app/assets/images/**/*',
 	svgs: './app/assets/svg/*.svg',
@@ -145,20 +146,6 @@ pipes.minifiedFileName = function () {
 	});
 };
 
-// VALIDATED APP SCRIPTS ==============================================================
-pipes.validatedAppScripts = function () {
-	return gulp.src(config.scripts)
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'));
-};
-
-// VALIDATE PARTIAL HTML FILES ==========================================================
-pipes.validatedPartials = function () {
-	return gulp.src(config.partials)
-		.pipe(htmlhint({ 'doctype-first': false }))
-		.pipe(htmlhint.reporter());
-};
-
 // VALIDATE INDEX.HTML ===================================================================
 pipes.validatedIndex = function () {
 	return gulp.src(config.index)
@@ -173,44 +160,62 @@ pipes.validatedDevServerScripts = function () {
 		.pipe(jshint.reporter('jshint-stylish'));
 };
 
+// VALIDATED APP SCRIPTS ==============================================================
+pipes.validatedAppScripts = function () {
+	return gulp.src(config.scripts)
+		.pipe(tslint({
+			formatter: 'prose'
+		}));
+};
+
+// VALIDATED HTML PARTIAL FILES ==========================================================
+pipes.validatedHtmlPartials = function () {
+	return gulp.src(config.partials)
+		.pipe(htmlhint({ 'doctype-first': false }))
+		.pipe(htmlhint.reporter());
+};
+
 // SCRIPTED PARTIALS ====================================================================
-pipes.scriptedPartials = function () {
-	return pipes.validatedPartials()
+pipes.scriptedHtmlPartials = function () {
+	return pipes.validatedHtmlPartials()
 		.pipe(htmlhint.failReporter())
 		.pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
 		.pipe(ngHtml2js({
-			moduleName: "alcomyApp",
+			moduleName: 'alcomyApp',
 			declareModule: false,
 			prefix: './app/'
 		}))
-		.pipe(concat('partials.js'));
+		.pipe(concat('partials.ts'));
 };
 
 // BUILD APP SCRIPTS FOR __DEVELOPMENT__================================================
 pipes.buildAppScriptsDev = function () {
 	/*return pipes.validatedAppScripts()
-		pipe(pipes.orderedAppScripts())
+		.pipe(pipes.orderedAppScripts())
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest(config.distDev));*/
 
-	var scriptedPartials = pipes.scriptedPartials();
+	var scriptedHtmlPartials = pipes.scriptedHtmlPartials();
 	var validatedAppScripts = pipes.validatedAppScripts();
 
-	return es.merge(scriptedPartials, validatedAppScripts)
+	return es.merge(scriptedHtmlPartials, validatedAppScripts)
 		.pipe(pipes.orderedAppScripts())
+		.pipe(sourcemaps.init())
+		.pipe(ts(tsProject))
 		.pipe(concat('app.js'))
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(config.distDev + '/scripts'));
-
 };
 
 // BUILD APP SCRIPTS **PRODUCTION**======================================================
 pipes.buildAppScriptsProd = function () {
-	var scriptedPartials = pipes.scriptedPartials();
+	var scriptedHtmlPartials = pipes.scriptedHtmlPartials();
 	var validatedAppScripts = pipes.validatedAppScripts();
 
-	return es.merge(scriptedPartials, validatedAppScripts)
+	return es.merge(scriptedHtmlPartials, validatedAppScripts)
 		.pipe(pipes.orderedAppScripts())
 		.pipe(sourcemaps.init())
+		.pipe(ts(tsProject))
 		.pipe(concat('app.min.js'))
 		.pipe(uglify())
 		.pipe(sourcemaps.write())
@@ -233,8 +238,8 @@ pipes.buildVendorScriptsProd = function () {
 
 // BUILD HTML PARTIALS FOR __DEVELOPMENT__ **NOT USED**==================================
 pipes.buildPartialsDev = function () {
-	// return pipes.scriptedPartials()
-	return pipes.validatedPartials()
+	// return pipes.scriptedHtmlPartials()
+	return pipes.validatedHtmlPartials()
 		.pipe(gulp.dest(config.distDev));
 
 };
@@ -378,7 +383,7 @@ gulp.task('clean-svg-sprite', function () {
 });
 
 // checks html source files for syntax errors
-gulp.task('validate-partials', pipes.validatedPartials);
+gulp.task('validate-partials', pipes.validatedHtmlPartials);
 
 // checks index.html for syntax errors
 gulp.task('validate-index', pipes.validatedIndex);
@@ -387,7 +392,7 @@ gulp.task('validate-index', pipes.validatedIndex);
 gulp.task('build-partials-dev', pipes.buildPartialsDev);
 
 // converts partials to javascript using html2js
-gulp.task('convert-partials-to-js', pipes.scriptedPartials);
+gulp.task('convert-partials-to-js', pipes.scriptedHtmlPartials);
 
 // runs jshint on the dev server scripts
 gulp.task('validate-devserver-scripts', pipes.validatedDevServerScripts);

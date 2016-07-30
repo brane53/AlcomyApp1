@@ -10,6 +10,8 @@ TASKS:
       ✔ add gulp-typescript @done
       ☐ add typescript linter
       ☐ add the proper ts pipes to tasks
+      ☐ change .js to .ts
+    ☐ Renain source files from .js to .ts
     ☐ add definition references to files
 
   Git Flow Setup:
