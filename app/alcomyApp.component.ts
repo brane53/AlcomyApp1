@@ -1,4 +1,6 @@
-(function () {
+
+
+namespace alcomyApp {
 	'use strict';
 
 	angular
@@ -37,4 +39,4 @@
 	}
 
 
-})();
+};

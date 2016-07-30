@@ -1,6 +1,9 @@
-(function () {
+/// /// <reference path="../typings/globals/angular/index.d.ts" />
+
+
+namespace alcomyApp {
 	'use strict';
-	
+
 	angular
 		.module('alcomyApp', [
 			'ngComponentRouter',
@@ -21,4 +24,4 @@
 			'facility',
 			'account'
 		]);
-})();
+};

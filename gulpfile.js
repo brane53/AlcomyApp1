@@ -214,11 +214,9 @@ pipes.buildAppScriptsProd = function () {
 
 	return es.merge(scriptedHtmlPartials, validatedAppScripts)
 		.pipe(pipes.orderedAppScripts())
-		.pipe(sourcemaps.init())
 		.pipe(ts(tsProject))
 		.pipe(concat('app.min.js'))
 		.pipe(uglify())
-		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(config.distScriptsProd));
 };
 

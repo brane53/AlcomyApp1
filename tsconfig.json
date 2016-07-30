@@ -4,7 +4,7 @@
     "removeComments": false,
     "preserveConstEnums": true,
     "target": "ES5",
-    "sourceMap": true,
+    "sourceMap": false,
     "listFiles": false
   },
   "exclude": [
