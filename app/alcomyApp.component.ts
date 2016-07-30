@@ -1,5 +1,3 @@
-
-
 namespace alcomyApp {
 	'use strict';
 

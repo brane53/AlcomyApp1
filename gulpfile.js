@@ -162,10 +162,10 @@ pipes.validatedDevServerScripts = function () {
 
 // VALIDATED APP SCRIPTS ==============================================================
 pipes.validatedAppScripts = function () {
-	return gulp.src(config.scripts)
-		.pipe(tslint({
-			formatter: 'prose'
-		}));
+	return gulp.src(config.scripts);
+		// .pipe(tslint({
+		// 	formatter: 'prose'
+		// }));
 };
 
 // VALIDATED HTML PARTIAL FILES ==========================================================
@@ -202,7 +202,7 @@ pipes.buildAppScriptsDev = function () {
 		.pipe(pipes.orderedAppScripts())
 		.pipe(sourcemaps.init())
 		.pipe(ts(tsProject))
-		.pipe(concat('app.js'))
+		//.pipe(concat('app.js'))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(config.distDev + '/scripts'));
 };

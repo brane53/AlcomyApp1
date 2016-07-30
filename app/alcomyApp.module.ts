@@ -1,11 +1,9 @@
-/// /// <reference path="../typings/globals/angular/index.d.ts" />
-
+/// <reference path="../typings/index.d.ts" />
 
 namespace alcomyApp {
 	'use strict';
 
-	angular
-		.module('alcomyApp', [
+	angular.module('alcomyApp', [
 			'ngComponentRouter',
 			'ngAnimate',
 			'ngAria',

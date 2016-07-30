@@ -1,4 +1,4 @@
-(function () {
+namespace alcomyApp {
 	'use strict';
 
 	angular
@@ -158,5 +158,5 @@
 		$locationProvider.html5Mode(true);
 	}
 
-})();
+};
 
