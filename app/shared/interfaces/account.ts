@@ -2,8 +2,6 @@ namespace alcomy {
   
   export namespace account {
 
-
-
     export interface IPerson {
       firstName: string;
       middleName?: string;
