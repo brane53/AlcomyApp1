@@ -1,9 +1,12 @@
 {
   "globalDependencies": {
     "angular": "registry:dt/angular#1.5.0+20160725073351",
+    "angular-animate": "registry:dt/angular-animate#1.5.0+20160709061515",
     "angular-component-router": "registry:dt/angular-component-router#1.5.0+20160602124924",
-    "angular-idle": "registry:dt/angular-idle#0.0.0+20160317120654",
+    "angular-cookies": "registry:dt/angular-cookies#1.4.0+20160317120654",
     "angular-material": "registry:dt/angular-material#1.1.0-rc5.0+20160721000848",
+    "angular-mocks": "registry:dt/angular-mocks#1.5.0+20160608104721",
+    "angular-sanitize": "registry:dt/angular-sanitize#1.3.0+20160317120654",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008"
   }
 }

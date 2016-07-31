@@ -1,3 +1,6 @@
+/// <reference path="../typings/index.d.ts" />
+
+
 namespace alcomyApp {
 	'use strict';
 
@@ -10,11 +13,19 @@ namespace alcomyApp {
 	// RUN BLOCK FUNCTION
 	run.$inject = ['$log', '$rootScope', '$rootRouter', '$mdDialog', 'Idle', '$firebaseAuth'];
 	/* @ngInject */
-	function run($log, $rootScope, $rootRouter, $mdDialog, Idle, $firebaseAuth) {
-		var alert;
+	function run(
+		$log: ng.ILogService, 
+		$rootScope: ng.IRootScopeService, 
+		$rootRouter, 
+		$mdDialog: angular.material.IDialogService, 
+		Idle, 
+		$firebaseAuth): void {
+
+
+		var alert: angular.material.IAlertDialog | angular.material.IPromptDialog;
 
 		// User gets redirected to the login screen if they they become unauthenticated
-		$firebaseAuth().$onAuthStateChanged(function (authData) {
+		$firebaseAuth().$onAuthStateChanged(authData => {
 			if (!authData) {
 				//$rootRouter.navigate(['Login']);
 				Idle.unwatch();
@@ -26,36 +37,34 @@ namespace alcomyApp {
 		});
 
 		// A dialog appears informing the user that they are about to be logged out
-		$rootScope.$on('IdleStart', function () {
+		$rootScope.$on('IdleStart', () => {
 			$log.warn('You are Idling');
 			// Configure the alert
-			alert = $mdDialog.alert({
-				title: 'Session About to Expire',
-				textContent: "You have been idle for a long time and your session is" +
-				             " about to expire. Do something if you don't want that to happen",
-				ok: 'Ok'
-			});
+			alert = $mdDialog.alert()
+				.title('Session About to Expire')
+				.textContent("You have been idle for a long time and your session is" +
+				             " about to expire. Do something if you don't want that to happen")
+				.ok('Ok');
 			// Display the alert and delete it once closed
-			$mdDialog.show(alert).finally(function(){
+			$mdDialog.show(alert).finally(() => {
 				alert = undefined;
 			});
 		});
 
 		// Signs user out and alerts them that they were signed out
-		$rootScope.$on('IdleTimeout', function(){
+		$rootScope.$on('IdleTimeout', () => {
 			$mdDialog.cancel('Session Expired');
 			// Sign out user
 			$firebaseAuth().$signOut();
 			// Configure alert
-			alert = $mdDialog.alert({
-				title: 'Session Expired',
-				textContent: 'Your session has timed out. Please press continue and' +
-				             ' log back in',
-				ok: 'Continue',
-				cancel: 'Cancel'
-			});
+			alert = $mdDialog.prompt()
+				.title('Session Expired')
+				.textContent('Your session has timed out. Please press continue and' +
+				             ' log back in')
+				.ok('Continue')
+				.cancel('Cancel');
 			// Display alert and delete alert once closed
-			$mdDialog.show(alert).finally(function(){
+			$mdDialog.show(alert).finally(() => {
 				alert = undefined;
 			});
 
@@ -71,8 +80,11 @@ namespace alcomyApp {
 		'IdleProvider'
 	];
 	/* @ngInject */
-	function config($mdThemingProvider, $mdIconProvider, $locationProvider,
-	                IdleProvider) {
+	function config(
+		$mdThemingProvider: angular.material.IThemingProvider, 
+		$mdIconProvider: angular.material.IIconProvider, 
+		$locationProvider: ng.ILocationProvider,
+	  IdleProvider): void {
 		// TODO make sure you pre-load and cache the icons
 		// see: https://material.angularjs.org/latest/api/service/$mdIconProvider
 		$mdIconProvider.defaultIconSet('app/assets/svg/icons.svg', 24);
@@ -130,7 +142,7 @@ namespace alcomyApp {
 		$mdThemingProvider.theme('default')
 			.primaryPalette('blue')
 			.accentPalette('light-green', {
-				"default": "500"
+				'default': '500'
 			});
 
 		$mdThemingProvider.theme('neutral')
@@ -159,4 +171,3 @@ namespace alcomyApp {
 	}
 
 };
-

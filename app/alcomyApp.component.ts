@@ -1,12 +1,10 @@
+/// <reference path="../typings/index.d.ts" />
+
+
 namespace alcomyApp {
 	'use strict';
 
-	angular
-		.module('alcomyApp')
-		.component('alcomyApp', {
-			templateUrl: './app/alcomyApp.component.html',
-			controller: AlcomyAppController,
-			$routeConfig: [
+	let routeConfig: Array<Object> = [
 				// {
 				// 	path: '/login/',
 				// 	name: 'Login',
@@ -27,14 +25,35 @@ namespace alcomyApp {
 					name: 'Home',
 					component: 'home'
 				}
-			]
+			];
 
-		});
+	// AlcomyAppController Definition
 
-	function AlcomyAppController() {
-		var vm = this;
+	AlcomyAppController.$inject = ['$log'];
+
+	class AlcomyAppController {
+		
+		constructor($log: ng.ILogService){
+
+		}
 
 	}
 
+
+
+
+
+
+
+
+
+	angular
+		.module('alcomyApp')
+		.component('alcomyApp', {
+			templateUrl: './app/alcomyApp.component.html',
+			controller: AlcomyAppController,
+			$routeConfig: routeConfig
+
+		});
 
 };
