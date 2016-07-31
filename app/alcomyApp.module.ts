@@ -1,6 +1,6 @@
 /// <reference path="../typings/index.d.ts" />
 
-namespace alcomyApp {
+namespace alcomy {
 	'use strict';
 
 	angular.module('alcomyApp', [

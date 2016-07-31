@@ -7,12 +7,15 @@
     "sourceMap": false,
     "listFiles": false
   },
-  "exclude": [
-    "node_modules",
-    "dist.dev",
-    "dist.prod",
-    "devServer",
-    ".vscode",
-    "typings"
+  "files": [
+    "app/**/*.ts"
   ]
+  // "exclude": [
+  //   "node_modules",
+  //   "dist.dev",
+  //   "dist.prod",
+  //   "devServer",
+  //   ".vscode",
+  //   "typings"
+  // ]
 }

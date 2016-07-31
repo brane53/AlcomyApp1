@@ -1,3 +1,7 @@
+/// <reference path="../../../typings/index.d.ts" />
+
+declare var firebase;
+
 (function () {
 	'use strict';
 

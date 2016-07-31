@@ -1,17 +1,44 @@
-<form action="" layout="column">
-  <md-input-container md-no-float>
-    <label>First Name</label>
-     <input name="firstName"
-            type="text"
-            ng-model="$ctrl.firstName" 
-            required 
-            
-            placeholder=""
-            aria-label="First Name">
+<div layout="column"
+     layout-align="center center"
+     flex-sm="90"
+     flex-gt-sm="33">
 
-            
-  </md-input-container>
+	<h3>Create New Company Account</h3>
+	
+	<!--TODO Add alerts here-->
 
-  <md-button aria-label="Submit" ng-click="$ctrl.createAccount()"> Submit </md-button>
+	<form action="" layout="column">
+		
+		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+			<label>Company Name</label>
+			<input ng-model="$ctrl.company.name" type="text">
+		</md-input-container>
+    
+    <md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+			<label>First Name</label>
+			<input ng-model="$ctrl.newUserObj.firstName" type="text">
+		</md-input-container>
 
-</form>
+		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+			<label>Last Name</label>
+			<input ng-model="$ctrl.newUserObj.lastName" type="text">
+		</md-input-container>
+
+		<md-input-container ng-hide="$ctrl.isLoggedIn">
+			<label>Email</label>
+			<input ng-model="$ctrl.newUserObj.email" type="email">
+		</md-input-container>
+
+		<md-input-container ng-hide="$ctrl.isLoggedIn">
+			<label>Password</label>
+			<input ng-model="$ctrl.newUserObj.password" type="password">
+		</md-input-container>
+		
+		<!--Create Account-->
+		<md-button ng-hide="$ctrl.isRegister" class=""
+		           ng-click="$ctrl.goToRegister()">
+			Create an Account
+		</md-button>
+
+	</form>
+</div>

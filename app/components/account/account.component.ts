@@ -1,36 +1,36 @@
-(function () {
-  'use strict';
-  angular
-    .module('account')
-    .component('account', {
-      templateUrl: './app/components/account/account.component.html',
-      controller: AccountController
-    });
+/// <reference path="../../../typings/index.d.ts" />
 
-  AccountController.$inject = ['$log','accountService'];
+
+namespace alcomy.account {
+  'use strict';
+  
+
 
   /* @ngInject */
-  function AccountController($log, accountService) {
-    var vm = this;
+  class AccountController {
+    static $inject: Array<string> = ['$log', 'accountService'];
 
-    vm.createAccount = createAccount;
+    user: alcomy.account.IUser;
+    company: alcomy.account.ICompany;
+  
+    constructor(public $log: ng.ILogService, 
+                public accountService: alcomy.account.IAccountService) {}
 
-    var user = {
-      firstName: 'ilija',
-      lastName: 'vrajich',
-      photoUrl: '',
-      accountId: '',
-      email: 'vrajich1@gmail.com',
-      password: '123456'
-    };
 
-    var accountInfo = {
-      companyName: 'Alcomy'
-    };
-
-    function createAccount(){
-      accountService.createAccount(user, accountInfo);
+    public createAccount(user: alcomy.account.IUser, company: alcomy.account.ICompany): void {
+      this.accountService.createAccount(user, company);
     }
 
   }
-})();
+
+
+
+  angular
+      .module('account')
+      .component('account', {
+        templateUrl: './app/components/account/account.component.html',
+        controller: AccountController
+      });
+
+
+};

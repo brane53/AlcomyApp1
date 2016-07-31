@@ -1,12 +1,20 @@
-(function () {
+/// <reference path="../../../../typings/index.d.ts" />
+
+namespace alcomy.account {
   'use strict';
 
-  angular
-    .module('account')
-    .service('accountService', accountService);
+class accountService {
+  static $inject: Array<string> = ['$log', '$firebaseAuth', 'userService']
+
+  constructor($log: ng.ILogService, 
+              $firebaseAuth, 
+              userService: alcomy.u) {}
+
+}
+  
 
   accountService.$inject = ['$log', '$firebaseAuth', 'userService'];
-  function accountService($log, $firebaseAuth, userService) {
+  function accountService2($log, $firebaseAuth, userService) {
 
     var self = this;
     var fbRoot = firebase.database().ref();
@@ -38,6 +46,11 @@
 
     }
 
-
   }
-})();
+
+
+
+  angular
+    .module('account')
+    .service('accountService', accountService);
+};

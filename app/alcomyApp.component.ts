@@ -1,15 +1,15 @@
 /// <reference path="../typings/index.d.ts" />
 
 
-namespace alcomyApp {
+namespace alcomy {
 	'use strict';
 
 	let routeConfig: Array<Object> = [
-				// {
-				// 	path: '/login/',
-				// 	name: 'Login',
-				// 	component: 'login'
-				// },
+				{
+					path: '/login/',
+					name: 'Login',
+					component: 'login'
+				},
 				{
 					path: '/logout/',
 					name: 'Logout',
@@ -27,24 +27,15 @@ namespace alcomyApp {
 				}
 			];
 
-	// AlcomyAppController Definition
 
-	AlcomyAppController.$inject = ['$log'];
 
 	class AlcomyAppController {
+		static $inject: Array<string> = ['$log'];
 		
-		constructor($log: ng.ILogService){
+		constructor($log: ng.ILogService) {}
 
-		}
 
 	}
-
-
-
-
-
-
-
 
 
 	angular

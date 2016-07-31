@@ -1,55 +1,61 @@
-(function () {
-	'use strict';
-	
-	angular
-		.module('user')
-		.service('userService', userService);
-	
-	userService.$inject = ['$log','$q', '$firebaseAuth'];
-	
-	/* @ngInject */
-	function userService($log, $q, $firebaseAuth) {
-		var self = this;
+/// <reference path="../../../typings/index.d.ts" />
+/// <reference path="../../shared/interfaces/account.ts" />
 
-		var fbRoot = firebase.database().ref();
+declare var firebase;
+declare var $firebaseAuth;
 
-		self.createUser = createUser;
+namespace alcomy {
+	export namespace user {
+		'use strict';
 		
-		////////////////
+		export interface IUserService {
+			createUser(user: alcomy.account.IUser);
+		}
 
-		function createUser(user){
+		class userService implements IUserService {
 
-			return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
-				.then(function(authData){
-					if(authData){
+			static $inject = ['$log','$q', '$firebaseAuth'];
+			private fbRoot = firebase.database().ref();
 
-						var userData = {
-							firstName: user.firstName,
-							lastName: user.lastName,
-							email: user.email,
-							companyId: ''
-						};
+			constructor(public $log: ng.ILogService, public $q, public $firebaseAuth) {}
 
-						return fbRoot.child('users').child(authData.uid).set(userData)
-							.then(function(){
 
-								return authData.uid;
-							})
-							.catch(function(err){
-								$log.error('Error when returning authData: ' + err);
-							});
-					
-					}
-				})
-				.catch(function(err){
-					$log.error('UserService Error: ' + err);
-				});
+			public createUser(user: alcomy.) {
+
+				return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
+					.then(function(authData){
+						if(authData){
+
+							var userData = {
+								firstName: user.firstName,
+								lastName: user.lastName,
+								email: user.email,
+								companyId: ''
+							};
+
+							return this.fbRoot.child('users').child(authData.uid).set(userData)
+								.then(function(){
+
+									return authData.uid;
+								})
+								.catch(function(err){
+									this.$log.error('Error when returning authData: ' + err);
+								});
+						
+						}
+					})
+					.catch(function(err){
+						this.$log.error('UserService Error: ' + err);
+					});
+			}
 		}
 
 
-
+		angular
+			.module('user')
+			.service('userService', userService);
 
 	}
-	
-})();
+
+};
 
