@@ -1,56 +1,47 @@
 /// <reference path="../../../../typings/index.d.ts" />
+/// <reference path="../../user/user.service.ts" />
 
-namespace alcomy.account {
-  'use strict';
+declare var firebase;
+namespace alcomy {
+  export namespace account {
+    'use strict';
 
-class accountService {
-  static $inject: Array<string> = ['$log', '$firebaseAuth', 'userService']
+    class accountService {
+      static $inject: Array<string> = ['$log', '$firebaseAuth', 'userService'];
+      private fbRoot = firebase.database().ref();
 
-  constructor($log: ng.ILogService, 
-              $firebaseAuth, 
-              userService: alcomy.u) {}
+      constructor($log: ng.ILogService,
+        $firebaseAuth,
+        userService: alcomy.user.IUserService) { }
 
-}
-  
+      createAccount(user, accountInfo) {
 
-  accountService.$inject = ['$log', '$firebaseAuth', 'userService'];
-  function accountService2($log, $firebaseAuth, userService) {
+        return userService.createUser(user)
+          .then(function (userId) {
 
-    var self = this;
-    var fbRoot = firebase.database().ref();
+            $log.info('User Id: ' + userId);
 
-    self.createAccount = createAccount;
+            var accountRef = fbRoot.child('accounts').push(accountInfo);
 
-    ////////////////
+            return accountRef.child('users').child(userId).set(true)
+              .then(function (data) {
+                $log.info('Account Data: ' + data);
+              })
+              .catch(function (err) {
+                $log.warn('Error: ' + err);
+              });
+          })
+          .catch(function (err) {
+            $log.warn('AccountService Error: ' + err);
+          });
 
-    function createAccount(user, accountInfo) {
-
-      return userService.createUser(user)
-        .then(function (userId) {
-
-          $log.info('User Id: ' + userId);
-
-          var accountRef = fbRoot.child('accounts').push(accountInfo);
-          
-          return accountRef.child('users').child(userId).set(true)
-            .then(function (data) {
-              $log.info('Account Data: ' + data);
-            })
-            .catch(function (err) {
-              $log.warn('Error: ' + err);
-            });
-        })
-        .catch(function (err) {
-          $log.warn('AccountService Error: ' + err);
-        });
+      }
 
     }
 
+    angular
+      .module('account')
+      .service('accountService', accountService);
+
   }
-
-
-
-  angular
-    .module('account')
-    .service('accountService', accountService);
 };

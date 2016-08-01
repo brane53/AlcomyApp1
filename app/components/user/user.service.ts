@@ -14,13 +14,13 @@ namespace alcomy {
 
 		class userService implements IUserService {
 
-			static $inject = ['$log','$q', '$firebaseAuth'];
+			static $inject: Array<string> = ['$log','$q', '$firebaseAuth'];
 			private fbRoot = firebase.database().ref();
 
 			constructor(public $log: ng.ILogService, public $q, public $firebaseAuth) {}
 
 
-			public createUser(user: alcomy.) {
+			public createUser(user: alcomy.account.IUser) {
 
 				return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
 					.then(function(authData){

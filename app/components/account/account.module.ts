@@ -1,7 +1,12 @@
-namespace alcomy.account {
-  'use strict';
+/// <reference path="../../../typings/index.d.ts" />
 
-  angular.module('account', [
-    
-  ]);
+
+namespace alcomy {
+  export namespace account {
+    'use strict';
+
+    angular.module('account', [
+
+    ]);
+  }
 };
