@@ -13,5 +13,8 @@
     },
 
     // Active indentation guides rendering color for dark themes.
-    "guides.active.color.dark": "rgba(60, 170, 200, 0.75)"
+    "guides.active.color.dark": "rgba(60, 170, 200, 0.75)",
+
+      // Control whether eslint is enabled for JavaScript files or not.
+    "eslint.enable": false
 }

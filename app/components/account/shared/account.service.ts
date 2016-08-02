@@ -22,21 +22,21 @@ namespace alcomy {
       createAccount(user, accountInfo): ng.IPromise<any> {
 
         return this.userService.createUser(user)
-          .then(function (userId) {
+          .then(userId => {
 
             this.$log.info('User Id: ' + userId);
 
             var accountRef = this.fbRoot.child('accounts').push(accountInfo);
 
             return accountRef.child('users').child(userId).set(true)
-              .then(function (data) {
+              .then(data => {
                 this.$log.info('Account Data: ' + data);
               })
-              .catch(function (err) {
+              .catch(err => {
                 this.$log.warn('Error: ' + err);
               });
           })
-          .catch(function (err) {
+          .catch(err => {
             this.$log.warn('AccountService Error: ' + err);
           });
 

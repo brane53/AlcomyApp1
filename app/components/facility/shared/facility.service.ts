@@ -1,4 +1,5 @@
 /// <reference path="../../../../typings/index.d.ts" />
+/// <reference path="facility.ts" />
 
 declare var firebase;
 namespace alcomy {
@@ -9,20 +10,14 @@ namespace alcomy {
       static $inject = ['$log'];
       private fbRoot = firebase.database().ref();
 
-      constructor($log) {}
+      constructor(public $log: ng.ILogService) {}
 
-      createFacility(data) {
+      createFacility(facility: alcomy.facility.IFacility) {
 
-        let facilityData = {
-          name: data.name
-        };
-
-        return this.fbRoot.child('facilities').push(facilityData)
-          .then(function (data) {
-            return data;
-          })
-          .catch(function (err) {
-            this.$log.error('Error: ' + err);
+        return this.fbRoot.child('facilities').push(facility)
+          .then(data => data)
+          .catch(err => {
+            return this.$log.error('Error: ' + err);
           });
       }
     }
