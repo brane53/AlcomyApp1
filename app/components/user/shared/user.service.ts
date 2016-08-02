@@ -1,5 +1,5 @@
-/// <reference path="../../../typings/index.d.ts" />
-/// <reference path="../../shared/interfaces/account.ts" />
+/// <reference path="../../../../typings/index.d.ts" />
+/// <reference path="../../user/shared/user.ts" />
 
 declare var firebase;
 declare var $firebaseAuth;
@@ -7,20 +7,18 @@ declare var $firebaseAuth;
 namespace alcomy {
 	export namespace user {
 		'use strict';
-		
-		export interface IUserService {
-			createUser(user: alcomy.account.IUser);
-		}
 
 		class userService implements IUserService {
 
 			static $inject: Array<string> = ['$log','$q', '$firebaseAuth'];
 			private fbRoot = firebase.database().ref();
 
-			constructor(public $log: ng.ILogService, public $q, public $firebaseAuth) {}
+			constructor(public $log: ng.ILogService, 
+									public $q, 
+									public $firebaseAuth) {}
 
 
-			public createUser(user: alcomy.account.IUser) {
+			public createUser(user: alcomy.user.IUser) {
 
 				return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
 					.then(function(authData){

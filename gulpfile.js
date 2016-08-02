@@ -73,7 +73,7 @@ var config = {
 		'components/shared/vertical-toolbar/vertical-toolbar.component.ts',
 		// User
 		'components/user/user.module.ts',
-		'components/user/user.service.ts',
+		'components/user/shared/user.service.ts',
 		// Account
 		'components/account/account.module.ts',
 		'components/account/shared/account.service.ts',

@@ -1,7 +1,9 @@
-(function () {
-	'use strict';
+/// <reference path="../../../typings/index.d.ts" />
 
-	angular
-		.module('user', []);
-	
-})();
+namespace alcomy{
+	'use strict';
+	export namespace user {
+		angular
+			.module('user', []);
+		}
+};

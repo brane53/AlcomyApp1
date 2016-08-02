@@ -4,7 +4,7 @@
 namespace alcomy {
 	'use strict';
 
-	let routeConfig: Array<Object> = [
+	let routeConfig: Array<angular.RouteDefinition> = [
 				{
 					path: '/login/',
 					name: 'Login',

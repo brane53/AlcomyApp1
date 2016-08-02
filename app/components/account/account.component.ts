@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/index.d.ts" />
-/// <reference path="../../shared/interfaces/account.ts" />
-
+/// <reference path="shared/account.ts" />
+/// <reference path="../user/shared/user.ts" />
 
 namespace alcomy {
   export namespace account {
@@ -10,14 +10,14 @@ namespace alcomy {
     class AccountController {
       static $inject: Array<string> = ['$log', 'accountService'];
 
-      user: alcomy.account.IUser;
+      user: alcomy.user.IUser;
       company: alcomy.account.ICompany;
 
       constructor(public $log: ng.ILogService,
         public accountService: alcomy.account.IAccountService) { }
 
 
-      public createAccount(user: alcomy.account.IUser, company: alcomy.account.ICompany): void {
+      public createAccount(user: alcomy.user.IUser, company: alcomy.account.ICompany): void {
         this.accountService.createAccount(user, company);
       }
 
