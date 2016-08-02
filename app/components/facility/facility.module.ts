@@ -1,7 +1,10 @@
-(function() {
-  'use strict';
+/// <reference path="../../../typings/index.d.ts" />
 
-  angular.module('facility', [
-    
-  ]);
-})();
+namespace alcomy {
+  'use strict';
+  export namespace facility {
+    angular.module('facility', [
+
+    ]);
+  }
+};

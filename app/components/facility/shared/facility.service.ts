@@ -1,33 +1,35 @@
-(function () {
+/// <reference path="../../../../typings/index.d.ts" />
+
+declare var firebase;
+namespace alcomy {
   'use strict';
+  export namespace facility {
+    
+    class facilityService {
+      static $inject = ['$log'];
+      private fbRoot = firebase.database().ref();
 
-  angular
-    .module('facility')
-    .service('facilityService', facilityService);
+      constructor($log) {}
 
-  facilityService.$inject = ['$log'];
-  function facilityService($log) {
+      createFacility(data) {
 
-    var self = this;
-    var fbRoot = firebase.database().ref();
+        let facilityData = {
+          name: data.name
+        };
 
-    self.createFacility = createFacility;
-
-    ////////////////
-
-    function createFacility(data) {
-
-      var facilityData = {
-        name: data.name
-      };
-
-      return fbRoot.child('facilities').push(facilityData)
-        .then(function (data) {
-          return data;
-        })
-        .catch(function (err) {
-          $log.error('Error: ' + err);
-        });
+        return this.fbRoot.child('facilities').push(facilityData)
+          .then(function (data) {
+            return data;
+          })
+          .catch(function (err) {
+            this.$log.error('Error: ' + err);
+          });
+      }
     }
+
+
+    angular
+      .module('facility')
+      .service('facilityService', facilityService);
   }
-})();
+};
