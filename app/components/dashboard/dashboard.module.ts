@@ -1,10 +1,13 @@
-(function () {
-	'use strict';
+/// <reference path="../../../typings/index.d.ts" />
 
-	angular
-		.module('dashboard', [
-			'verticalToolbar',
-			'tasks'
-		]);
+namespace alcomy {
+	export namespace dashboard {
+		'use strict';
 
-})();
+		angular
+			.module('dashboard', [
+				'verticalToolbar',
+				'tasks'
+			]);
+	}
+};

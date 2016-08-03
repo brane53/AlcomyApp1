@@ -2,9 +2,9 @@
 namespace alcomy {
 	'use strict';
 	export namespace home {
-	angular
-		.module('home', [
-			'mainToolbar'
-		]);
-}
+		angular
+			.module('home', [
+				'mainToolbar'
+			]);
+	}
 };
