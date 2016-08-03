@@ -11,20 +11,19 @@ namespace alcomy {
 						component: 'tasks',
 						useAsDefault: true
 					}
-				]
+				];
 
 
 
 		class DashboardController {
 
-		static $inject = [];
+			static $inject = [];
 
-		/* @ngInject */
-		constructor() {}
+			/* @ngInject */
+			constructor() {}
 		
-
 		}
-		
+
 
 		angular
 			.module('dashboard')

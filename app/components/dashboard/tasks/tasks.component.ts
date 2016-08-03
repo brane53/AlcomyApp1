@@ -1,25 +1,27 @@
-(function () {
-	'use strict';
+/// <reference path="../../../../typings/index.d.ts" />
 
-	angular
-		.module('tasks')
-		.component('tasks', {
-			templateUrl: './app/components/dashboard/tasks/tasks.component.html',
-			controller: TasksController,
-			transclude: false
+namespace alcomy {
+	export namespace tasks {
+		'use strict';
 
 
-		});
+		class TasksController {
+			static $inject = [];
+			title: string;
+			/* @ngInject */
+			constructor() {
+				this.title = 'Tasks';
+			}
 
-	TasksController.$inject = [];
+		}
 
-	/* @ngInject */
-	function TasksController() {
-		var vm = this;
-		vm.title = 'Tasks';
-
+		angular
+			.module('tasks')
+			.component('tasks', {
+				templateUrl: './app/components/dashboard/tasks/tasks.component.html',
+				controller: TasksController,
+				transclude: false
+			});
 
 	}
-
-
-})();
+};
