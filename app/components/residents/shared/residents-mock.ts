@@ -1,25 +1,28 @@
-(function () {
-	'use strict';
+namespace alcomy {
+	export namespace residents {
+		'use strict';
 
-	var residents = [
-		{
-			id: 1,
-			name: 'brane',
-			age: '28',
-			color: 'blue'
-		},
-		{
-			name: 'rebekah',
-			age: '28',
-			color: 'pink'
-		},
-		{
-			name: 'justin',
-			age: '28',
-			color: 'green'
+		export function getResidents() {
+			var residents = [
+				{
+					id: 1,
+					name: 'brane',
+					age: '28',
+					color: 'blue'
+				},
+				{
+					name: 'rebekah',
+					age: '28',
+					color: 'pink'
+				},
+				{
+					name: 'justin',
+					age: '28',
+					color: 'green'
+				}
+			];
+
+			return residents;
 		}
-	];
-
-	return residents;
-
-})();
+	}
+};
