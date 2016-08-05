@@ -5,14 +5,18 @@ namespace alcomy {
   export namespace user {
 
     export interface IUser extends alcomy.generics.IPerson {
-      email: string;
-      password: string;
+      firstName: string;
+      lastName: string;
+      email?: string;
+      password?: string;
       photoUrl?: string;
       accountId?: string;
     }
 
     export interface IUserService {
 			createUser(user: alcomy.user.IUser);
+      getCurrentUser(id: string): ng.IPromise<IUser>;
+
 		}
     
   }

@@ -10,42 +10,60 @@ namespace alcomy {
 
 		class userService implements IUserService {
 
-			static $inject: Array<string> = ['$log','$q', '$firebaseAuth'];
+			static $inject: Array<string> = ['$log', '$q', '$firebaseAuth'];
 			private fbRoot = firebase.database().ref();
+			public currentUser: alcomy.user.IUser;
 
-			constructor(public $log: ng.ILogService, 
-									public $q, 
-									public $firebaseAuth) {}
+			constructor(
+				public $log: ng.ILogService,
+				public $q: ng.IQService,
+				public $firebaseObject,
+				public $firebaseAuth) { }
 
 
 			public createUser(user: alcomy.user.IUser) {
 
 				return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
-					.then(function(authData){
-						if(authData){
+					.then(function (authData) {
+						if (authData) {
 
-							var userData = {
+							let userData = {
 								firstName: user.firstName,
 								lastName: user.lastName,
 								email: user.email,
-								companyId: ''
+								accountId: ''
 							};
 
-							return this.fbRoot.child('users').child(authData.uid).set(userData)
-								.then(function(){
-
-									return authData.uid;
-								})
-								.catch(function(err){
-									this.$log.error('Error when returning authData: ' + err);
-								});
-						
+							return this.fbRoot.child(`users/${authData.uid}`).set(userData)
 						}
 					})
-					.catch(function(err){
-						this.$log.error('UserService Error: ' + err);
+					.then(function () {
+						let id = firebase.auth().currentUser.uid;
+						let userRef = this.fbRoot.child(`users/${id}`).ref()
+						return this.currentUser = this.$firebaseObject(userRef);
+							
+					})
+					.catch(function (err) {
+						this.$log.error(`UserService Error: ${err}`);
 					});
 			}
+
+			public getUserProfile(){
+					if(this.currentUser){
+						return this.currentUser;
+					} else {
+						this.$log.warn('currentUser is not set')
+					}
+			}
+
+			public setCurrentUser() {
+				let id = firebase.auth().currentUser.uid;
+				let userRef = this.fbRoot.child(`users/${id}`).ref()
+				this.currentUser = this.$firebaseObject(userRef);
+			}
+
+
+
 		}
 
 

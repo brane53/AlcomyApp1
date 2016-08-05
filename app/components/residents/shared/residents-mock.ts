@@ -11,11 +11,13 @@ namespace alcomy {
 					color: 'blue'
 				},
 				{
+					id: 2,
 					name: 'rebekah',
 					age: '28',
 					color: 'pink'
 				},
 				{
+					id: 3,
 					name: 'justin',
 					age: '28',
 					color: 'green'
