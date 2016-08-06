@@ -10,7 +10,8 @@ namespace alcomy {
 		.value('$routerRootComponent', 'alcomyApp')
 		.run(run);
 
-	// RUN BLOCK FUNCTION
+	////////////////// RUN BLOCK FUNCTION //////////////////////////////
+
 	run.$inject = ['$log', '$rootScope', '$rootRouter', '$mdDialog', 'Idle', '$firebaseAuth'];
 	/* @ngInject */
 	function run(
@@ -19,7 +20,8 @@ namespace alcomy {
 		$rootRouter, 
 		$mdDialog: angular.material.IDialogService, 
 		Idle, 
-		$firebaseAuth): void {
+		$firebaseAuth,
+		userService): void {
 
 
 		var alert: angular.material.IAlertDialog | angular.material.IPromptDialog;
@@ -27,10 +29,11 @@ namespace alcomy {
 		// User gets redirected to the login screen if they they become unauthenticated
 		$firebaseAuth().$onAuthStateChanged(authData => {
 			if (!authData) {
-				//$rootRouter.navigate(['Login']);
+				$rootRouter.navigate(['Login']);
+				userService.clearCurrentUser();
 				Idle.unwatch();
-			}
-			else {
+
+			} else {
 				Idle.watch();
 			}
 
@@ -72,6 +75,9 @@ namespace alcomy {
 		});
 
 	}
+
+/////////////////////// CONFIG BLOCK /////////////////////////////
+
 
 	config.$inject = [
 		'$mdThemingProvider',

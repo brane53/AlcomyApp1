@@ -52,13 +52,11 @@ var config = {
 		'alcomyApp.module.ts',
 		'alcomyApp.config.ts',
 		// App Configuration Files
-		'shared/config/firebaseRoot.ts',
 		'shared/config/uiConfig.ts',
 		// HTML Partials in.ts
 		'partials.ts',
 		// AlcomyApp Component
 		'alcomyApp.component.ts',
-
 		// Security
 		'shared/security/security.module.ts',
 		//'shared/security/authentication.service.ts',

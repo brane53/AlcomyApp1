@@ -1,22 +1,22 @@
-(function () {
-	'use strict';
-	
-	angular
-		.module('security')
-		.component('timeout-dialog', {
-			controller: timeoutDialogController
+/// <reference path="../../../typings/index.d.ts" />
+
+namespace alcomy {
+	export namespace security {
+		'use strict';
+
+		class TimeoutDialogController {
+			static $inject = ['$mdDialog'];
 			
-		});
-	
-	timeoutDialogController.$inject = ['$mdDialog'];
-	/* @ngInject */
-	function timeoutDialogController($mdDialog) {
-		var vm = this;
-		
-		
-		
-		
+			/* @ngInject */
+			constructor(public $mdDialog) { }
+
+		}
+
+		angular
+			.module('security')
+			.component('timeout-dialog', {
+				controller: TimeoutDialogController
+
+			});
 	}
-	
-	
-})();
+};

@@ -12,15 +12,17 @@ namespace alcomy {
 			// Firebase Root
 			private fbRoot = firebase.database().ref();
 
-			static $inject = ['$log', '$location', '$firebaseAuth', 'userService'];
+			static $inject = ['$log', '$location', '$firebaseAuth', 'authService', 'userService'];
 			newUserObj: Object;
 			isRegister: Boolean;
 			isLoggedIn: Boolean;
+			$router: ng.Router;
 
 			/* @ngInject */
 			constructor(public $log: ng.ILogService,
 								public $location: ng.ILocationService,
 								public $firebaseAuth,
+								public authService,
 								public userService) {
 
 				this.newUserObj = {
@@ -74,15 +76,9 @@ namespace alcomy {
 
 				this.$log.info('Email: ' + email + 'Password' + password);
 
-				// $firebaseAuth().$signInWithEmailAndPassword(credentials)
-				this.$firebaseAuth().$signInWithEmailAndPassword(email, password)
-					.then(authData => {
-						if (authData) {
-							console.log('User id: ', authData.uid);
-							/*userService.setCurrentUser(authData.uid);*/
-							this.isLoggedIn = true;
-							this.$router.navigate(['Home']);
-						}
+				this.authService.login(email, password)
+					then(() => {
+						this.isLoggedIn = true
 					})
 					.catch(err => {
 						console.warn('Error: ' + err);
@@ -140,7 +136,7 @@ namespace alcomy {
 
 			goToRegister() {
 				this.$location.path('/register');
-				/*vm.$router.navigate(['Register']);*/
+				this.$router.navigate(['Register']);
 				this.isRegister = true;
 			}
 

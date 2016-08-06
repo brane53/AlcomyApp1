@@ -1,19 +1,22 @@
-(function () {
-	'use strict';
+/// <reference path="../../../typings/index.d.ts" />
 
-	angular
-		.module('security')
-		.component('logout', {
-			controller: LogoutController,
+namespace alcomy {
+	export namespace security {
+		'use strict';
 
-		});
+		class LogoutController {
+			static $inject = ['$firebaseAuth', '$rootRouter'];
+			/* @ngInject */
+			constructor(public $firebaseAuth, public $rootRouter) {
+				this.$firebaseAuth().$signOut();
+				this.$rootRouter.navigate(['Login']);
+			}
+		}
 
-	LogoutController.$inject = ['$firebaseAuth', '$rootRouter'];
-	/* @ngInject */
-	function LogoutController($firebaseAuth, $rootRouter) {
-		$firebaseAuth().$signOut();
-		$rootRouter.navigate(['Login']);
+		angular
+			.module('security')
+			.component('logout', {
+				controller: LogoutController,
+			});
 	}
-
-
-})();
+};

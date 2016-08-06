@@ -1,73 +1,86 @@
-(function () {
-	'use strict';
-	
-	angular
-		.module('alcomyApp')
-		.factory('authService', authService);
-	
-	authService.$inject = ['$q', '$timeout', '$firebaseAuth', 'userService'];
-	
-	/* @ngInject */
-	function authService($q, $timeout, $firebaseAuth, userService) {
-		var self = this;
+/// <reference path="../../../typings/index.d.ts" />
+/// <reference path="../../components/user/shared/user.ts" />
 
-		// creates a firebase authentication object
-		return $firebaseAuth();
 
-/*  self.isLoggedIn = false;
-		self.registerUser = registerUser;
-		self.login = login;
-		self.logout = logout;*/
-		
-		////////////////
+namespace alcomy {
+	export namespace security {
+		'use strict';
+
+		angular
+			.module('alcomyApp')
+			.factory('authService', authService);
+
+		class authService {
+			static $inject = ['$log', '$q', '$timeout', '$firebaseAuth', 'userService'];
+			isLoggedIn = false;
+
+			/* @ngInject */
+			constructor(
+				public $log: ng.ILogService,
+				public $q: ng.IQService,
+				public $timeout: ng.ITimeoutService,
+				public $firebaseAuth,
+				public userService: alcomy.user.IUserService) { }
+
+
 
 		// Registers a new user in firebase
-		/*function registerUser(newUserObj){
+		registerUser(newUserObj){
 			var credentials = {
 				email: newUserObj.email,
 				password: newUserObj.password
 			};
 			authObj.$createUser(credentials)
-				.then(function(userData){
-					if(userData){
+				.then(function (userData) {
+					if (userData) {
 						return authObj.$authWithPassword(credentials)
 					}
 				})
-				.then(function(authData){
+				.then(function (authData) {
 					firebaseRoot.child('users').child(authData.uid).set({
 						firstName: newUserObj.firstName,
 						lastName: newUserObj.lastName,
 						email: newUserObj.email
 					})
 				})
-				.catch(function(err){
+				.catch(function (err) {
 					console.warn("Error: " + err)
 				});
-		}*/
+		}
 
-		// Logs a user in given their email and password. Aka authenticates a user
-		/*function login(email, password) {
-			var credentials = {
-				email: email,
-				password: password
-			};
+		// Logs a user in given their email and password and retrieve their info
+		login(email, password) {
 
-			return authObj.$authWithPassword(credentials)
-				.then(function(authData){
-					/!*userService.setCurrentUser(authData.uid)*!/
+			return this.$firebaseAuth().signInWithEmailAndPassword(email, password)
+				.then(authData => {
 					if(authData){
-						self.isLoggedIn = true;
-						return true;
+						return this.userService.setCurrentUser(authData.uid)
 					}
-					return true;
 				})
-				.catch(function(err){
-					console.warn('Error: ' + err)
-					return false;
+				.catch(err => {
+					this.$log.error('Error: ' + err)
+					return err;
 				});
-		}*/
+		}
+
+
+// LOGOUT
+			/*
+			* FIX
+			* if you have multiple tabs open and the Home component is already
+			* loaded you can continue to navigate through the app once you logout.
+			*
+			* */
+			logout() {
+				this.$firebaseAuth().$signOut();
+				this.$firebaseAuth().$waitForSignIn()
+					.then(state => {
+						this.isLoggedIn = !!state;
+					});
+			}
+
 
 	}
-	
-})();
+
+};
 

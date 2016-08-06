@@ -8,16 +8,16 @@ TASKS:
     ☐ install necessary .d.ts files
     ☐ edit gulpfile
       ✔ add gulp-typescript @done
-      ☐ add typescript linter
+      ✔ add typescript linter @done
       ☐ add the proper ts pipes to tasks
-      ☐ change .js to .ts
-    ☐ Renain source files from .js to .ts
+      ✔ change .js to .ts @done
+    ✔ Renaim source files from .js to .ts @done
     ☐ add definition references to files
 
   Git Flow Setup:
     ✔ Git Flow installed @done
     ☐ initialize repository to Git Flow
-
+ 
 
 
 
@@ -42,7 +42,6 @@ TEMPORARY IMPLEMENTATIONS:
       
         ? Perhaps an optional permissions object can be passed in
           as a second argument?
-
 
 NEEDS IMPLIMENTING:
   

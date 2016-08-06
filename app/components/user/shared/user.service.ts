@@ -12,7 +12,7 @@ namespace alcomy {
 
 			static $inject: Array<string> = ['$log', '$q', '$firebaseAuth'];
 			private fbRoot = firebase.database().ref();
-			public currentUser: alcomy.user.IUser;
+			public currentUser: ng.IPromise<alcomy.user.IUser>;
 
 			constructor(
 				public $log: ng.ILogService,
@@ -27,20 +27,18 @@ namespace alcomy {
 					.then(function (authData) {
 						if (authData) {
 
-							let userData = {
+							let userData: alcomy.user.IUser = {
 								firstName: user.firstName,
 								lastName: user.lastName,
 								email: user.email,
-								accountId: ''
+								accountId: user.accountId
 							};
-
+							
 							return this.fbRoot.child(`users/${authData.uid}`).set(userData)
 						}
 					})
-					.then(function () {
-						let id = firebase.auth().currentUser.uid;
-						let userRef = this.fbRoot.child(`users/${id}`).ref()
-						return this.currentUser = this.$firebaseObject(userRef);
+					.then(function (authData) {
+						return this.setCurrentUser(authData.uid);
 							
 					})
 					.catch(function (err) {
@@ -48,21 +46,23 @@ namespace alcomy {
 					});
 			}
 
-			public getUserProfile(){
+			public getCurrentUser(){
 					if(this.currentUser){
 						return this.currentUser;
 					} else {
-						this.$log.warn('currentUser is not set')
+						this.$log.warn('User Service > getCurrentUser: current user is not set')
 					}
 			}
 
-			public setCurrentUser() {
-				let id = firebase.auth().currentUser.uid;
+			public setCurrentUser(id: string): ng.IPromise<alcomy.user.IUser> {
 				let userRef = this.fbRoot.child(`users/${id}`).ref()
-				this.currentUser = this.$firebaseObject(userRef);
+				return this.currentUser = this.$firebaseObject(userRef);
+				
 			}
 
-
+			public clearCurrentUser(): void {
+				this.currentUser = null;
+			}
 
 		}
 

@@ -1,7 +1,10 @@
-(function () {
-	'use strict';
+/// <reference path="../../../../typings/index.d.ts" />
 
-	angular
-		.module('verticalToolbar', []);
+namespace alcomy {
+	export namespace shared {
+		'use strict';
 
-})();
+		angular
+			.module('verticalToolbar', []);
+	}
+};

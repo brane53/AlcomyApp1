@@ -19,12 +19,8 @@ namespace alcomy {
 
 
 			$onInit() {
-				this.userService.getCurrentUser().then(function (user) {
-					this.user = user;
-				}).catch(function (err) {
-					console.error('Error MainToolbarController: ' + err);
-				});
-			};
+				this.userService.getCurrentUser();
+			}
 
 			logout() {
 				this.$firebaseAuth().$signOut();
