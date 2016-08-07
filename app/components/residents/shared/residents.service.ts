@@ -12,7 +12,10 @@ namespace alcomy {
 			residents: Array<Object>;
 
 			/* @ngInject */
-			constructor($q, $log, $http, $firebaseArray) {
+			constructor(
+					public $q: ng.IQService, 
+					public $log: ng.ILogService,
+					public $firebaseArray) {
 				this.residents = [
 					{
 						firstName: 'brane',
@@ -195,7 +198,7 @@ namespace alcomy {
 				});*/
 
 				// common-js style promise
-				var deferred = $q.defer();
+				var deferred = this.$q.defer();
 				deferred.resolve(residents);
 				return deferred.promise;
 			}

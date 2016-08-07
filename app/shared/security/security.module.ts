@@ -7,6 +7,12 @@ namespace alcomy {
 		angular
 			.module('security', [
 				'login'
-			]);
+			])
+			.run(run);
+
+			function run(){
+				console.log("Securty Module - run block is running")
+			}
+
 	}
 };

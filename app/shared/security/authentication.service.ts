@@ -7,10 +7,6 @@ namespace alcomy {
 		'use strict';
 
 
-		angular
-			.module('alcomyApp')
-			.factory('authService', authService);
-
 		class authService {
 			static $inject: Array<string> = ['$log', '$q', '$timeout', '$firebaseAuth', 'userService'];
 			isLoggedIn = false;
@@ -57,5 +53,10 @@ namespace alcomy {
 
 
 		}
+
+
+			angular
+			.module('alcomyApp')
+			.service('authService', authService);
 	}
 };

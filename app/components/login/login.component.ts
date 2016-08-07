@@ -75,7 +75,7 @@ namespace alcomy {
 			// Calls the login function from $firebaseAuth
 			login(email, password) {
 
-				this.$log.info('Email: ' + email + 'Password' + password);
+				this.$log.info(`Email: ${email} Password: ${password}`);
 
 				this.authService.login(email, password)
 					.then(() => {

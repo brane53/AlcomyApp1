@@ -85,9 +85,7 @@ namespace alcomy {
 					$router: '<'
 				},
 				$canActivate: $canActivate,
-				// ROUTES
 				$routeConfig: routeConfig
-
 			});
 
 	}

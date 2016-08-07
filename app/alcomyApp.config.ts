@@ -24,7 +24,7 @@ namespace alcomy {
 		$firebaseAuth,
 		userService: alcomy.user.IUserService): void {
 
-		$log.info('Run block is running')
+		$log.info('AlcomyApp Module - run block is running')
 
 		var alert: angular.material.IAlertDialog | angular.material.IPromptDialog;
 

@@ -11,7 +11,8 @@ namespace alcomy {
 		.run(run);
 
 		function run(){
-			console.log("Login Module Instantiated")
+			console.log("Login Module Instantiated");
 		}
+
 	}
 };
