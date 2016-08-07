@@ -1,18 +1,20 @@
 /// <reference path="../../../typings/index.d.ts" />
 /// <reference path="../../components/user/shared/user.ts" />
-
+declare var firebase;
 
 namespace alcomy {
 	export namespace security {
 		'use strict';
+
 
 		angular
 			.module('alcomyApp')
 			.factory('authService', authService);
 
 		class authService {
-			static $inject = ['$log', '$q', '$timeout', '$firebaseAuth', 'userService'];
+			static $inject: Array<string> = ['$log', '$q', '$timeout', '$firebaseAuth', 'userService'];
 			isLoggedIn = false;
+			private fbRoot = firebase.database().ref();
 
 			/* @ngInject */
 			constructor(
@@ -22,49 +24,23 @@ namespace alcomy {
 				public $firebaseAuth,
 				public userService: alcomy.user.IUserService) { }
 
+			// Logs a user in given their email and password and retrieve their info
+			login(email, password) {
 
-
-		// Registers a new user in firebase
-		registerUser(newUserObj){
-			var credentials = {
-				email: newUserObj.email,
-				password: newUserObj.password
-			};
-			authObj.$createUser(credentials)
-				.then(function (userData) {
-					if (userData) {
-						return authObj.$authWithPassword(credentials)
-					}
-				})
-				.then(function (authData) {
-					firebaseRoot.child('users').child(authData.uid).set({
-						firstName: newUserObj.firstName,
-						lastName: newUserObj.lastName,
-						email: newUserObj.email
+				return this.$firebaseAuth().signInWithEmailAndPassword(email, password)
+					.then(authData => {
+						if (authData) {
+							return this.userService.setCurrentUser(authData.uid)
+						}
 					})
-				})
-				.catch(function (err) {
-					console.warn("Error: " + err)
-				});
-		}
-
-		// Logs a user in given their email and password and retrieve their info
-		login(email, password) {
-
-			return this.$firebaseAuth().signInWithEmailAndPassword(email, password)
-				.then(authData => {
-					if(authData){
-						return this.userService.setCurrentUser(authData.uid)
-					}
-				})
-				.catch(err => {
-					this.$log.error('Error: ' + err)
-					return err;
-				});
-		}
+					.catch(err => {
+						this.$log.error('Error: ' + err)
+						return err;
+					});
+			}
 
 
-// LOGOUT
+			// LOGOUT
 			/*
 			* FIX
 			* if you have multiple tabs open and the Home component is already
@@ -80,7 +56,6 @@ namespace alcomy {
 			}
 
 
+		}
 	}
-
 };
-

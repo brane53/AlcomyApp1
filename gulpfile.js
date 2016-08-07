@@ -59,7 +59,7 @@ var config = {
 		'alcomyApp.component.ts',
 		// Security
 		'shared/security/security.module.ts',
-		//'shared/security/authentication.service.ts',
+		'shared/security/authentication.service.ts',
 		'components/login/login.module.ts',
 		'components/login/login.component.ts',
 		'shared/security/logout.ts',

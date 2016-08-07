@@ -1,4 +1,5 @@
 /// <reference path="../typings/index.d.ts" />
+/// <reference path="components/user/shared/user.ts" />
 
 
 namespace alcomy {
@@ -12,7 +13,7 @@ namespace alcomy {
 
 	////////////////// RUN BLOCK FUNCTION //////////////////////////////
 
-	run.$inject = ['$log', '$rootScope', '$rootRouter', '$mdDialog', 'Idle', '$firebaseAuth'];
+	run.$inject = ['$log', '$rootScope', '$rootRouter', '$mdDialog', 'Idle', '$firebaseAuth', 'userService'];
 	/* @ngInject */
 	function run(
 		$log: ng.ILogService, 
@@ -21,8 +22,9 @@ namespace alcomy {
 		$mdDialog: angular.material.IDialogService, 
 		Idle, 
 		$firebaseAuth,
-		userService): void {
+		userService: alcomy.user.IUserService): void {
 
+		$log.info('Run block is running')
 
 		var alert: angular.material.IAlertDialog | angular.material.IPromptDialog;
 
@@ -32,6 +34,7 @@ namespace alcomy {
 				$rootRouter.navigate(['Login']);
 				userService.clearCurrentUser();
 				Idle.unwatch();
+				
 
 			} else {
 				Idle.watch();

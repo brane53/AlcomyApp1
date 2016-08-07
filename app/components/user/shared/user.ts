@@ -1,3 +1,4 @@
+/// <reference path="../../../../typings/index.d.ts" />
 /// <reference path="../../account/shared/account.ts" />
 /// <reference path="../../../shared/interfaces/generics.ts" />
 
@@ -14,8 +15,8 @@ namespace alcomy {
     }
 
     export interface IUserService {
-			createUser(user: alcomy.user.IUser);
-      getCurrentUser(id: string): ng.IPromise<IUser>;
+			createUser(user: alcomy.user.IUser): ng.IPromise<IUser>;
+      getCurrentUser(): ng.IPromise<IUser>;
       setCurrentUser(id: string): ng.IPromise<IUser>;
       clearCurrentUser(): void;
 

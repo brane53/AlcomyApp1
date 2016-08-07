@@ -1,7 +1,6 @@
 /// <reference path="../../../typings/index.d.ts" />
 /// <reference path="../user/shared/user.ts" />
 
-
 namespace alcomy {
 	'use strict';
 	export namespace home {
@@ -17,8 +16,8 @@ namespace alcomy {
 				path: '/residents/...',
 				name: 'Residents',
 				component: 'residents'
-			},
-		]
+			}
+		];
 
 
 		$canActivate.$inject = ['$nextInstruction', '$prevInstruction', '$firebaseAuth', '$rootRouter'];
@@ -32,6 +31,7 @@ namespace alcomy {
 					return state;
 				})
 				.catch(function (err) {
+					console.log('Something is happening')
 					console.log('Auth Error: ', err);
 					$rootRouter.navigate(['Login']);
 				});
@@ -39,6 +39,7 @@ namespace alcomy {
 
 		class HomeController {
 			static $inject = ['$mdSidenav', '$firebaseAuth', 'userService',];
+			user: alcomy.user.IUser;
 
 			/* @ngInject */
 			constructor(public $mdSidenav: angular.material.ISidenavService,
@@ -50,24 +51,24 @@ namespace alcomy {
 
 			$routerOnActivate() {
 
-				// return this.userService.getCurrentUser()
-				// 	.then(function (user) {
-				// 		this.user = user;
-				// 	})
-				// 	.catch(function (err) {
-				// 		console.error('Error MainToolbarController: ' + err);
-				// 	});
+				return this.userService.getCurrentUser()
+					.then(function (user) {
+						this.user = user;
+					})
+					.catch(function (err) {
+						console.error('Error MainToolbarController: ' + err);
+					});
 			};
 
 
 
-			/*vm.$onInit = function(){
-				userService.getCurrentUser().then(function(user){
-					vm.user = user;
+			$onInit(){
+				this.userService.getCurrentUser().then(function(user){
+					this.user = user;
 				}).catch(function(err){
 					console.error('Error MainToolbarController: ' + err);
 				});
-			}*/
+			}
 
 			toggleMobileSidenav() {
 				this.$mdSidenav('mobile-sidenav').toggle();

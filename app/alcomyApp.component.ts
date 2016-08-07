@@ -32,8 +32,9 @@ namespace alcomy {
 	class AlcomyAppController {
 		static $inject: Array<string> = ['$log'];
 		
-		constructor($log: ng.ILogService) {}
-
+		constructor(public $log: ng.ILogService) {
+			this.$log.info('Alcomy App Instantiated')
+		}
 
 	}
 

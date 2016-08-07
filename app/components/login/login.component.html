@@ -1,41 +1,41 @@
-<!--TODO Complete Login Form-->
-<!--TODO Create Layout for login form-->
+<!--TODO: Complete Login Form-->
+<!--TODO: Create Layout for login form-->
 
 <div layout="column"
      layout-align="center center"
      flex-sm="90"
      flex-gt-sm="33">
 
-	<h3 ng-hide="$ctrl.isLoggedIn || $ctrl.isRegister">Login</h3>
-	<h3>{{$ctrl.newUserObj.email}}</h3>
-	<h3 ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">Register New Account</h3>
+	<h3 ng-hide="$ctrl.isLoggedIn || $ctrl.register">Login</h3>
+	<h3>{{$ctrl.newUser.email}}</h3>
+	<h3 ng-show="$ctrl.register && !$ctrl.isLoggedIn">Register New Account</h3>
 	<h3 ng-show="$ctrl.isLoggedIn">You are currently logged in</h3>
-	<h3 ng-show="$ctrl.isRegister && $ctrl.isLoggedIn">Logout to Register</h3>
-	<!--TODO Add alerts here-->
+	<h3 ng-show="$ctrl.register && $ctrl.isLoggedIn">Logout to Register</h3>
+	<!--TODO: Add alerts here-->
 
 	<form action="" layout="column">
-		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+		<md-input-container ng-show="$ctrl.register && !$ctrl.isLoggedIn">
 			<label>First Name</label>
-			<input ng-model="$ctrl.newUserObj.firstName" type="text">
+			<input ng-model="$ctrl.newUser.firstName" type="text">
 		</md-input-container>
 
-		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+		<md-input-container ng-show="$ctrl.register && !$ctrl.isLoggedIn">
 			<label>Last Name</label>
-			<input ng-model="$ctrl.newUserObj.lastName" type="text">
+			<input ng-model="$ctrl.newUser.lastName" type="text">
 		</md-input-container>
 
 		<md-input-container ng-hide="$ctrl.isLoggedIn">
 			<label>Email</label>
-			<input ng-model="$ctrl.newUserObj.email" type="email">
+			<input ng-model="$ctrl.newUser.email" type="email">
 		</md-input-container>
 
 		<md-input-container ng-hide="$ctrl.isLoggedIn">
 			<label>Password</label>
-			<input ng-model="$ctrl.newUserObj.password" type="password">
+			<input ng-model="$ctrl.newUser.password" type="password">
 		</md-input-container>
 		<!--LOGIN BUTTON-->
-		<md-button ng-hide="$ctrl.isLoggedIn || $ctrl.isRegister" class="md-raised md-primary"
-		           ng-click="$ctrl.login($ctrl.newUserObj.email, $ctrl.newUserObj.password)">
+		<md-button ng-hide="$ctrl.isLoggedIn || $ctrl.register" class="md-raised md-primary"
+		           ng-click="$ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)">
 			Login
 		</md-button>
 		<!--LOGOUT BUTTON-->
@@ -44,12 +44,12 @@
 			Logout
 		</md-button>
 		<!--RESGISTER BUTTON-->
-		<md-button ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn" class="md-raised md-primary"
-		           ng-click="$ctrl.registerNewUser($ctrl.newUserObj)">
+		<md-button ng-show="$ctrl.register && !$ctrl.isLoggedIn" class="md-raised md-primary"
+		           ng-click="$ctrl.registerNewUser($ctrl.newUser)">
 			Register
 		</md-button>
 		<!--CREATE ACCOUNT-->
-		<md-button ng-hide="$ctrl.isRegister" class=""
+		<md-button ng-hide="$ctrl.register" class=""
 		           ng-click="$ctrl.goToRegister()">
 			Create an Account
 		</md-button>

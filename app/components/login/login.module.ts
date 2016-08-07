@@ -7,6 +7,11 @@ namespace alcomy {
 	angular
 		.module('login', [
 			'firebase'
-		]);
+		])
+		.run(run);
+
+		function run(){
+			console.log("Login Module Instantiated")
+		}
 	}
 };

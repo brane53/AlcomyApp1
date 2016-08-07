@@ -8,31 +8,32 @@ namespace alcomy {
 	export namespace login {
 
 		class LoginController {
-
+			static $inject = ['$log', '$location', '$firebaseAuth', 'authService', 'userService'];
 			// Firebase Root
 			private fbRoot = firebase.database().ref();
 
-			static $inject = ['$log', '$location', '$firebaseAuth', 'authService', 'userService'];
-			newUserObj: Object;
-			isRegister: Boolean;
+			newUser: alcomy.user.IUser;
+			register: Boolean;
 			isLoggedIn: Boolean;
 			$router: ng.Router;
 
 			/* @ngInject */
-			constructor(public $log: ng.ILogService,
-								public $location: ng.ILocationService,
-								public $firebaseAuth,
-								public authService,
-								public userService) {
-
-				this.newUserObj = {
+			constructor(
+					public $log: ng.ILogService,
+					public $location: ng.ILocationService,
+					public $firebaseAuth,
+					public authService,
+					public userService) {
+						
+				this.$log.info('Login Component Instanciated');
+				this.newUser = {
 					firstName: null,
 					lastName: null,
 					email: null,
 					password: null
 				};
-				this.isRegister = null;  // TODO this needs to be implemented correctly
-				this.isLoggedIn = null; //$firebaseAuth().isLoggedIn;    // TODO this needs to
+				this.register = false;  // TODO this needs to be implemented correctly
+				this.isLoggedIn = false; //$firebaseAuth().isLoggedIn;    // TODO this needs to
 			}
 
 
@@ -44,12 +45,12 @@ namespace alcomy {
 			$onInit() {
 				console.log('url: ', this.$location.path());
 				if (this.$location.path() === '/login') {
-					this.isRegister = false;
+					this.register = false;
 				} else if (this.$location.path() === '/register') {
-					this.isRegister = true;
+					this.register = true;
 				}
 
-				console.log('$router: ', $router);
+				console.log('$router: ', this.$router);
 				console.log('isLoggedIn', this.$firebaseAuth().isLoggedIn);
 				this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
 
@@ -77,7 +78,7 @@ namespace alcomy {
 				this.$log.info('Email: ' + email + 'Password' + password);
 
 				this.authService.login(email, password)
-					then(() => {
+					.then(() => {
 						this.isLoggedIn = true
 					})
 					.catch(err => {
@@ -86,37 +87,13 @@ namespace alcomy {
 			}
 
 			// REGISTER
-			registerNewUser(newUserObj) {
-
-				// Credientials 
-				var credentials = {
-					email: newUserObj.email,
-					password: newUserObj.password
-				};
-
-				// Create user with given credentials
-				this.$firebaseAuth().$createUserWithEmailAndPassword(credentials)
-					.then(userData => {
-						if (userData) {
-							return this.$firebaseAuth().$signInWithEmailAndPassword(credentials);
-						}
-					})
-					.then(authData => {
-						return this.fbRoot.child('users').child(authData.uid).set({
-							firstName: newUserObj.firstName,
-							lastName: newUserObj.lastName,
-							email: newUserObj.email
-						})
-							.then(data => {
-								console.log('Data: ', data);
-								this.isLoggedIn = true;
-								this.$router.navigate(['Home']);
-							});
-
-					})
-					.catch(err => {
-						console.warn("Error: " + err);
+			registerNewUser(newUser: alcomy.user.IUser) {
+				this.userService.createUser(newUser)
+					.then(() => {
+						this.isLoggedIn = true;
+						this.register = false;
 					});
+				
 			}
 
 			// LOGOUT
@@ -127,7 +104,7 @@ namespace alcomy {
 			* */
 			logout() {
 				this.$firebaseAuth().$signOut();
-				this.isRegister = true;
+				this.register = true;
 				this.$firebaseAuth().$waitForSignIn()
 					.then(state => {
 						this.isLoggedIn = !!state;
@@ -137,7 +114,7 @@ namespace alcomy {
 			goToRegister() {
 				this.$location.path('/register');
 				this.$router.navigate(['Register']);
-				this.isRegister = true;
+				this.register = true;
 			}
 
 		}

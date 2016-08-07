@@ -21,7 +21,7 @@ namespace alcomy {
 				public $firebaseAuth) { }
 
 
-			public createUser(user: alcomy.user.IUser) {
+			public createUser(user: alcomy.user.IUser): ng.IPromise<alcomy.user.IUser> {
 
 				return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
 					.then(function (authData) {
