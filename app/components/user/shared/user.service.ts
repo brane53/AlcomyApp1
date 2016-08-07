@@ -54,10 +54,13 @@ namespace alcomy {
 					}
 			}
 
-			public setCurrentUser(id: string): ng.IPromise<alcomy.user.IUser> {
-				let userRef = this.fbRoot.child(`users/${id}`).ref()
-				return this.currentUser = this.$firebaseObject(userRef);
-				
+			public setCurrentUser(id: string) {
+				let userRef = this.fbRoot.child(`users/${id}`);
+				let userObj = this.$firebaseObject(userRef);
+				userObj.$loaded().then(() => {
+					return this.currentUser = userObj;
+				});
+
 			}
 
 			public clearCurrentUser(): void {
