@@ -78,8 +78,15 @@ namespace alcomy {
 				this.$log.info(`Email: ${email} Password: ${password}`);
 
 				this.authService.login(email, password)
-					.then(() => {
+					.then((authData) => {
+						this.$log.info(authData);
+						if (authData) {
+							return this.userService.setCurrentUser(authData.uid);
+						}
 						this.isLoggedIn = true
+					})
+					.then(() => {
+
 					})
 					.catch(err => {
 						console.warn('Error: ' + err);

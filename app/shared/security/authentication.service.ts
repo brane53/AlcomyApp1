@@ -23,17 +23,8 @@ namespace alcomy {
 			// Logs a user in given their email and password and retrieve their info
 			login(email, password) {
 
-				return this.$firebaseAuth().$signInWithEmailAndPassword(email, password)
-					.then(authData => {
-						if (authData) {
-							this.$log.info(`AuthData: ${authData}`)
-							return this.userService.setCurrentUser(authData.uid);
-						}
-					})
-					.catch(err => {
-						this.$log.error('Login Error: ' + err)
-						return err;
-					});
+				return this.$firebaseAuth().$signInWithEmailAndPassword(email, password);
+					
 			}
 
 
@@ -56,7 +47,7 @@ namespace alcomy {
 		}
 
 
-			angular
+		angular
 			.module('alcomyApp')
 			.service('authService', authService);
 	}

@@ -12,7 +12,7 @@ namespace alcomy {
 
 			static $inject: Array<string> = ['$log', '$q', '$firebaseAuth'];
 			private fbRoot = firebase.database().ref();
-			public currentUser: ng.IPromise<alcomy.user.IUser>;
+			public currentUser: alcomy.user.IUser;
 
 			constructor(
 				public $log: ng.ILogService,
@@ -33,33 +33,39 @@ namespace alcomy {
 								email: user.email,
 								accountId: user.accountId
 							};
-							
+
 							return this.fbRoot.child(`users/${authData.uid}`).set(userData)
 						}
 					})
 					.then(function (authData) {
 						return this.setCurrentUser(authData.uid);
-							
+
 					})
 					.catch(function (err) {
 						this.$log.error(`UserService Error: ${err}`);
 					});
 			}
 
-			public getCurrentUser(){
-					if(this.currentUser){
-						return this.currentUser;
-					} else {
-						this.$log.warn('User Service > getCurrentUser: current user is not set')
-					}
+			public getCurrentUser(): IUser {
+				if (this.currentUser) {
+					return this.currentUser;
+				} else {
+					this.$log.warn('User Service > getCurrentUser: current user is not set')
+				}
 			}
 
 			public setCurrentUser(id: string) {
-				let userRef = this.fbRoot.child(`users/${id}`);
-				let userObj = this.$firebaseObject(userRef);
-				userObj.$loaded().then(() => {
-					return this.currentUser = userObj;
+				var userRef = this.fbRoot.child(`users/${id}`);
+				var userObj = this.$firebaseObject(userRef);
+				var deferred = this.$q.defer();
+
+
+				userObj.$loaded().then((data) => {
+					this.$log.info(`user data: ${data}`);
+					this.currentUser = data;
+					deferred.resolve();
 				});
+				return deferred.promise;
 
 			}
 
