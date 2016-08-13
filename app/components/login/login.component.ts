@@ -52,6 +52,7 @@ namespace alcomy {
 
 				console.log('$router: ', this.$router);
 				console.log('isLoggedIn', this.$firebaseAuth().isLoggedIn);
+
 				this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
 
 			}
@@ -78,15 +79,8 @@ namespace alcomy {
 				this.$log.info(`Email: ${email} Password: ${password}`);
 
 				this.authService.login(email, password)
-					.then((authData) => {
-						this.$log.info(authData);
-						if (authData) {
-							return this.userService.setCurrentUser(authData.uid);
-						}
-						this.isLoggedIn = true
-					})
 					.then(() => {
-
+						this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
 					})
 					.catch(err => {
 						console.warn('Error: ' + err);

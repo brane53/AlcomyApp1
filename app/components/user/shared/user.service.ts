@@ -10,7 +10,7 @@ namespace alcomy {
 
 		class userService implements IUserService {
 
-			static $inject: Array<string> = ['$log', '$q', '$firebaseAuth'];
+			static $inject: Array<string> = ['$log', '$q', '$firebaseObject', '$firebaseAuth'];
 			private fbRoot = firebase.database().ref();
 			public currentUser: alcomy.user.IUser;
 
@@ -55,17 +55,15 @@ namespace alcomy {
 			}
 
 			public setCurrentUser(id: string) {
-				var userRef = this.fbRoot.child(`users/${id}`);
-				var userObj = this.$firebaseObject(userRef);
-				var deferred = this.$q.defer();
+				let userRef = this.fbRoot.child(`users/${id}`);
+				let userObj = this.$firebaseObject(userRef);
 
 
-				userObj.$loaded().then((data) => {
-					this.$log.info(`user data: ${data}`);
-					this.currentUser = data;
-					deferred.resolve();
+				return userObj.$loaded().then(data => {
+					this.$log.info(`user data:`);
+					this.currentUser = userObj;
+
 				});
-				return deferred.promise;
 
 			}
 
