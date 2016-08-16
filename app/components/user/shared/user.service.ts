@@ -46,13 +46,29 @@ namespace alcomy {
 					});
 			}
 
-			public getCurrentUser(): IUser {
-				if (this.currentUser) {
-					return this.currentUser;
-				} else {
-					this.$log.warn('User Service > getCurrentUser: current user is not set')
-				}
+			// public getCurrentUser(): IUser {
+			// 	if (this.currentUser) {
+			// 		return this.currentUser;
+			// 	} else {
+			// 		this.$log.warn('User Service > getCurrentUser: current user is not set')
+			// 	}
+			// }
+
+			public getCurrentUser(): ng.IPromise<IUser> {
+
+					let userId = this.$firebaseAuth().$getAuth().uid;
+					let userRef = this.fbRoot.child(`users/${userId}`);
+				  let userObj = this.$firebaseObject(userRef);
+
+
+					return userObj.$loaded().then(data => {
+						return data;
+				
+				});
+				
 			}
+
+
 
 			public setCurrentUser(id: string) {
 				let userRef = this.fbRoot.child(`users/${id}`);

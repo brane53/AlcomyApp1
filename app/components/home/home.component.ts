@@ -51,21 +51,22 @@ namespace alcomy {
 
 			$routerOnActivate() {
 
-				return this.userService.getCurrentUser()
-					.then(function (user) {
-						this.user = user;
-					})
-					.catch(function (err) {
-						console.error('Error MainToolbarController: ' + err);
-					});
+				// return this.userService.getCurrentUser()
+				// 	.then(user => {
+				// 		this.user = user;
+				// 	})
+				// 	.catch(function (err) {
+				// 		console.error('Error MainToolbarController: ' + err);
+				// 	});
 			};
 
 
 
 			$onInit(){
-				this.userService.getCurrentUser().then(function(user){
+				this.userService.getCurrentUser().then(user => {
 					this.user = user;
-				}).catch(function(err){
+				})
+				.catch(function(err){
 					console.error('Error MainToolbarController: ' + err);
 				});
 			}

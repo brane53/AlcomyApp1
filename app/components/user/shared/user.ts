@@ -17,7 +17,7 @@ namespace alcomy {
     export interface IUserService {
       currentUser: IUser;
 			createUser(user: alcomy.user.IUser): ng.IPromise<IUser>;
-      getCurrentUser(): IUser;
+      getCurrentUser(): ng.IPromise<IUser>;
       setCurrentUser(id: string);
       clearCurrentUser(): void;
 

@@ -81,6 +81,7 @@ namespace alcomy {
 				this.authService.login(email, password)
 					.then(() => {
 						this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
+						this.$router.navigate(['Home']);
 					})
 					.catch(err => {
 						console.warn('Error: ' + err);

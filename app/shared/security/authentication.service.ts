@@ -31,7 +31,7 @@ namespace alcomy {
 							}
 						})
 						.catch(() => {
-							
+							this.$log.error("Problem logging in");
 						});
 					
 			}
