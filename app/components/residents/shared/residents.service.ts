@@ -37,154 +37,8 @@ namespace alcomy {
 						age: '28',
 						color: 'green',
 						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
-					},
-					{
-						firstName: 'brane',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'blue',
-						avatar: 'assets/images/avatars/brane.jpg'
-					},
-					{
-						firstName: 'rebekah',
-						lastName: 'vrajich',
-						age: '28',
-						color: 'pink',
-						avatar: 'assets/images/avatars/rebekah.jpg'
-					},
-					{
-						firstName: 'justin',
-						lastName: 'kunz',
-						age: '28',
-						color: 'green',
-						avatar: 'assets/images/avatars/justin.jpg'
 					}
+
 				];
 			}
 
@@ -199,9 +53,11 @@ namespace alcomy {
 
 				// common-js style promise
 				var deferred = this.$q.defer();
-				deferred.resolve(residents);
+				deferred.resolve(this.residents);
 				return deferred.promise;
 			}
+
+
 
 			// TODO-Implement getResident()
 

@@ -7,17 +7,17 @@ namespace alcomy {
 
 		class ResidentListController {
 			static $inject: Array<string> = ['residentsService'];
+			residents: Array<any>;
+
+
 			/* @ngInject */
 			constructor(public residentsService) {
-				this.init();
+				
 			 }
 
-			// TODO: Implement $onInit() to get the residents from the residents service.
-
-			// TODO CHECK: Don't know if this is correct 
-			init(){
-				this.residentsService.getResidents().then(function (residents) {
-
+			$onInit(){
+				this.residentsService.getResidents().then(residents => {
+					this.residents = residents;
 				});
 			}
 			
