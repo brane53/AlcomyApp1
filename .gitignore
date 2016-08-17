@@ -9,3 +9,4 @@ app/jspm_packages
 dist.prod/
 dist.dev/
 typings/
+mongoose-free-5.6.exe
