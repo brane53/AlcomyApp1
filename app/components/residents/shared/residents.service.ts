@@ -18,6 +18,7 @@ namespace alcomy {
 					public $firebaseArray) {
 				this.residents = [
 					{
+						id: '1',
 						firstName: 'brane',
 						lastName: 'vrajich',
 						age: '28',
@@ -25,6 +26,7 @@ namespace alcomy {
 						avatar: 'assets/images/avatars/brane.jpg'
 					},
 					{
+						id: '2',
 						firstName: 'rebekah',
 						lastName: 'vrajich',
 						age: '28',
@@ -32,6 +34,7 @@ namespace alcomy {
 						avatar: 'assets/images/avatars/rebekah.jpg'
 					},
 					{
+						id: '3',
 						firstName: 'justin',
 						lastName: 'kunz',
 						age: '28',
@@ -60,6 +63,16 @@ namespace alcomy {
 
 
 			// TODO-Implement getResident()
+			getResident(id: string){
+				let deferred = this.$q.defer();
+				for(var resident in this.residents){
+					if(resident.id === id){
+
+					}
+				}
+				let resident = this.residents.id
+				deferred.resolve
+			}
 
 			// TODO-Implement currentResident
 
