@@ -28,16 +28,12 @@ namespace alcomy {
 
             var accountRef = this.fbRoot.child('accounts').push(accountInfo);
 
-            return accountRef.child('users').child(userId).set(true)
-              .then(data => {
-                this.$log.info('Account Data: ' + data);
-              })
-              .catch(err => {
-                this.$log.warn('Error: ' + err);
-              });
+            return accountRef.child('users').child(userId).set(true);
+             
           })
           .catch(err => {
-            this.$log.warn('AccountService Error: ' + err);
+            this.$log.warn('AccountService Error: ');
+            this.$log.warn(err);
           });
 
       }

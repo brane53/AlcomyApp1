@@ -12,13 +12,17 @@ namespace alcomy {
 
       user: alcomy.user.IUser;
       company: alcomy.account.ICompany;
+      $router: ng.Router;
 
       constructor(public $log: ng.ILogService,
         public accountService: alcomy.account.IAccountService) { }
 
 
       public createAccount(user: alcomy.user.IUser, company: alcomy.account.ICompany): void {
-        this.accountService.createAccount(user, company);
+        this.accountService.createAccount(user, company)
+        .then(() => {
+          this.$router.navigate(['Home']);
+        });
       }
 
     }
@@ -29,7 +33,10 @@ namespace alcomy {
       .module('account')
       .component('account', {
         templateUrl: './app/components/account/account.component.html',
-        controller: AccountController
+        controller: AccountController,
+        bindings: {
+          $router: '<'
+        }
       });
 
   }

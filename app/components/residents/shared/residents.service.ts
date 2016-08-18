@@ -40,6 +40,30 @@ namespace alcomy {
 						age: '28',
 						color: 'green',
 						avatar: 'assets/images/avatars/justin.jpg'
+					},
+					{
+						id: '4',
+						firstName: 'brane',
+						lastName: 'vrajich',
+						age: '28',
+						color: 'blue',
+						avatar: 'assets/images/avatars/brane.jpg'
+					},
+					{
+						id: '5',
+						firstName: 'rebekah',
+						lastName: 'vrajich',
+						age: '28',
+						color: 'pink',
+						avatar: 'assets/images/avatars/rebekah.jpg'
+					},
+					{
+						id: '6',
+						firstName: 'justin',
+						lastName: 'kunz',
+						age: '28',
+						color: 'green',
+						avatar: 'assets/images/avatars/justin.jpg'
 					}
 
 				];

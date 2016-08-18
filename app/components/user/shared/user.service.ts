@@ -22,10 +22,13 @@ namespace alcomy {
 
 
 			public createUser(user: alcomy.user.IUser): ng.IPromise<alcomy.user.IUser> {
-
-				return $firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
-					.then(function (authData) {
+				let userId: string;
+				return this.$firebaseAuth().$createUserWithEmailAndPassword(user.email, user.password)
+					.then(authData => {
 						if (authData) {
+							this.$log.info('User Service: Auth Data');
+							this.$log.info(authData);
+							userId = authData.uid;
 
 							let userData: alcomy.user.IUser = {
 								firstName: user.firstName,
@@ -34,15 +37,19 @@ namespace alcomy {
 								accountId: user.accountId
 							};
 
-							return this.fbRoot.child(`users/${authData.uid}`).set(userData)
+							return this.fbRoot.child(`users/${userId}`).set(userData)
 						}
 					})
-					.then(function (authData) {
-						return this.setCurrentUser(authData.uid);
+					.then(() => {
+						return this.setCurrentUser(userId);
 
 					})
-					.catch(function (err) {
+					.then(() => {
+						return userId;
+					})
+					.catch(err => {
 						this.$log.error(`UserService Error: ${err}`);
+						this.$log.error(err);
 					});
 			}
 
@@ -70,7 +77,7 @@ namespace alcomy {
 
 
 
-			public setCurrentUser(id: string) {
+			public setCurrentUser(id: string): ng.IPromise<any> {
 				let userRef = this.fbRoot.child(`users/${id}`);
 				let userObj = this.$firebaseObject(userRef);
 
@@ -78,6 +85,7 @@ namespace alcomy {
 				return userObj.$loaded().then(data => {
 					this.$log.info(`user data:`);
 					this.currentUser = userObj;
+					return;
 
 				});
 

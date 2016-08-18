@@ -7,11 +7,12 @@ namespace alcomy {
 
 		class MainToolbarController {
 
-			static $inject = ['$mdSidenav', '$rootRouter', '$firebaseAuth', 'userService'];
-			user: string;
+			static $inject = ['$log', '$mdSidenav', '$rootRouter', '$firebaseAuth', 'userService'];
+			user: Object;
 
 			/* @ngInject */
 			constructor(
+				public $log: ng.ILogService,
 				public $mdSidenav: angular.material.ISidenavService,
 				public $rootRouter,
 				public $firebaseAuth,
@@ -19,7 +20,14 @@ namespace alcomy {
 
 
 			$onInit() {
-				this.userService.getCurrentUser();
+				this.userService.getCurrentUser()
+				.then((user) => {
+					this.user = user;
+				
+				})
+				.catch(() => {
+					this.$log.warn('Main Toolbar Component: Could not load user data');
+				});
 			}
 
 			logout() {

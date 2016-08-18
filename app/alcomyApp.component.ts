@@ -21,6 +21,11 @@ namespace alcomy {
 					component: 'account'
 				},
 				{
+					path: '/new account',
+					name: 'NewAccount',
+					component: 'account'
+				},
+				{
 					path: '/...',
 					name: 'Home',
 					component: 'home'

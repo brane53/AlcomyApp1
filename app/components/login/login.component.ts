@@ -49,20 +49,19 @@ namespace alcomy {
 				} else if (this.$location.path() === '/register') {
 					this.register = true;
 				}
+				this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
 
 				console.log('$router: ', this.$router);
 				console.log('isLoggedIn', this.$firebaseAuth().isLoggedIn);
 
-				this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
-
 			}
 
 			$routerOnActivate() {
-				console.log('Auth State: ', this.$firebaseAuth().$waitForSignIn());
-				return this.$firebaseAuth().$waitForSignIn().then(state => {
-					console.log('state: ', state);
-					this.isLoggedIn = !!state;
-				});
+				// console.log('Auth State: ', this.$firebaseAuth().$waitForSignIn());
+				// return this.$firebaseAuth().$waitForSignIn().then(state => {
+				// 	console.log('state: ', state);
+				// 	this.isLoggedIn = !!state;
+				// });
 			}
 
 			$routerCanDeactivate() {
@@ -114,9 +113,8 @@ namespace alcomy {
 			}
 
 			goToRegister() {
-				this.$location.path('/register');
-				this.$router.navigate(['Register']);
-				this.register = true;
+				//this.$location.path('/register');
+				this.$router.navigate(['NewAccount']);
 			}
 
 		}

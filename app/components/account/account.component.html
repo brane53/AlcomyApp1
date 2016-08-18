@@ -9,34 +9,33 @@
 
 	<form action="" layout="column">
 		
-		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+		<md-input-container>
 			<label>Company Name</label>
 			<input ng-model="$ctrl.company.name" type="text">
 		</md-input-container>
     
-    <md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+    <md-input-container>
 			<label>First Name</label>
 			<input ng-model="$ctrl.newUserObj.firstName" type="text">
 		</md-input-container>
 
-		<md-input-container ng-show="$ctrl.isRegister && !$ctrl.isLoggedIn">
+		<md-input-container>
 			<label>Last Name</label>
 			<input ng-model="$ctrl.newUserObj.lastName" type="text">
 		</md-input-container>
 
-		<md-input-container ng-hide="$ctrl.isLoggedIn">
+		<md-input-container>
 			<label>Email</label>
 			<input ng-model="$ctrl.newUserObj.email" type="email">
 		</md-input-container>
 
-		<md-input-container ng-hide="$ctrl.isLoggedIn">
+		<md-input-container>
 			<label>Password</label>
 			<input ng-model="$ctrl.newUserObj.password" type="password">
 		</md-input-container>
 		
 		<!--Create Account-->
-		<md-button ng-hide="$ctrl.isRegister" class=""
-		           ng-click="$ctrl.goToRegister()">
+		<md-button class="" ng-click="$ctrl.createAccount($ctrl.newUserObj, $ctrl.company)">
 			Create an Account
 		</md-button>
 

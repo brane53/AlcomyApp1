@@ -15,5 +15,9 @@
     // Control whether eslint is enabled for JavaScript files or not.
     "eslint.enable": false,
     // Insert snippets when their prefix matches. Works best when 'quickSuggestions' aren't enabled.
-    "editor.tabCompletion": true
+    "editor.tabCompletion": true,
+    // Set the languages that the extension will be activated.  e.g. ["html","xml","php"] By default, it is ["*"] and will be activated for all languages.
+    "auto-rename-tag.activationOnLanguage": [
+        "html"
+    ]
 }
