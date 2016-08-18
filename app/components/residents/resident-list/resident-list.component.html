@@ -1,20 +1,19 @@
 <div layout="column" flex>
-	<md-toolbar md-theme="neutral" md-whiteframe="1" class="md-medium-tall md-primary md-hue-1">
+	<md-toolbar md-theme="neutral" md-whiteframe="1" class="md-primary md-hue-1">
 		<div class="md-toolbar-tools">
 			<span>Resident List</span>
 		</div>
 	</md-toolbar>
 
-	<md-content layout="row" layout-wrap layout-padding>
-		<md-card flex="20" ng-repeat="resident in $ctrl.residents">
-
-			<img style="width:100px" ng-src="{{resident.avatar}}" class="md-card-image" alt="image-alt">
+	<md-content layout="row" layout-align="center start" flex>
+		<div layout="row" flex="90" layout-wrap layout-padding>
+		<md-card layout="row" flex="20" ng-repeat="resident in $ctrl.residents">
+			<img ng-src="{{resident.avatar}}" class="" alt="image-alt">
 			<md-card-title>
-				<md-card-title-text>
-					<span class="md-headline">{{resident.firstName | uppercase}} {{resident.lastName | uppercase}}</span>
-				</md-card-title-text>
+				<md-card-content>
+					<span class="">{{resident.firstName | ucfirst}} {{resident.lastName | ucfirst}}</span>
+				</md-card-content>
 			</md-card-title>
-
 		</md-card>
 
 		<md-list hide-gt-xs>
@@ -26,6 +25,6 @@
 				<md-divider></md-divider>
 			</md-list-item>
 		</md-list>
-
+		</div>
 	</md-content>
 </div>

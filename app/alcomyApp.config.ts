@@ -170,11 +170,11 @@ namespace alcomy {
 
 		// Sets the number of seconds of inactivity
 		// until the idle event is triggered
-		IdleProvider.idle(300);
+		IdleProvider.idle(1200);
 
 		// Sets the number os sections of inactivity after the idle event is 
 		// triggered until the timeout event is triggered
-		IdleProvider.timeout(30);
+		IdleProvider.timeout(300);
 
 		$locationProvider.html5Mode(true);
 	}
