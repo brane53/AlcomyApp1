@@ -21,7 +21,7 @@
 
 		<!--USER INFO-->
 		<img hide show-gt-sm ng-src="{{$ctrl.user.avatar}}" class="md-avatar">
-		<p hide show-gt-sm>{{$ctrl.user.firstName | uppercase}} {{$ctrl.user.lastName | uppercase}}</p>
+		<p hide show-gt-sm>{{$ctrl.user.firstName | ucfirst}} {{$ctrl.user.lastName | ucfirst}}</p>
 		
 		<md-menu hide show-gt-sm>
 			<md-button ng-click="$mdOpenMenu($event)" md-theme="neutral"
