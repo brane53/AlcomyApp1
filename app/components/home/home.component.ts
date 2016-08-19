@@ -66,8 +66,8 @@ namespace alcomy {
 				this.userService.getCurrentUser().then(user => {
 					this.user = user;
 				})
-				.catch(function(err){
-					console.error('Error MainToolbarController: ' + err);
+				.catch(err => {
+					console.error('Error HomeController: ' + err);
 				});
 			}
 
