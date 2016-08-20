@@ -15,7 +15,12 @@ namespace alcomy {
 						path: '/:residentId',
 						name: 'ResidentDetail',
 						component: 'residentDetail'
-					}
+					},
+					{
+						path: '/resident-groups',
+						name: 'ResidentGroups',
+						component: 'residentGroups'
+					},
 				];
 
 

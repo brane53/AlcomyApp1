@@ -1,35 +1,39 @@
-<div layout="column" flex>
+<div class="wrapper" layout="column" flex>
 	<md-toolbar md-theme="neutral" md-whiteframe="1" class="md-primary md-hue-1">
 		<div class="md-toolbar-tools">
 			<span>Resident List</span>
 		</div>
 	</md-toolbar>
 
-	<md-content layout="row" layout-align="center start" flex>
-		<div layout="row" flex-xs="100" layout-wrap >
-			<div hide show-gt-xs layout-align="center center" flex-sm="50" flex-md="33" flex-lg="25" flex-gt-lg="25" 
-			ng-repeat="resident in $ctrl.residents" layout-padding>
-
-			<md-card layout="row" layout-align="start center" >
-				<img ng-src="{{resident.avatar}}" class="" alt="image-alt">
-				<md-card-content>
-					<span class="">
+	<md-content layout="column" layout-align="start stretch" flex>
+		<div hide show-gt-xs layout="row" layout-align="start start" flex-xs="100" flex-gt-xs="100" layout-wrap>
+			<div layout-align="center center" flex-sm="50" flex-md="33" flex-lg="25" flex-gt-lg="25" ng-repeat="resident in $ctrl.residents"
+				layout-padding>
+				<md-card layout="row" layout-align="start center">
+					<img ng-src="{{resident.avatar}}" class="" alt="image-alt">
+					<md-card-content>
+						<span class="">
 						{{resident.firstName | ucfirst}} {{resident.lastName | ucfirst}}
 					</span>
-				</md-card-content>
-			</md-card>
+					</md-card-content>
+				</md-card>
 			</div>
-
-			<md-list hide-gt-xs flex>
-				<md-list-item ng-repeat="resident in $ctrl.residents">
-					<md-button>
-						<img ng-src="{{resident.avatar}}" class="md-avatar" alt="{{resident.name}}">
-						<span>{{resident.firstName | ucfirst}} {{resident.lastName | ucfirst}}</span>
-					</md-button>
-					<md-divider></md-divider>
-				</md-list-item>
-			</md-list>
-
 		</div>
+
+		<md-list hide-gt-xs>
+			<md-list-item ng-repeat="resident in $ctrl.residents">
+				<md-button>
+					<img ng-src="{{resident.avatar}}" class="md-avatar" alt="{{resident.name}}">
+					<span>{{resident.firstName | ucfirst}} {{resident.lastName | ucfirst}}</span>
+				</md-button>
+				<md-divider></md-divider>
+			</md-list-item>
+		</md-list>
+
+
+
 	</md-content>
+	<md-button class="md-fab lock-bottom-right" aria-label="Create New Resident">
+		<md-icon md-svg-icon="person-add"></md-icon>
+	</md-button>
 </div>

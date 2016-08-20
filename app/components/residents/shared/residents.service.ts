@@ -64,6 +64,54 @@ namespace alcomy {
 						age: '28',
 						color: 'green',
 						avatar: 'assets/images/avatars/justin.jpg'
+					},
+					{
+						id: '7',
+						firstName: 'brane',
+						lastName: 'vrajich',
+						age: '28',
+						color: 'blue',
+						avatar: 'assets/images/avatars/brane.jpg'
+					},
+					{
+						id: '8',
+						firstName: 'rebekah',
+						lastName: 'vrajich',
+						age: '28',
+						color: 'pink',
+						avatar: 'assets/images/avatars/rebekah.jpg'
+					},
+					{
+						id: '9',
+						firstName: 'justin',
+						lastName: 'kunz',
+						age: '28',
+						color: 'green',
+						avatar: 'assets/images/avatars/justin.jpg'
+					},
+					{
+						id: '10',
+						firstName: 'brane',
+						lastName: 'vrajich',
+						age: '28',
+						color: 'blue',
+						avatar: 'assets/images/avatars/brane.jpg'
+					},
+					{
+						id: '11',
+						firstName: 'rebekah',
+						lastName: 'vrajich',
+						age: '28',
+						color: 'pink',
+						avatar: 'assets/images/avatars/rebekah.jpg'
+					},
+					{
+						id: '12',
+						firstName: 'justin',
+						lastName: 'kunz',
+						age: '28',
+						color: 'green',
+						avatar: 'assets/images/avatars/justin.jpg'
 					}
 
 				];

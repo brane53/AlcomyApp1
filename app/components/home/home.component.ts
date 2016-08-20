@@ -16,6 +16,11 @@ namespace alcomy {
 				path: '/residents/...',
 				name: 'Residents',
 				component: 'residents'
+			},
+			{
+				path: '/residents/:residentId/...',
+				name: 'ResidentDetail',
+				component: 'residentDetail'
 			}
 		];
 
@@ -43,8 +48,8 @@ namespace alcomy {
 
 			/* @ngInject */
 			constructor(public $mdSidenav: angular.material.ISidenavService,
-									public $firebaseAuth,
-									public userService: alcomy.user.IUserService) { }
+				public $firebaseAuth,
+				public userService: alcomy.user.IUserService) { }
 
 			// TODO Resolve that the current user was retrieved before loading the
 			// route
@@ -62,13 +67,13 @@ namespace alcomy {
 
 
 
-			$onInit(){
+			$onInit() {
 				this.userService.getCurrentUser().then(user => {
 					this.user = user;
 				})
-				.catch(err => {
-					console.error('Error HomeController: ' + err);
-				});
+					.catch(err => {
+						console.error('Error HomeController: ' + err);
+					});
 			}
 
 			toggleMobileSidenav() {

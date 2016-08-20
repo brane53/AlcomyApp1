@@ -94,7 +94,10 @@ var config = {
 		'components/residents/shared/residents.service.ts',
 		'components/residents/residents.component.ts',
 		// Resident-List
-		'components/residents/resident-list/resident-list.component.ts'
+		'components/residents/resident-list/resident-list.component.ts',
+		// Resident-Groups
+		'components/residents/resident-groups/resident-groups.component.ts'
+
 	],
 	scssMain: './app/app.scss',
 	scripts: 'app/**/*.ts',

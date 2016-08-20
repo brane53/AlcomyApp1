@@ -116,3 +116,10 @@ span.name {
   font-size: 1.1em;
   padding-left: 5px;
 }
+
+// Locks an element in the bottom right corner of it's parent element
+.lock-bottom-right {
+  position: absolute;
+  bottom: 24px;
+  right: 24px; 
+}

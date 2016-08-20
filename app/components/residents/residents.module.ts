@@ -7,7 +7,6 @@ namespace alcomy {
 		angular
 			.module('residents', [
 				'verticalToolbar'
-				//'ngMaterial'
 			]);
 	}
 };
