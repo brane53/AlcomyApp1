@@ -19,12 +19,12 @@ namespace alcomy {
 
 			/* @ngInject */
 			constructor(
-					public $log: ng.ILogService,
-					public $location: ng.ILocationService,
-					public $firebaseAuth,
-					public authService,
-					public userService) {
-						
+				public $log: ng.ILogService,
+				public $location: ng.ILocationService,
+				public $firebaseAuth,
+				public authService,
+				public userService) {
+
 				this.$log.info('Login Component Instanciated');
 				this.newUser = {
 					firstName: null,
@@ -73,18 +73,17 @@ namespace alcomy {
 			// TODO make this more secure. implement safeguards
 			// TODO create route redirect if use is logged in
 			// Calls the login function from $firebaseAuth
-			login(email, password) {
+			login(email: string, password: string) {
+					this.$log.info(`Email: ${email} Password: ${password}`);
+					this.authService.login(email, password)
+						.then(() => {
+							this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
+							this.$router.navigate(['Home']);
+						})
+						.catch(err => {
+							console.warn('Error: ' + err);
+						});
 
-				this.$log.info(`Email: ${email} Password: ${password}`);
-
-				this.authService.login(email, password)
-					.then(() => {
-						this.isLoggedIn = this.$firebaseAuth().isLoggedIn;
-						this.$router.navigate(['Home']);
-					})
-					.catch(err => {
-						console.warn('Error: ' + err);
-					});
 			}
 
 			// REGISTER
@@ -94,7 +93,7 @@ namespace alcomy {
 						this.isLoggedIn = true;
 						this.register = false;
 					});
-				
+
 			}
 
 			// LOGOUT

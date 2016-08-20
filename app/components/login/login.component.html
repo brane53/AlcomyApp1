@@ -26,12 +26,14 @@
 
 		<md-input-container ng-hide="$ctrl.isLoggedIn">
 			<label>Email</label>
-			<input ng-model="$ctrl.newUser.email" type="email">
+			<input ng-model="$ctrl.newUser.email" type="email" 
+			ng-keyup="$event.keyCode == 13 && $ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)">
 		</md-input-container>
 
 		<md-input-container ng-hide="$ctrl.isLoggedIn">
 			<label>Password</label>
-			<input ng-model="$ctrl.newUser.password" type="password">
+			<input ng-model="$ctrl.newUser.password" type="password" 
+			ng-keyup="$event.keyCode == 13 && $ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)">
 		</md-input-container>
 		<!--LOGIN BUTTON-->
 		<md-button ng-hide="$ctrl.isLoggedIn || $ctrl.register" class="md-raised md-primary"
