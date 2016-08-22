@@ -16,24 +16,24 @@
 	<form action="" layout="column">
 		<md-input-container ng-show="$ctrl.register && !$ctrl.isLoggedIn">
 			<label>First Name</label>
-			<input ng-model="$ctrl.newUser.firstName" type="text">
+			<input ng-model="$ctrl.newUser.firstName" type="text" aria-label="First Name">
 		</md-input-container>
 
 		<md-input-container ng-show="$ctrl.register && !$ctrl.isLoggedIn">
 			<label>Last Name</label>
-			<input ng-model="$ctrl.newUser.lastName" type="text">
+			<input ng-model="$ctrl.newUser.lastName" type="text" aria-label="Last Name">
 		</md-input-container>
 
 		<md-input-container ng-hide="$ctrl.isLoggedIn">
 			<label>Email</label>
 			<input ng-model="$ctrl.newUser.email" type="email" 
-			ng-keyup="$event.keyCode == 13 && $ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)">
+			ng-keyup="$event.keyCode == 13 && $ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)" aria-label="Email">
 		</md-input-container>
 
 		<md-input-container ng-hide="$ctrl.isLoggedIn">
 			<label>Password</label>
 			<input ng-model="$ctrl.newUser.password" type="password" 
-			ng-keyup="$event.keyCode == 13 && $ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)">
+			ng-keyup="$event.keyCode == 13 && $ctrl.login($ctrl.newUser.email, $ctrl.newUser.password)" aria-label="Password">
 		</md-input-container>
 		<!--LOGIN BUTTON-->
 		<md-button ng-hide="$ctrl.isLoggedIn || $ctrl.register" class="md-raised md-primary"
@@ -42,17 +42,17 @@
 		</md-button>
 		<!--LOGOUT BUTTON-->
 		<md-button ng-show="$ctrl.isLoggedIn" class="md-raised md-primary"
-		           ng-click="$ctrl.logout()">
+		           ng-click="$ctrl.logout()" aria-label="Login Button">
 			Logout
 		</md-button>
 		<!--RESGISTER BUTTON-->
 		<md-button ng-show="$ctrl.register && !$ctrl.isLoggedIn" class="md-raised md-primary"
-		           ng-click="$ctrl.registerNewUser($ctrl.newUser)">
+		           ng-click="$ctrl.registerNewUser($ctrl.newUser)" aria-label="Register Button">
 			Register
 		</md-button>
 		<!--CREATE ACCOUNT-->
 		<md-button ng-hide="$ctrl.register" class=""
-		           ng-click="$ctrl.goToRegister()">
+		           ng-click="$ctrl.goToRegister()" aria-label="Go to create account">
 			Create an Account
 		</md-button>
 

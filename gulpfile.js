@@ -69,6 +69,7 @@ var config = {
 		// Vertical-Toolbar
 		'components/shared/vertical-toolbar/vertical-toolbar.module.ts',
 		'components/shared/vertical-toolbar/vertical-toolbar.component.ts',
+
 		// User
 		'components/user/user.module.ts',
 		'components/user/shared/user.service.ts',
@@ -92,6 +93,8 @@ var config = {
 		'components/residents/shared/residents-mock.ts',
 		'components/residents/residents.module.ts',
 		'components/residents/shared/residents.service.ts',
+		// New Resident Dialog Controller
+		'components/residents/shared/new-resident-dialog/new-resident-dialog.controller.ts',
 		'components/residents/residents.component.ts',
 		// Resident-List
 		'components/residents/resident-list/resident-list.component.ts',
@@ -120,7 +123,7 @@ var config = {
 
 // TYPESCIPT PROJECTED DEFINITION
 
-var tsProject = ts.createProject('tsconfig.json');
+
 
 
 // ######################################################################################
@@ -196,6 +199,8 @@ pipes.buildAppScriptsDev = function () {
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest(config.distDev));*/
 
+	var tsProject = ts.createProject('tsconfig.json');
+
 	var scriptedHtmlPartials = pipes.scriptedHtmlPartials();
 	var validatedAppScripts = pipes.validatedAppScripts();
 
@@ -210,6 +215,9 @@ pipes.buildAppScriptsDev = function () {
 
 // BUILD APP SCRIPTS **PRODUCTION**======================================================
 pipes.buildAppScriptsProd = function () {
+
+	var tsProject = ts.createProject('tsconfig.json');
+	
 	var scriptedHtmlPartials = pipes.scriptedHtmlPartials();
 	var validatedAppScripts = pipes.validatedAppScripts();
 

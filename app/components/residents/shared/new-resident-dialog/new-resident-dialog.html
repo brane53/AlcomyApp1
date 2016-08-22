@@ -1,8 +1,53 @@
-<md-dialog aria-label="label">
-   <md-dialog-content>
-      content
-   </md-dialog-content>
-   <md-dialog-actions>
-      <md-button ng-click="closeDialog()" class="dialog-class" aria-label="label">label</md-button>
-   </md-dialog-actions>
+<md-dialog flex-md="80" flex-lg="60" flex-gt-lg="60" aria-label="label">
+  <form action="">
+    <md-toolbar md-theme="neutral" md-whiteframe="1" class="md-primary md-hue-1">
+      <div class="md-toolbar-tools">
+        <h2>New Resident Form</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="$ctrl.cancel()">
+          <md-icon md-svg-icon="clear" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content layout="column" class="md-dialog-content" flex-xs="100" flex-sm="100" flex-gt-sm="">
+      <div layout="row">
+        <md-input-container>
+          <label>First Name</label>
+          <input type="text" ng-model="$ctrl.resident.firstName" aria-label="First Name">
+        </md-input-container>
+        <span flex="5"></span>
+        <md-input-container>
+          <label>Last Name</label>
+          <input type="text" ng-model="$ctrl.resident.lastName" aria-label="Last Name">
+        </md-input-container>
+        <span flex="5"></span>
+        <md-input-container>
+          <label>Gender</label>
+          <md-select ng-model="$ctrl.resident.gender" placeholder="Gender">
+
+            <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions">
+              {{ gender | ucfirst}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <span flex="5"></span>
+        <md-input-container>
+           <md-datepicker ng-model="$ctrl.resident.dateOfBirth" md-max-date="Today" md-placeholder="Date of Birth"></md-datepicker>
+        </md-input-container>
+        
+
+
+      </div>
+
+
+
+
+
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button ng-click="$ctrl.submitResident($ctrl.resident)" class="md-primary md-raised" aria-label="Save Resident">Save</md-button>
+      <md-button ng-click="$ctrl.cancel()" class="" aria-label="Cancel">Cancel</md-button>
+    </md-dialog-actions>
+  </form>
 </md-dialog>

@@ -1,5 +1,8 @@
 /// <reference path="../../../../typings/index.d.ts" />
+/// <reference path="../shared/new-resident-dialog/new-resident-dialog.controller.ts" />
+/// <reference path="../shared/residents.ts" />
 
+import Residents = alcomy.residents;
 namespace alcomy {
 	export namespace residents {
 		'use strict';
@@ -25,26 +28,25 @@ namespace alcomy {
 
 			openResidentDialog(event) {
 				this.$mdDialog.show({
-					templateUrl: '../shared/new-resident-dialog/new-resident-dialog.html',
-					controller: function() {
-						let vm = this;
-						vm.resident = {
-							firstName: '',
-							lastName: '',
-							gender: '',
-							dateOfBirth: null
-						};
-
-						this.createNewResident = createNewResident;
-
-						function createNewResident(resident: Object){
-
-						}
-					},
+					templateUrl: './app/components/residents/shared/new-resident-dialog/new-resident-dialog.html',
+					controller: Residents.NewResidentDialogController,
+					targetEvent: event,
 					controllerAs: '$ctrl',
 					parent: angular.element(document.body),
-					clickOutsideToClose: false
+					clickOutsideToClose: true,
+					fullscreen: true
 				})
+				.then(resident => {
+					return this.residentsService.createResident(resident)
+						.then(() => {
+							this.$log.info('New Resident Created!');
+							this.$log.info(resident);
+						})
+						.catch(err => {
+							this.$log.warn('Error with OpenResidentDialog');
+							this.$log.warn(err);
+						});
+				});
 			}
 
 
