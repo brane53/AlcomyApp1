@@ -7,7 +7,6 @@
      flex-gt-sm="33">
 
 	<h3 ng-hide="$ctrl.isLoggedIn || $ctrl.register">Login</h3>
-	<h3>{{$ctrl.newUser.email}}</h3>
 	<h3 ng-show="$ctrl.register && !$ctrl.isLoggedIn">Register New Account</h3>
 	<h3 ng-show="$ctrl.isLoggedIn">You are currently logged in</h3>
 	<h3 ng-show="$ctrl.register && $ctrl.isLoggedIn">Logout to Register</h3>

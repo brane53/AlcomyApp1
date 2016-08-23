@@ -16,7 +16,7 @@ namespace alcomy {
           firstName: '',
           lastName: '',
           gender: '',
-          dateOfBirth: null
+          dateOfBirth: '' // must be a string to save to firebase
         };
 
         this.genderOptions = ['male', 'female'];
@@ -25,6 +25,7 @@ namespace alcomy {
 
 
       submitResident(resident) {
+        resident.dateOfBirth = resident.dateOfBirth.getTime();
         this.$mdDialog.hide(resident);
       }
 
