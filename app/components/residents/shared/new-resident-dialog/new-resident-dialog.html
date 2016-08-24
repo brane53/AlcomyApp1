@@ -10,11 +10,15 @@
       </div>
     </md-toolbar>
 
-    <md-dialog-content
-      layout-xs="column" layout-sm="column" layout-md="row" layout-gt-md="row" class="md-dialog-content" layout-margin>
+    <md-dialog-content class="md-dialog-content"
+      layout-xs="column" 
+      layout-sm="column" 
+      layout-gt-sm="row" 
+      layout-align-xs="start center"
+      layout-margin>
       
       <!--Column 1-->
-      <div layout-xs="row" layout-sm="row" layout-md="column" layout-gt-md="column">
+      <div layout-xs="row" layout-sm="row" layout-md="column" layout-gt-md="column" layout-align="start center">
 
         <!--Select Image-->
         <div ng-hide="$ctrl.residentPhoto !== ''" class="imageArea " ngf-drop ngf-select ng-model="$ctrl.residentPhoto ">
@@ -35,7 +39,7 @@
       <!--Column 2-->
       <div layout="column " flex layout-wrap>
 
-        <div layout="row " flex layout-align="start start">
+        <div layout-xs="column" layout="row " flex layout-align-gt-xs="start start" layout-wrap>
         
           <md-input-container>
             <label>First Name</label>
@@ -50,17 +54,14 @@
           <md-input-container>
             <label>Gender</label>
             <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-
               <md-option ng-value="gender " ng-repeat="gender in $ctrl.genderOptions ">
                 {{ gender | ucfirst}}
               </md-option>
             </md-select>
           </md-input-container>
-          <span flex="5 "></span>
-
           <md-input-container>
             <label>Date of Birth</label>
-            <md-datepicker ng-model="$ctrl.resident.dateOfBirth " md-max-date="Today "></md-datepicker>
+            <md-datepicker ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" md-hide-icons="calendar"></md-datepicker>
           </md-input-container>
 
         </div>

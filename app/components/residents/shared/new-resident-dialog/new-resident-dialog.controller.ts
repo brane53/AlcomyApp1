@@ -9,6 +9,7 @@ namespace alcomy {
       residentPhoto: string;
       residentCroppedPhoto: string;
       genderOptions: Array<string>;
+      today: Date;
 
 
       constructor(
@@ -18,6 +19,7 @@ namespace alcomy {
 
         this.residentPhoto = '';
         this.residentCroppedPhoto = '';
+        this.today = new Date;
 
         this.resident = {
           firstName: '',
