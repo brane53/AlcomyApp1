@@ -6,12 +6,19 @@ namespace alcomy {
     export class NewResidentDialogController {
       static $inject: Array<string> = ['$log', '$mdDialog', '$firebaseAuth'];
       resident: Residents.IResident;
+      residentPhoto: string;
+      residentCroppedPhoto: string;
       genderOptions: Array<string>;
+
+
       constructor(
         private $log: ng.ILogService,
         private $mdDialog: ng.material.IDialogService,
         private $firebaseAuth){
-        
+
+        this.residentPhoto = '';
+        this.residentCroppedPhoto = '';
+
         this.resident = {
           firstName: '',
           lastName: '',

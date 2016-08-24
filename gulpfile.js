@@ -36,6 +36,7 @@ var gulp = require('gulp'),
 
 var config = {
 	venderScripts: [
+		'node_modules/moment/moment.js',
 		'node_modules/angular/angular.js',
 		'node_modules/@angular/router/angular1/angular_1_router.js',
 		'node_modules/angular-animate/angular-animate.js',
@@ -45,7 +46,12 @@ var config = {
 		//'node_modules/firebase/lib/firebase-web.js',
 		'node_modules/ng-idle/angular-idle.js',
 		'node_modules/angularfire/dist/angularfire.js',
-		'node_modules/angular-filter/dist/angular-filter.js'
+		'node_modules/angular-filter/dist/angular-filter.js',
+		'node_modules/angular-moment/angular-moment.js',
+		'vender/ngImgCrop/compile/unminified/ng-img-crop.js',
+		'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
+		'node_modules/ng-file-upload/dist/ng-file-upload.js'
+		
 	],
 	appScripts: [
 		// Main Module
