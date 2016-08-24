@@ -10,63 +10,67 @@
       </div>
     </md-toolbar>
 
-    <md-dialog-content layout="column" class="md-dialog-content" flex-xs="100" flex-sm="100" flex-gt-sm="">
+    <md-dialog-content
+      layout-xs="column" layout-sm="column" layout-md="row" layout-gt-md="row" class="md-dialog-content" layout-margin>
+      
+      <!--Column 1-->
+      <div layout-xs="row" layout-sm="row" layout-md="column" layout-gt-md="column">
 
-       <div" class="imageArea" ngf-drop ngf-select ng-model="$ctrl.residentPhoto">
-         
+        <!--Select Image-->
+        <div ng-hide="$ctrl.residentPhoto !== ''" class="imageArea " ngf-drop ngf-select ng-model="$ctrl.residentPhoto ">
           Select Image
         </div>
 
-        <div class="imageArea">
-          <img-crop image="$ctrl.residentPhoto | ngfDataUrl" result-image="$ctrl.residentCroppedPhoto">
+        <!--Crop Image-->
+        <div ng-hide="$ctrl.residentPhoto == ''" class="imageArea2 ">
+          <img-crop image="$ctrl.residentPhoto | ngfDataUrl " result-image="$ctrl.residentCroppedPhoto ">
           </img-crop>
         </div>
-         
-        <div>
-            <img ng-src="{{$ctrl.residentCroppedPhoto}}" />
-          </div>
+        <!--Preview Image-->
+        <div hide-xs hide-sm>
+          <img ng-src="{{$ctrl.residentCroppedPhoto}} " />
+        </div>
+      </div>
+      
+      <!--Column 2-->
+      <div layout="column " flex layout-wrap>
 
+        <div layout="row " flex layout-align="start start">
+        
+          <md-input-container>
+            <label>First Name</label>
+            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
+          </md-input-container>
+          <span flex="5 "></span>
+          <md-input-container>
+            <label>Last Name</label>
+            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+          </md-input-container>
+          <span flex="5 "></span>
+          <md-input-container>
+            <label>Gender</label>
+            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
 
-      <div layout="row">
-       
-        <md-input-container>
-          <label>First Name</label>
-          <input type="text" ng-model="$ctrl.resident.firstName" aria-label="First Name">
-        </md-input-container>
-        <span flex="5"></span>
-        <md-input-container>
-          <label>Last Name</label>
-          <input type="text" ng-model="$ctrl.resident.lastName" aria-label="Last Name">
-        </md-input-container>
-        <span flex="5"></span>
-        <md-input-container>
-          <label>Gender</label>
-          <md-select ng-model="$ctrl.resident.gender" placeholder="Gender">
+              <md-option ng-value="gender " ng-repeat="gender in $ctrl.genderOptions ">
+                {{ gender | ucfirst}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <span flex="5 "></span>
 
-            <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions">
-              {{ gender | ucfirst}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-        <span flex="5"></span>
+          <md-input-container>
+            <label>Date of Birth</label>
+            <md-datepicker ng-model="$ctrl.resident.dateOfBirth " md-max-date="Today "></md-datepicker>
+          </md-input-container>
 
-        <md-input-container>
-          <label>Date of Birth</label>
-          <md-datepicker ng-model="$ctrl.resident.dateOfBirth" md-max-date="Today"></md-datepicker>
-        </md-input-container>
-
-
+        </div>
 
       </div>
 
-
-
-
-
     </md-dialog-content>
     <md-dialog-actions>
-      <md-button ng-click="$ctrl.submitResident($ctrl.resident)" class="md-primary md-raised" aria-label="Save Resident">Save</md-button>
-      <md-button ng-click="$ctrl.cancel()" class="" aria-label="Cancel">Cancel</md-button>
+      <md-button ng-click="$ctrl.submitResident($ctrl.resident) " class="md-primary md-raised " aria-label="Save Resident ">Save</md-button>
+      <md-button ng-click="$ctrl.cancel() " class=" " aria-label="Cancel ">Cancel</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

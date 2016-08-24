@@ -1,4 +1,5 @@
 @import "../node_modules/angular-material/angular-material.scss";
+@import "vender/ngImgCrop/source/scss/ng-img-crop";
 @import "shared/material-colors";
 @import "shared/core.scss"; // Universal styles
 @import "shared/development.scss"; // Temporary style to help with development
@@ -14,6 +15,7 @@
 @import "components/residents/resident-list/resident-list.component";
 @import "components/residents/resident-groups/resident-groups.component";
 @import "components/residents/shared/new-resident-dialog/new-resident-dialog";
+
 
 /*SHARED*/
 @import "components/shared/vertical-toolbar/vertical-toolbar.component.scss";
