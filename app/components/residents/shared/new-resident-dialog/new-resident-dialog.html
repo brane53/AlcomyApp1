@@ -12,16 +12,23 @@
 
     <md-dialog-content layout="column" class="md-dialog-content" flex-xs="100" flex-sm="100" flex-gt-sm="">
 
+       <div" class="imageArea" ngf-drop ngf-select ng-model="$ctrl.residentPhoto">
+         
+          Select Image
+        </div>
+
+        <div class="imageArea">
+          <img-crop image="$ctrl.residentPhoto | ngfDataUrl" result-image="$ctrl.residentCroppedPhoto">
+          </img-crop>
+        </div>
+         
+        <div>
+            <img ng-src="{{$ctrl.residentCroppedPhoto}}" />
+          </div>
 
 
       <div layout="row">
-        <div class="imageArea" ngf-drop ngf-select ng-model="$ctrl.residentPhoto">
-          <img-crop image="$ctrl.residentPhoto | ngfDataUrl" result-image="$ctrl.residentCroppedPhoto">
-          </img-crop>
-          <div>
-            <img ng-src="{{$ctrl.residentCroppedPhoto}}" />
-          </div>
-        </div>
+       
         <md-input-container>
           <label>First Name</label>
           <input type="text" ng-model="$ctrl.resident.firstName" aria-label="First Name">

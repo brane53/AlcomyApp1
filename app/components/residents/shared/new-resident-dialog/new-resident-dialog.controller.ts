@@ -16,7 +16,7 @@ namespace alcomy {
         private $mdDialog: ng.material.IDialogService,
         private $firebaseAuth){
 
-        this.residentPhoto = '';
+        this.residentPhoto = null;
         this.residentCroppedPhoto = '';
 
         this.resident = {
