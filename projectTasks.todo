@@ -67,3 +67,14 @@ POSSIBLE PROBLEMS::::::::::::::::::::::::::::::::::::::::::::::::::::::::
       what happens if a error occurs in the middle of those two
       operations. How can we guarantee that the account and user
       get created without any problems?
+
+
+IDEAS::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  Facility Settings:
+    - base cost for resident care
+    - cost for incontinence
+    - cost for hospice
+    - number of beds
+    - number of private rooms
+    - number of semi-private rooms
