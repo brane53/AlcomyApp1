@@ -24,10 +24,8 @@
       >
       
       <!--Column 1 Form Image-->
-      <div 
-        layout-xs="row" 
-        layout-sm="row"
-        layout-gt-sm="column" 
+      <div
+        layout-xs="column"
         layout-align="start center"
         layout-align-xs="center center"
         layout-align-sm="center center">
@@ -53,11 +51,11 @@
       <span flex="5"></span> 
       
       <!--Column 2: Form Content-->
-      <div layout="column ">
+      <div>
 
         <as-form-divider title="Basic Info"></as-form-divider>
 
-        <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
+        <div layout="row" layout-align="start start" layout-wrap>
         
           <md-input-container flex-xs="45" flex-gt-xs="30">
             <label>First Name</label>
@@ -86,6 +84,7 @@
             </md-select>
           </md-input-container>
           <span flex="5 "></span>
+
           <md-input-container>
             <label>Birth Date</label>
             <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
@@ -96,7 +95,7 @@
         <!--Insurance Info-->
         <as-form-divider title="Insurance Info"></as-form-divider>
 
-        <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
+        <div layout="row" layout-align-gt-xs="start start" layout-wrap>
         
           <md-input-container flex-xs="45" flex-gt-xs="30">
             <label>First Name</label>
@@ -135,7 +134,7 @@
         <!--Family Info-->
         <as-form-divider title="Family Info"></as-form-divider>
 
-        <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
+        <div layout="row" layout-align-gt-xs="start start" layout-wrap>
         
           <md-input-container flex-xs="45" flex-gt-xs="30">
             <label>First Name</label>
@@ -174,7 +173,7 @@
         <!--Other Info-->
         <as-form-divider title="Other Info"></as-form-divider>
 
-        <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
+        <div layout="row" layout-align-gt-xs="start start" layout-wrap>
         
           <md-input-container flex-xs="45" flex-gt-xs="30">
             <label>First Name</label>
