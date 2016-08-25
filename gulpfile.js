@@ -75,6 +75,9 @@ var config = {
 		// Vertical-Toolbar
 		'components/shared/vertical-toolbar/vertical-toolbar.module.ts',
 		'components/shared/vertical-toolbar/vertical-toolbar.component.ts',
+		// Form-Divider
+		'components/shared/form-divider/form-divider.module.ts',
+		'components/shared/form-divider/form-divider.component.ts',
 
 		// User
 		'components/user/user.module.ts',

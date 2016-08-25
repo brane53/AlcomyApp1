@@ -19,6 +19,7 @@ namespace alcomy {
 			// App Modules
 			'security',
 			'mainToolbar',
+			'formDivider',
 			'user',
 			'home',
 			'dashboard',
