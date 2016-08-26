@@ -23,7 +23,7 @@
       layout-align-xs="start stretch"
       >
       
-      <!--Column 1 Form Image-->
+      <!--Column 1-->
       <div 
         layout-xs="row" 
         layout-sm="row"
@@ -45,6 +45,7 @@
           </img-crop>
         </div>
         <!--Preview Image-->
+        
         <div class="previewImage" hide-xs hide-sm>
           <img  ng-src="{{$ctrl.residentCroppedPhoto}}" />
         </div>
@@ -52,8 +53,8 @@
 
       <span flex="5"></span> 
       
-      <!--Column 2: Form Content-->
-      <div layout="column ">
+      <!--Column 2-->
+      <div layout="column " flex>
 
         <as-form-divider title="Basic Info"></as-form-divider>
 
@@ -92,87 +93,8 @@
           </md-input-container>
 
         </div>
-        
-        <!--Insurance Info-->
+
         <as-form-divider title="Insurance Info"></as-form-divider>
-
-        <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
-        
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>First Name</label>
-            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-          </md-input-container>
-          <span flex="5"></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Middle Name</label>
-            <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-          </md-input-container>
-          <span hide-xs flex="5 "></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Last Name</label>
-            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-          </md-input-container>
-          <span hide show-xs flex="5 "></span>
-
-          <md-input-container>
-            <label>Gender</label>
-            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-              <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                {{ gender | ucfirst}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span flex="5 "></span>
-          <md-input-container>
-            <label>Birth Date</label>
-            <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
-          </md-input-container>
-
-        </div>
-
-        <!--Family Info-->
-        <as-form-divider title="Family Info"></as-form-divider>
-
-        <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
-        
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>First Name</label>
-            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-          </md-input-container>
-          <span flex="5"></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Middle Name</label>
-            <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-          </md-input-container>
-          <span hide-xs flex="5 "></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Last Name</label>
-            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-          </md-input-container>
-          <span hide show-xs flex="5 "></span>
-
-          <md-input-container>
-            <label>Gender</label>
-            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-              <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                {{ gender | ucfirst}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span flex="5 "></span>
-          <md-input-container>
-            <label>Birth Date</label>
-            <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
-          </md-input-container>
-
-        </div>
-
-        <!--Other Info-->
-        <as-form-divider title="Other Info"></as-form-divider>
 
         <div layout="row" flex layout-align-gt-xs="start start" layout-wrap>
         

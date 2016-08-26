@@ -1,4 +1,5 @@
 as-form-divider > div:first-child{
+    display: flex;
     padding-bottom: 8px;
     margin-bottom: 16px;
     border-bottom: solid $mdc-grey-800 1px;
