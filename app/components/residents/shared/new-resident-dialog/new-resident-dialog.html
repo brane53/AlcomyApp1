@@ -1,14 +1,10 @@
-<md-dialog class="newResidentDialog" flex-md="80" flex-lg="60" flex-gt-lg="60" aria-label="label">
+<md-dialog class="newResidentDialog" aria-label="label">
   <form action="">
     <md-toolbar md-theme="neutral" md-whiteframe="1" class="md-primary md-hue-1">
       <div class="md-toolbar-tools">
         <h2>New Resident Form</h2>
         <span flex="5"></span>
-        <span hide show-xs>X-SMALL</span>
-        <span hide show-sm>SMALL</span>
-        <span hide show-md>MEDIUM</span>
-        <span hide show-lg>LARGE</span>
-        <span hide show-gt-lg>X-LARGE</span>
+        <screen-size></screen-size>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="$ctrl.cancel()">
           <md-icon md-svg-icon="clear" aria-label="Close dialog"></md-icon>
@@ -16,221 +12,213 @@
       </div>
     </md-toolbar>
 
-    <md-dialog-content class="md-dialog-content"
-      layout-xs="column" 
-      layout-sm="column" 
-      layout-gt-sm="row" 
-      layout-align-xs="start stretch"
-      >
-      
-<<<<<<< HEAD
-      <!--Column 1-->
-      <div 
-        layout-xs="row" 
-        layout-sm="row"
-        layout-gt-sm="column" 
-=======
-      <!--Column 1 Form Image-->
-      <div
-        layout-xs="column"
->>>>>>> 5d24ab27c3705b6dbe6dd0ba70e0876a4a0df3ce
-        layout-align="start center"
-        layout-align-xs="center center"
-        layout-align-sm="center center">
+    <md-dialog-content class="md-dialog-content">
+      <div layout-xs="column" layout-sm="column" layout-gt-sm="row" layout-align-xs="start">
+        <!--Column 1 Form Image-->
+        <div>
 
-        <!--Select Image-->
-        <div ng-hide="$ctrl.residentPhoto !== ''" class="imageArea" ngf-drop ngf-select ng-model="$ctrl.residentPhoto ">Select Image</div>
+          <div layout="column" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center">
 
-        <!--Crop Image-->
-        <div ng-hide="$ctrl.residentPhoto == ''" class="imageArea">
-          <img-crop 
-          image="$ctrl.residentPhoto | ngfDataUrl " 
-          result-image="$ctrl.residentCroppedPhoto " 
-          result-image-size="150"
-          area-min-size="20">
-          </img-crop>
+            <!--Select Image-->
+            <div md-whiteframe="{{$ctrl.whiteframe}}" ng-hide="$ctrl.residentPhoto !== ''" class="selectImage" ngf-drop ngf-select ng-model="$ctrl.residentPhoto "
+            ng-mouseenter="$ctrl.setWhiteframe(5)"
+            ng-mouseleave="$ctrl.setWhiteframe(3)"
+            ng-mousedown="$ctrl.setWhiteframe(1)"
+            ng-mouseup="$ctrl.setWhiteframe(5)">
+              Select Image
+            </div>
+
+            <!--Crop Image-->
+            <div ng-hide="$ctrl.residentPhoto == ''" class="cropImage">
+              <img-crop image="$ctrl.residentPhoto | ngfDataUrl " result-image="$ctrl.residentCroppedPhoto " result-image-size="200" area-min-size="20">
+              </img-crop>
+            </div>
+
+            <!--Image Buttons-->
+            <div layout="row">
+              <md-button ng-hide="$ctrl.residentPhoto == ''" class="button-class|md-primary" aria-label="Change Photo" ngf-select ng-model="$ctrl.residentPhoto ">
+              Change</md-button>
+              <md-button ng-click="$ctrl.deletePhoto()" ng-hide="$ctrl.residentPhoto == ''" class="button-class|md-primary" aria-label="Delete Photo">
+              Delete</md-button>
+            </div>
+
+            <!--Preview Image-->
+            <div class="previewImage" hide-xs hide-sm>
+              <img ng-src="{{$ctrl.residentCroppedPhoto}}" />
+            </div>
+
+          </div>
+
         </div>
-        <!--Preview Image-->
-        
-        <div class="previewImage" hide-xs hide-sm>
-          <img  ng-src="{{$ctrl.residentCroppedPhoto}}" />
+
+
+        <div hide-gt-sm style="height: 48px"></div>
+        <div hide show-gt-sm flex="5"></div>
+
+        <!--Column 2: Form Content-->
+        <div>
+
+          <as-form-divider title="Basic Info"></as-form-divider>
+
+          <div layout="row" layout-align="start start" layout-wrap>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>First Name</label>
+              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
+            </md-input-container>
+            <span flex="5"></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Middle Name</label>
+              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
+            </md-input-container>
+            <span hide-xs flex="5 "></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Last Name</label>
+              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+            </md-input-container>
+            <span hide show-xs flex="5 "></span>
+
+            <md-input-container>
+              <label>Gender</label>
+              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
+                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
+                  {{ gender | ucfirst}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <span flex="5 "></span>
+
+            <md-input-container>
+              <label>Birth Date</label>
+              <md-datepicker ng-model="$ctrl.resident.dateOfBirth" md-max-date="$ctrl.today"></md-datepicker>
+            </md-input-container>
+
+          </div>
+
+
+          <!--Insurance Info-->
+          <as-form-divider title="Insurance Info"></as-form-divider>
+
+          <div layout="row" layout-align-gt-xs="start start" layout-wrap>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>First Name</label>
+              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
+            </md-input-container>
+            <span flex="5"></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Middle Name</label>
+              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
+            </md-input-container>
+            <span hide-xs flex="5 "></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Last Name</label>
+              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+            </md-input-container>
+            <span hide show-xs flex="5 "></span>
+
+            <md-input-container>
+              <label>Gender</label>
+              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
+                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
+                  {{ gender | ucfirst}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <span flex="5 "></span>
+            <md-input-container>
+              <label>Birth Date</label>
+              <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today"></md-datepicker>
+            </md-input-container>
+
+          </div>
+
+          <!--Family Info-->
+          <as-form-divider title="Family Info"></as-form-divider>
+
+          <div layout="row" layout-align-gt-xs="start start" layout-wrap>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>First Name</label>
+              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
+            </md-input-container>
+            <span flex="5"></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Middle Name</label>
+              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
+            </md-input-container>
+            <span hide-xs flex="5 "></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Last Name</label>
+              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+            </md-input-container>
+            <span hide show-xs flex="5 "></span>
+
+            <md-input-container>
+              <label>Gender</label>
+              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
+                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
+                  {{ gender | ucfirst}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <span flex="5 "></span>
+            <md-input-container>
+              <label>Birth Date</label>
+              <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today"></md-datepicker>
+            </md-input-container>
+
+          </div>
+
+          <!--Other Info-->
+          <as-form-divider title="Other Info"></as-form-divider>
+
+          <div layout="row" layout-align-gt-xs="start start" layout-wrap>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>First Name</label>
+              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
+            </md-input-container>
+            <span flex="5"></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Middle Name</label>
+              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
+            </md-input-container>
+            <span hide-xs flex="5 "></span>
+
+            <md-input-container flex-xs="45" flex-gt-xs="30">
+              <label>Last Name</label>
+              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+            </md-input-container>
+            <span hide show-xs flex="5 "></span>
+
+            <md-input-container>
+              <label>Gender</label>
+              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
+                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
+                  {{ gender | ucfirst}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <span flex="5 "></span>
+            <md-input-container>
+              <label>Birth Date</label>
+              <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today"></md-datepicker>
+            </md-input-container>
+
+          </div>
+
         </div>
       </div>
-
-      <span flex="5"></span> 
-      
-<<<<<<< HEAD
-      <!--Column 2-->
-      <div layout="column " flex>
-=======
-      <!--Column 2: Form Content-->
-      <div>
->>>>>>> 5d24ab27c3705b6dbe6dd0ba70e0876a4a0df3ce
-
-        <as-form-divider title="Basic Info"></as-form-divider>
-
-        <div layout="row" layout-align="start start" layout-wrap>
-        
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>First Name</label>
-            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-          </md-input-container>
-          <span flex="5"></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Middle Name</label>
-            <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-          </md-input-container>
-          <span hide-xs flex="5 "></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Last Name</label>
-            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-          </md-input-container>
-          <span hide show-xs flex="5 "></span>
-
-          <md-input-container>
-            <label>Gender</label>
-            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-              <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                {{ gender | ucfirst}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span flex="5 "></span>
-
-          <md-input-container>
-            <label>Birth Date</label>
-            <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
-          </md-input-container>
-
-        </div>
-<<<<<<< HEAD
-
-        <as-form-divider title="Insurance Info"></as-form-divider>
-=======
-        
-        <!--Insurance Info-->
-        <as-form-divider title="Insurance Info"></as-form-divider>
-
-        <div layout="row" layout-align-gt-xs="start start" layout-wrap>
-        
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>First Name</label>
-            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-          </md-input-container>
-          <span flex="5"></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Middle Name</label>
-            <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-          </md-input-container>
-          <span hide-xs flex="5 "></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Last Name</label>
-            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-          </md-input-container>
-          <span hide show-xs flex="5 "></span>
-
-          <md-input-container>
-            <label>Gender</label>
-            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-              <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                {{ gender | ucfirst}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span flex="5 "></span>
-          <md-input-container>
-            <label>Birth Date</label>
-            <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
-          </md-input-container>
-
-        </div>
-
-        <!--Family Info-->
-        <as-form-divider title="Family Info"></as-form-divider>
-
-        <div layout="row" layout-align-gt-xs="start start" layout-wrap>
-        
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>First Name</label>
-            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-          </md-input-container>
-          <span flex="5"></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Middle Name</label>
-            <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-          </md-input-container>
-          <span hide-xs flex="5 "></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Last Name</label>
-            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-          </md-input-container>
-          <span hide show-xs flex="5 "></span>
-
-          <md-input-container>
-            <label>Gender</label>
-            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-              <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                {{ gender | ucfirst}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span flex="5 "></span>
-          <md-input-container>
-            <label>Birth Date</label>
-            <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
-          </md-input-container>
-
-        </div>
-
-        <!--Other Info-->
-        <as-form-divider title="Other Info"></as-form-divider>
->>>>>>> 5d24ab27c3705b6dbe6dd0ba70e0876a4a0df3ce
-
-        <div layout="row" layout-align-gt-xs="start start" layout-wrap>
-        
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>First Name</label>
-            <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-          </md-input-container>
-          <span flex="5"></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Middle Name</label>
-            <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-          </md-input-container>
-          <span hide-xs flex="5 "></span>
-
-          <md-input-container flex-xs="45" flex-gt-xs="30">
-            <label>Last Name</label>
-            <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-          </md-input-container>
-          <span hide show-xs flex="5 "></span>
-
-          <md-input-container>
-            <label>Gender</label>
-            <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-              <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                {{ gender | ucfirst}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span flex="5 "></span>
-          <md-input-container>
-            <label>Birth Date</label>
-            <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today" ></md-datepicker>
-          </md-input-container>
-
-        </div>
-
-      </div>
-
     </md-dialog-content>
+
     <md-dialog-actions>
       <md-button ng-click="$ctrl.submitResident($ctrl.resident) " class="md-primary md-raised " aria-label="Save Resident ">Save</md-button>
       <md-button ng-click="$ctrl.cancel() " class=" " aria-label="Cancel ">Cancel</md-button>

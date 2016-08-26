@@ -16,6 +16,8 @@ namespace alcomy {
 			'angularMoment',
 			'ngFileUpload',
 			'ngImgCrop',
+			// Dev Components
+			'devComponents',
 			// App Modules
 			'security',
 			'mainToolbar',

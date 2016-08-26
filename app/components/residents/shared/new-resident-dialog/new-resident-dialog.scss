@@ -1,8 +1,16 @@
-md-dialog.newResidentDialog .imageArea {
-  background: #cccccc;
-  overflow: hidden;
-  width: 150px;
-  height: 150px;
-  min-height: 150px;
+md-dialog.newResidentDialog {
+
+  .selectImage, .cropImage {
+    background: $mdc-grey-100;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+  }
+
+  .selectImage:hover {
+    cursor: pointer;
+  }
+
 
 }
+

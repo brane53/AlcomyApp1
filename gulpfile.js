@@ -61,6 +61,10 @@ var config = {
 		'shared/config/uiConfig.ts',
 		// HTML Partials in.ts
 		'partials.ts',
+		// Dev components
+		'shared/devComponents/devComponents.module.ts',
+		'shared/devComponents/screen-size/screen-size.module.ts',
+		'shared/devComponents/screen-size/screen-size.component.ts',
 		// AlcomyApp Component
 		'alcomyApp.component.ts',
 		// Security

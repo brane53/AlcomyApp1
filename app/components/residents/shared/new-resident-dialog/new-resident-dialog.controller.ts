@@ -11,15 +11,18 @@ namespace alcomy {
       genderOptions: Array<string>;
       today: Date;
 
+      whiteframe: number;
+
 
       constructor(
         private $log: ng.ILogService,
         private $mdDialog: ng.material.IDialogService,
         private $firebaseAuth){
-
+          
+        this.whiteframe = 3;
         this.residentPhoto = '';
         this.residentCroppedPhoto = '';
-        this.today = new Date;
+        this.today = new Date();
 
         this.resident = {
           firstName: '',
@@ -38,8 +41,17 @@ namespace alcomy {
         this.$mdDialog.hide(resident);
       }
 
+      deletePhoto() {
+        this.residentPhoto = '';
+        //this.residentCroppedPhoto = '';
+      }
+
       cancel(){
         this.$mdDialog.cancel();
+      }
+
+      setWhiteframe(number){
+        this.whiteframe = number;
       }
     }
 
