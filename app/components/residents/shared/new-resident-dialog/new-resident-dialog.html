@@ -20,17 +20,17 @@
           <div layout="column" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center">
 
             <!--Select Image-->
-            <div md-whiteframe="{{$ctrl.whiteframe}}" ng-hide="$ctrl.residentPhoto !== ''" class="selectImage" ngf-drop ngf-select ng-model="$ctrl.residentPhoto "
-            ng-mouseenter="$ctrl.setWhiteframe(5)"
-            ng-mouseleave="$ctrl.setWhiteframe(3)"
-            ng-mousedown="$ctrl.setWhiteframe(1)"
-            ng-mouseup="$ctrl.setWhiteframe(5)">
+            <div md-whiteframe="{{$ctrl.whiteframe}}" ng-hide="$ctrl.residentPhoto !== ''" class="selectImage" ngf-drop   ngf-select ng-model="$ctrl.residentPhoto "
+              ng-mouseenter="$ctrl.setWhiteframe(5)"
+              ng-mouseleave="$ctrl.setWhiteframe(3)"
+              ng-mousedown="$ctrl.setWhiteframe(1)"
+              ng-mouseup="$ctrl.setWhiteframe(5)">
               Select Image
             </div>
 
             <!--Crop Image-->
             <div ng-hide="$ctrl.residentPhoto == ''" class="cropImage">
-              <img-crop image="$ctrl.residentPhoto | ngfDataUrl " result-image="$ctrl.residentCroppedPhoto " result-image-size="200" area-min-size="20">
+              <img-crop image="$ctrl.residentPhoto | ngfDataUrl " result-image="$ctrl.residentCroppedPhoto "  result-image-size="200" area-min-size="20">
               </img-crop>
             </div>
 
@@ -94,6 +94,12 @@
               <label>Birth Date</label>
               <md-datepicker ng-model="$ctrl.resident.dateOfBirth" md-max-date="$ctrl.today"></md-datepicker>
             </md-input-container>
+            <span flex="5 "></span>
+
+            <md-input-container>
+              <label>SSN</label>
+              <input class="ssn" type="text" ng-model="$ctrl.resident.ssn " aria-label="Social Security Number">
+            </md-input-container>
 
           </div>
 
@@ -102,119 +108,61 @@
           <as-form-divider title="Insurance Info"></as-form-divider>
 
           <div layout="row" layout-align-gt-xs="start start" layout-wrap>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>First Name</label>
-              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
+            
+            <md-input-container flex-xs="45" flex-sm="45" flex-md="45" flex-gt-md="30">
+              <label>Policyholder Name</label>
+              <input type="text " ng-model="$ctrl.insurance.policyholderName" aria-label="Policyholder Name">
             </md-input-container>
-            <span flex="5"></span>
+            <span flex="5 "></span>
 
             <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>Middle Name</label>
-              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
+              <label>Policy ID #</label>
+              <input type="text " ng-model="$ctrl.insurance.policyIdNumber" aria-label="Policy ID Number">
             </md-input-container>
             <span hide-xs flex="5 "></span>
 
             <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>Last Name</label>
-              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+              <label>Group #</label>
+              <input type="text " ng-model="$ctrl.insurance.groupNumber" aria-label="Group Number">
             </md-input-container>
             <span hide show-xs flex="5 "></span>
 
+            <md-input-container flex-xs="100" flex-sm="80" flex-md="80" flex-gt-md="60">
+              <label>Insurance Provider's Name</label>
+              <input type="text " ng-model="$ctrl.insurance.provider.name" aria-label="Insurance Provider's Name">
+            </md-input-container>
+            <span hide-xs flex-xs="5" flex-sm="20" flex-md="20" flex-gt-md="40"></span>
+
+            <md-input-container flex-xs="45" flex-sm="45" flex-md="45" flex-gt-md>
+              <label>Address</label>
+              <input type="text " ng-model="$ctrl.insurance.provider.address.street" aria-label="Group Number">
+            </md-input-container>
+            <span flex="5 "></span>
+
+            <md-input-container flex-xs="50" flex-sm="50" flex-md="50" flex-gt-md>
+              <label>City</label>
+              <input type="text " ng-model="$ctrl.insurance.provider.address.city" aria-label="Group Number">
+            </md-input-container>
+            <span hide show-gt-md flex="5 "></span>
+
             <md-input-container>
-              <label>Gender</label>
-              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                  {{ gender | ucfirst}}
+              <label>State</label>
+              <md-select ng-model="$ctrl.insurance.provider.address.state" placeholder="State">
+                <md-option ng-value="state.abbreviation" ng-repeat="state in $ctrl.states ">
+                  {{ state.abbreviation}}
                 </md-option>
               </md-select>
             </md-input-container>
-            <span flex="5 "></span>
+            <span h flex="5 "></span>
+
             <md-input-container>
-              <label>Birth Date</label>
-              <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today"></md-datepicker>
-            </md-input-container>
-
-          </div>
-
-          <!--Family Info-->
-          <as-form-divider title="Family Info"></as-form-divider>
-
-          <div layout="row" layout-align-gt-xs="start start" layout-wrap>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>First Name</label>
-              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-            </md-input-container>
-            <span flex="5"></span>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>Middle Name</label>
-              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-            </md-input-container>
-            <span hide-xs flex="5 "></span>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>Last Name</label>
-              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
+              <label>Zipcode</label>
+              <input class="zipcode" type="text" ng-model="$ctrl.insurance.provider.address.zipcode" aria-label="Zipcode">
             </md-input-container>
             <span hide show-xs flex="5 "></span>
-
-            <md-input-container>
-              <label>Gender</label>
-              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                  {{ gender | ucfirst}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-            <span flex="5 "></span>
-            <md-input-container>
-              <label>Birth Date</label>
-              <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today"></md-datepicker>
-            </md-input-container>
+            
 
           </div>
-
-          <!--Other Info-->
-          <as-form-divider title="Other Info"></as-form-divider>
-
-          <div layout="row" layout-align-gt-xs="start start" layout-wrap>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>First Name</label>
-              <input type="text " ng-model="$ctrl.resident.firstName " aria-label="First Name ">
-            </md-input-container>
-            <span flex="5"></span>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>Middle Name</label>
-              <input type="text " ng-model="$ctrl.resident.middleName " aria-label="Middle Name ">
-            </md-input-container>
-            <span hide-xs flex="5 "></span>
-
-            <md-input-container flex-xs="45" flex-gt-xs="30">
-              <label>Last Name</label>
-              <input type="text " ng-model="$ctrl.resident.lastName " aria-label="Last Name ">
-            </md-input-container>
-            <span hide show-xs flex="5 "></span>
-
-            <md-input-container>
-              <label>Gender</label>
-              <md-select ng-model="$ctrl.resident.gender " placeholder="Gender ">
-                <md-option ng-value="gender" ng-repeat="gender in $ctrl.genderOptions ">
-                  {{ gender | ucfirst}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-            <span flex="5 "></span>
-            <md-input-container>
-              <label>Birth Date</label>
-              <md-datepicker flex ng-model="$ctrl.resident.dateOfBirth " md-max-date="$ctrl.today"></md-datepicker>
-            </md-input-container>
-
-          </div>
-
         </div>
       </div>
     </md-dialog-content>

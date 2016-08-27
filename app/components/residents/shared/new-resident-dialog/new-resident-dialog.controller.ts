@@ -4,12 +4,16 @@ import Residents = alcomy.residents;
 namespace alcomy {
   export namespace residents {
     export class NewResidentDialogController {
-      static $inject: Array<string> = ['$log', '$mdDialog', '$firebaseAuth'];
+      static $inject: Array<string> = ['$log', '$mdDialog', '$firebaseAuth', 'addressService'];
       resident: Residents.IResident;
       residentPhoto: string;
       residentCroppedPhoto: string;
       genderOptions: Array<string>;
+
+      insurance: Object;
+
       today: Date;
+      states: Array<Object>;
 
       whiteframe: number;
 
@@ -17,12 +21,10 @@ namespace alcomy {
       constructor(
         private $log: ng.ILogService,
         private $mdDialog: ng.material.IDialogService,
-        private $firebaseAuth){
+        private $firebaseAuth,
+        private addressService){
           
-        this.whiteframe = 3;
-        this.residentPhoto = '';
-        this.residentCroppedPhoto = '';
-        this.today = new Date();
+
 
         this.resident = {
           firstName: '',
@@ -30,8 +32,29 @@ namespace alcomy {
           gender: '',
           dateOfBirth: '' // must be a string to save to firebase
         };
-
+        this.residentPhoto = '';
+        this.residentCroppedPhoto = '';
         this.genderOptions = ['male', 'female'];
+
+        this.insurance = {
+          policyholderName: '',
+          policyIdNumber: '',
+          groupNumber: '',
+          provider: {
+            name: '',
+            address: {
+              street: '',
+              city: '',
+              state: '',
+              zipcode: ''
+            },
+            phone: ''
+          }
+        }
+
+        this.whiteframe = 3;
+        this.today = new Date();
+        this.states = this.addressService.states;       
 
       }
 
