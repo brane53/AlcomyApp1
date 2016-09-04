@@ -107,6 +107,8 @@
 
 // ALCOMY CORE CSS RULES
 
+// Toolbar
+
 md-toolbar {
   h3 {
     margin: auto;
@@ -142,4 +144,12 @@ form {
   input.zipcode {
     width: 100px;
   }
+}
+
+
+////////////////////////////////////// 
+
+
+.as-content-padding {
+  padding: 24px;
 }
