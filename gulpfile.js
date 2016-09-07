@@ -61,6 +61,9 @@ var config = {
 		'shared/config/uiConfig.ts',
 		// HTML Partials in.ts
 		'partials.ts',
+
+		// Shared Services
+		'shared/address/address.service.ts',
 		// Dev components
 		'shared/devComponents/devComponents.module.ts',
 		'shared/devComponents/screen-size/screen-size.module.ts',
@@ -73,6 +76,8 @@ var config = {
 		'components/login/login.module.ts',
 		'components/login/login.component.ts',
 		'shared/security/logout.ts',
+		// Shared
+
 		// Main Toolbar
 		'components/shared/main-toolbar/main-toolbar.module.ts',
 		'components/shared/main-toolbar/main-toolbar.component.ts',
