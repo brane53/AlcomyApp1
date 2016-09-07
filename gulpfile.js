@@ -57,6 +57,7 @@ var config = {
 		// Main Module
 		'alcomyApp.module.ts',
 		'alcomyApp.config.ts',
+		'alcomyApp.run.ts',
 		// App Configuration Files
 		'shared/config/uiConfig.ts',
 		// HTML Partials in.ts
