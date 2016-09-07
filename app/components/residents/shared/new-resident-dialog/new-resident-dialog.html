@@ -1,6 +1,6 @@
 <md-dialog class="newResidentDialog" aria-label="label" flex-lg="65" style="max-height: 800px;">
   <form>
-    <md-toolbar md-theme="neutral" class="md-primary md-hue-1">
+    <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
         <h2>New Resident Form</h2>
         <span flex="5"></span>
@@ -14,6 +14,7 @@
 
     <md-dialog-content flex>
       <md-tabs md-dynamic-height md-border-bottom>
+        <!--BASIC TAB-->
         <md-tab label="Basic Information">
           <md-content class="md-padding">
             <div layout-xs="column" layout-sm="column" layout-gt-sm="row" layout-align-xs="start">
@@ -101,10 +102,13 @@
                   </md-input-container>
 
                 </div>
+                
               </div>
             </div>
           </md-content>
         </md-tab>
+
+        <!--INSURANCE TAB-->
         <md-tab label="Insurance Information">
           <md-content class="md-padding">
             <div layout-xs="column" layout-sm="column" layout-gt-sm="row" layout-align-xs="start">
@@ -174,9 +178,11 @@
               </div>
             </div>
           </md-content>
-
         </md-tab>
+
+        <!--MEDICAL TAB-->
         <md-tab label="Medical History">
+          
           <md-content class="md-padding">
             <div layout-xs="column" layout-sm="column" layout-gt-sm="row" layout-align-xs="start">
 
@@ -246,6 +252,11 @@
             </div>
           </md-content>
         </md-tab>
+        <!--This is a dummy tab to correct the issue with the last tab not displaying-->
+        <!--this is a known bug in angular material issue #6212 -->
+        <md-tab >
+        </md-tab>
+
       </md-tabs>
 
     </md-dialog-content>
