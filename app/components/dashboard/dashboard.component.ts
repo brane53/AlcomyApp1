@@ -4,10 +4,10 @@ namespace alcomy {
 	'use strict';
 	export namespace dashboard {
 
-		let routeConfig: angular.RouteDefinition = [
+		let routeConfig: Array<angular.RouteDefinition> = [
 					{
 						path: '/tasks',
-						nane: 'Tasks',
+						name: 'Tasks',
 						component: 'tasks',
 						useAsDefault: true
 					}

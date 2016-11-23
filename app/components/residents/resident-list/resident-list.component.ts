@@ -2,7 +2,7 @@
 /// <reference path="../shared/new-resident-dialog/new-resident-dialog.controller.ts" />
 /// <reference path="../shared/residents.ts" />
 
-import Residents = alcomy.residents;
+
 namespace alcomy {
 	export namespace residents {
 		'use strict';

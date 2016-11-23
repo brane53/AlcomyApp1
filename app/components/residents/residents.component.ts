@@ -4,7 +4,7 @@ namespace alcomy {
 	export namespace residents {
 		'use strict';
 
-		let routeConfig: ng.RouteDefinition = [
+		let routeConfig: Array<angular.RouteDefinition> = [
 					{
 						path: '/',
 						name: 'ResidentList',

@@ -7,6 +7,7 @@ namespace alcomy {
     'use strict';
 
     export interface IAccountService {
+      // Creates an account and a new user within that account
       createAccount(user: alcomy.user.IUser);
     }
 
@@ -15,10 +16,12 @@ namespace alcomy {
       static $inject: Array<string> = ['$log', '$firebaseAuth', 'userService'];
       private fbRoot = firebase.database().ref();
 
-      constructor(public $log: ng.ILogService,
+      constructor(
+        public $log: ng.ILogService,
         public $firebaseAuth,
         public userService: alcomy.user.IUserService) { }
 
+      // Creates an account and a new user within that account
       createAccount(user, accountInfo): ng.IPromise<any> {
 
         return this.userService.createUser(user)
@@ -26,7 +29,7 @@ namespace alcomy {
 
             this.$log.info('User Id: ' + userId);
 
-            var accountRef = this.fbRoot.child('accounts').push(accountInfo);
+            let accountRef = this.fbRoot.child('accounts').push(accountInfo);
 
             return accountRef.child('users').child(userId).set(true);
              

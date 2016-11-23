@@ -1,11 +1,12 @@
 /// <reference path="../../../typings/index.d.ts" />
 /// <reference path="../user/shared/user.ts" />
 
+
 namespace alcomy {
 	'use strict';
 	export namespace home {
 
-		let routeConfig: angular.RouteDefinition = [
+		let routeConfig: Array<angular.RouteDefinition> = [
 			{
 				path: '/dashboard/...',
 				name: 'Dashboard',
@@ -81,6 +82,8 @@ namespace alcomy {
 			}
 
 		}
+
+
 
 		angular
 			.module('home')

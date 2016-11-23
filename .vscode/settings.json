@@ -20,4 +20,6 @@
     "auto-rename-tag.activationOnLanguage": [
         "html"
     ]
+,
+"typescript.check.workspaceVersion": false
 }
