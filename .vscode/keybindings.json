@@ -46,5 +46,26 @@
     "key": "ctrl+enter",
     "command": "-task.new",
     "when": "editorTextFocus"
+  },
+
+  // File Extension Switcher Keybindings
+  { 
+    "key": "ctrl+shift+k",
+    "command": "-editor.action.deleteLines"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "fileextswitch.html",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "fileextswitch.component.ts",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "fileextswitch.component.scss",
+    "when": "editorTextFocus"
   }
 ]
