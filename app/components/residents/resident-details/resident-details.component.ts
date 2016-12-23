@@ -16,8 +16,10 @@ namespace alcomy {
     angular
       .module('residents')
       .component('residentDetails', {
-        template: './app/components/residents/resident-details/resident-details.component.html',
+        templateUrl: './app/components/residents/resident-details/resident-details.component.html',
         controller: ResidentDetailsController
       });
   }
 }
+
+
